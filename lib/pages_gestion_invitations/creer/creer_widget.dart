@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -125,7 +126,16 @@ class _CreerWidgetState extends State<CreerWidget> {
                                 Builder(
                                   builder: (context) {
                                     final contactList =
-                                        _model.outListContact!.toList();
+                                        (_model.outListContact
+                                                        ?.toList()
+                                                        .map<ContactStruct?>(
+                                                            ContactStruct
+                                                                .maybeFromMap)
+                                                        .toList()
+                                                    as Iterable<ContactStruct?>)
+                                                .withoutNulls
+                                                .toList() ??
+                                            [];
 
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
@@ -139,7 +149,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                           valueOrDefault<String>(
                                             getJsonField(
                                               _model.outListContact,
-                                              r'''$.first''',
+                                              r'''$.name''',
                                             )?.toString(),
                                             'faux',
                                           ),

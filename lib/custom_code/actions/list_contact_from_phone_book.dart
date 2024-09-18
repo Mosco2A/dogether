@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:convert';
+
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'dart:convert'; // Import for JSON encoding
 
 Future<dynamic> listContactFromPhoneBook() async {
   // Get the list of contacts from the phone book
