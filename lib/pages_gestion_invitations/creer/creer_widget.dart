@@ -147,7 +147,10 @@ class _CreerWidgetState extends State<CreerWidget> {
                                             contactList[contactListIndex];
                                         return Text(
                                           valueOrDefault<String>(
-                                            _model.outListContact?.toString(),
+                                            ContactStruct.maybeFromMap(
+                                                    _model.outListContact)
+                                                ?.hasCNom()
+                                                .toString(),
                                             'faux',
                                           ),
                                           style: FlutterFlowTheme.of(context)
