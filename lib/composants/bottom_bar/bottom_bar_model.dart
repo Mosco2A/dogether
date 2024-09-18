@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'accueil_widget.dart' show AccueilWidget;
+import 'bottom_bar_widget.dart' show BottomBarWidget;
 import 'package:flutter/material.dart';
 
-class AccueilModel extends FlutterFlowModel<AccueilWidget> {
+class BottomBarModel extends FlutterFlowModel<BottomBarWidget> {
   @override
   void initState(BuildContext context) {}
 

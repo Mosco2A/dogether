@@ -1,24 +1,26 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'auth_tel_model.dart';
-export 'auth_tel_model.dart';
+import 'package:provider/provider.dart';
+import 'verify_s_m_s_model.dart';
+export 'verify_s_m_s_model.dart';
 
-class AuthTelWidget extends StatefulWidget {
+class VerifySMSWidget extends StatefulWidget {
   /// Authentification par téléphone et SMS
-  const AuthTelWidget({super.key});
+  const VerifySMSWidget({super.key});
 
   @override
-  State<AuthTelWidget> createState() => _AuthTelWidgetState();
+  State<VerifySMSWidget> createState() => _VerifySMSWidgetState();
 }
 
-class _AuthTelWidgetState extends State<AuthTelWidget>
+class _VerifySMSWidgetState extends State<VerifySMSWidget>
     with TickerProviderStateMixin {
-  late AuthTelModel _model;
+  late VerifySMSModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -27,12 +29,11 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AuthTelModel());
+    _model = createModel(context, () => VerifySMSModel());
 
     _model.phoneNumberTextController ??= TextEditingController();
     _model.phoneNumberFocusNode ??= FocusNode();
 
-    authManager.handlePhoneAuthStateChanges(context);
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -93,29 +94,52 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        appBar: responsiveVisibility(
+          context: context,
+          desktop: false,
+        )
+            ? AppBar(
+                backgroundColor: FlutterFlowTheme.of(context).primary,
+                automaticallyImplyLeading: true,
+                title: Container(
+                  decoration: const BoxDecoration(),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        FFLocalizations.of(context).getText(
+                          'fj2z2sl6' /* Dogether */,
+                        ),
+                        style: FlutterFlowTheme.of(context)
+                            .headlineMedium
+                            .override(
+                              fontFamily: 'Readex Pro',
+                              color: Colors.white,
+                              fontSize: 22.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: const [],
+                centerTitle: false,
+                elevation: 2.0,
+              )
+            : null,
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
-                child: Text(
-                  'Orga-Event',
-                  style: FlutterFlowTheme.of(context).displaySmall.override(
-                        fontFamily: 'Plus Jakarta Sans',
-                        color: FlutterFlowTheme.of(context).primary,
-                        fontSize: 36.0,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.w600,
-                      ),
-                ),
-              ),
               Align(
                 alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Padding(
@@ -127,7 +151,9 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Connexion par téléphone',
+                          FFLocalizations.of(context).getText(
+                            'aei8jwtb' /* Vérification du code SMS */,
+                          ),
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
@@ -143,7 +169,9 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 24.0),
                           child: Text(
-                            'Vous n\'avez besoin que d\'un numéro de téléphone pour vous inscrire (ou vous connecter si vous avez déja un compte).',
+                            FFLocalizations.of(context).getText(
+                              'i1kqxsdi' /* Merci de saisir le code reçu p... */,
+                            ),
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
@@ -168,25 +196,17 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                               autofillHints: const [AutofillHints.email],
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: 'Téléphone',
+                                labelText: FFLocalizations.of(context).getText(
+                                  'r42vc17i' /* Code SMS */,
+                                ),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
                                       color: const Color(0xFF57636C),
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
-                                    ),
-                                hintText: '0611459151',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: FlutterFlowTheme.of(context).error,
-                                      fontSize: 14.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w300,
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -229,13 +249,12 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
-                              maxLength: 10,
-                              keyboardType: TextInputType.phone,
+                              maxLength: 6,
+                              keyboardType: TextInputType.number,
                               cursorColor: const Color(0xFF4B39EF),
                               validator: _model
                                   .phoneNumberTextControllerValidator
                                   .asValidator(context),
-                              inputFormatters: [_model.phoneNumberMask],
                             ),
                           ),
                         ),
@@ -246,31 +265,80 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                 0.0, 0.0, 0.0, 16.0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final phoneNumberVal =
+                                GoRouter.of(context).prepareAuthEvent();
+                                final smsCodeVal =
                                     _model.phoneNumberTextController.text;
-                                if (phoneNumberVal.isEmpty ||
-                                    !phoneNumberVal.startsWith('+')) {
+                                if (smsCodeVal.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text(
-                                          'Phone Number is required and has to start with +.'),
+                                      content:
+                                          Text('Enter SMS verification code.'),
                                     ),
                                   );
                                   return;
                                 }
-                                await authManager.beginPhoneAuth(
+                                final phoneVerifiedUser =
+                                    await authManager.verifySmsCode(
                                   context: context,
-                                  phoneNumber: phoneNumberVal,
-                                  onCodeSent: (context) async {
-                                    context.goNamedAuth(
-                                      'VerifySMS',
-                                      context.mounted,
-                                      ignoreRedirect: true,
-                                    );
-                                  },
+                                  smsCode: smsCodeVal,
                                 );
+                                if (phoneVerifiedUser == null) {
+                                  return;
+                                }
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Validation SMS OK',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                      ),
+                                    ),
+                                    duration: const Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  name: FFAppState().vName,
+                                  firstName: FFAppState().vFirstName,
+                                  myID: FFAppState().vMyID,
+                                ));
+                                if (FFAppState().vUidToClean != '') {
+                                  await UserToCleanRecord.collection
+                                      .doc()
+                                      .set(createUserToCleanRecordData(
+                                        uidToClean: FFAppState().vUidToClean,
+                                      ));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Votre compte a été récupéré !',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: const Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
+                                }
+                                FFAppState().vUidToClean =
+                                    FFAppState().vUidToClean;
+                                safeSetState(() {});
+
+                                context.pushNamedAuth(
+                                    'Accueil', context.mounted);
                               },
-                              text: 'Connexion',
+                              text: FFLocalizations.of(context).getText(
+                                '5bz76abd' /* Valider */,
+                              ),
                               options: FFButtonOptions(
                                 width: 230.0,
                                 height: 52.0,
@@ -296,50 +364,6 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: Text(
-                                  'Se deconnecter',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    await authManager.signOut();
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
-
-                                    context.goNamedAuth(
-                                        'AuthTel', context.mounted);
-                                  },
-                                  child: Icon(
-                                    Icons.logout_sharp,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ),
-                            ],
                           ),
                         ),
                       ],

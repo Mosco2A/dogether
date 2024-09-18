@@ -16,6 +16,11 @@
 	<string>Dogether</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>fr</string>
+		<string>en</string>
+	</array>
 
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
@@ -54,7 +59,10 @@
 	<true/>
 
 
-
+	<key>NSContactsUsageDescription</key>
+    <string>L'utilisation de l'application nécessite l'accès à vos contacts pour fonctionner correctement.</string>
+	<key>PermissionGroupNotification</key>
+    <string>L'utilisation de l'application nécessite l'utilisation des notifications pour fonctionner correctement.</string>
 
 
 	<key>UILaunchStoryboardName</key>
