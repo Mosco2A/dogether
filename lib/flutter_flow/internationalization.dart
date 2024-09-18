@@ -218,6 +218,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
           'Si vous n\'avez plus accès au numéro de téléphone de votre compte client, vous pouvez le récupérer en cliquant ici',
       'en': '',
     },
+    'sr03j3h2': {
+      'fr': 'Mode jour/nuit',
+      'en': '',
+    },
+    'ekt75zyn': {
+      'fr': 'Se deconnecter',
+      'en': '',
+    },
     'xjim11r4': {
       'fr': 'Home',
       'en': '',
