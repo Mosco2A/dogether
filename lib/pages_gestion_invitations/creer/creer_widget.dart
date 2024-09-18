@@ -1,7 +1,6 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
@@ -118,44 +117,32 @@ class _CreerWidgetState extends State<CreerWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Builder(
-                                  builder: (context) {
-                                    final contacts =
-                                        _model.outListContact!.toList();
+                          child: Builder(
+                            builder: (context) {
+                              final listContacts =
+                                  _model.outListContact!.toList();
 
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: contacts.length,
-                                      itemBuilder: (context, contactsIndex) {
-                                        final contactsItem =
-                                            contacts[contactsIndex];
-                                        return Text(
-                                          valueOrDefault<String>(
-                                            ContactStruct.maybeFromMap(
-                                                    _model.outListContact)
-                                                ?.name,
-                                            'faux',
+                              return SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(listContacts.length,
+                                      (listContactsIndex) {
+                                    final listContactsItem =
+                                        listContacts[listContactsIndex];
+                                    return Text(
+                                      listContactsIndex.toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        );
-                                      },
                                     );
-                                  },
+                                  }),
                                 ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
                         ),
                       ],

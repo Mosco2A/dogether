@@ -165,28 +165,28 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                enabledBorder: OutlineInputBorder(
+                                enabledBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                focusedBorder: OutlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFF4B39EF),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                errorBorder: OutlineInputBorder(
+                                errorBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                focusedErrorBorder: OutlineInputBorder(
+                                focusedErrorBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
