@@ -138,7 +138,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                         return Text(
                                           getJsonField(
                                             _model.outListContact,
-                                            r'''$["Name"]''',
+                                            r'''$["first"]''',
                                           ).toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
