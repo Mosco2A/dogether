@@ -124,17 +124,34 @@ class _CreerWidgetState extends State<CreerWidget> {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  valueOrDefault<String>(
-                                    _model.outListContact?.toString(),
-                                    'a',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
+                                Builder(
+                                  builder: (context) {
+                                    final contactList =
+                                        _model.outListContact!.toList();
+
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: contactList.length,
+                                      itemBuilder: (context, contactListIndex) {
+                                        final contactListItem =
+                                            contactList[contactListIndex];
+                                        return Text(
+                                          getJsonField(
+                                            _model.outListContact,
+                                            r'''$["Name"]''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ],
                             ),
