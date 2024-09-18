@@ -102,14 +102,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                         FFLocalizations.of(context).getText(
                           'o63lqcpq' /* Gérer mon profil */,
                         ),
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              fontSize: 22.0,
-                              letterSpacing: 0.0,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).headlineLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0.0,
+                                ),
                       ),
                       Icon(
                         Icons.person,
@@ -136,7 +133,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                     width: MediaQuery.sizeOf(context).width * 0.95,
                     height: MediaQuery.sizeOf(context).height * 0.72,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: FlutterFlowTheme.of(context).primary,
                     ),
                     child: Align(
                       alignment: const AlignmentDirectional(0.0, -1.0),
@@ -149,27 +146,24 @@ class _ProfilWidgetState extends State<ProfilWidget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(14.0),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
                                     'w3w4lyem' /* Modification du profil */,
                                   ),
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
-                                      .headlineMedium
+                                      .headlineSmall
                                       .override(
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        color: const Color(0xFF101213),
-                                        fontSize: 24.0,
+                                        fontFamily: 'Readex Pro',
                                         letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -246,7 +240,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w300,
                                                         ),
                                                     enabledBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
@@ -257,7 +251,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
@@ -268,7 +262,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     errorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -279,7 +273,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedErrorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -328,6 +322,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                             FontWeight.w500,
                                                       ),
                                                   maxLength: 12,
+                                                  buildCounter: (context,
+                                                          {required currentLength,
+                                                          required isFocused,
+                                                          maxLength}) =>
+                                                      null,
                                                   keyboardType:
                                                       TextInputType.name,
                                                   cursorColor:
@@ -404,7 +403,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w300,
                                                         ),
                                                     enabledBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
@@ -415,7 +414,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
@@ -426,7 +425,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     errorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -437,7 +436,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedErrorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -486,6 +485,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                             FontWeight.w500,
                                                       ),
                                                   maxLength: 12,
+                                                  buildCounter: (context,
+                                                          {required currentLength,
+                                                          required isFocused,
+                                                          maxLength}) =>
+                                                      null,
                                                   keyboardType:
                                                       TextInputType.name,
                                                   cursorColor:
@@ -549,7 +553,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                       'hg0r8n90' /* Saisissez un numéro type; +336... */,
                                                     ),
                                                     enabledBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
@@ -560,7 +564,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
@@ -571,7 +575,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     errorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -582,7 +586,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               12.0),
                                                     ),
                                                     focusedErrorBorder:
-                                                        OutlineInputBorder(
+                                                        UnderlineInputBorder(
                                                       borderSide: const BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
@@ -631,6 +635,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                             FontWeight.w500,
                                                       ),
                                                   maxLength: 12,
+                                                  buildCounter: (context,
+                                                          {required currentLength,
+                                                          required isFocused,
+                                                          maxLength}) =>
+                                                      null,
                                                   keyboardType:
                                                       TextInputType.phone,
                                                   cursorColor:
@@ -838,7 +847,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                         'm9keamty' /* Si vous changez de numéro de t... */,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelMedium
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,
@@ -858,10 +867,9 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                             valueOrDefault(
                                                 currentUserDocument?.myID, ''),
                                             style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
+                                                .headlineLarge
                                                 .override(
-                                                  fontFamily: 'Inter',
-                                                  fontSize: 30.0,
+                                                  fontFamily: 'Readex Pro',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
@@ -883,8 +891,8 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                           child: Icon(
                                             Icons.share_sharp,
                                             color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 30.0,
+                                                .secondaryText,
+                                            size: 40.0,
                                           ),
                                         ),
                                       ),
@@ -892,13 +900,14 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                   ),
                                   Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 20.0, 0.0, 10.0),
+                                        0.0, 10.0, 0.0, 10.0),
                                     child: Text(
                                       FFLocalizations.of(context).getText(
                                         'ltdm96bg' /* Vous pouvez vous deconnecter d... */,
                                       ),
+                                      textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
+                                          .labelMedium
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,
@@ -974,6 +983,22 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                           ),
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 10.0),
+                                    child: Text(
+                                      FFLocalizations.of(context).getText(
+                                        '8pvjvnuq' /*  Lorsque vous vous reconnecter... */,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelSmall
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
                                     ),
                                   ),
                                 ],

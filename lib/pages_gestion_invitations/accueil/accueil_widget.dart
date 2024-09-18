@@ -208,7 +208,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                   alignment: const AlignmentDirectional(1.0, 1.0),
                                   child: Text(
                                     FFLocalizations.of(context).getText(
-                                      'gn9iez8n' /* Se deconnecter */,
+                                      '7bxbpm2d' /* Se deconnecter */,
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium

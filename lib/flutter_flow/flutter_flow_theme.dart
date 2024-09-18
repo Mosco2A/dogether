@@ -130,8 +130,8 @@ class LightModeTheme extends FlutterFlowTheme {
   late Color tertiary = const Color(0xFFC9C0B1);
   late Color alternate = const Color(0xFFEDE8DF);
   late Color primaryText = const Color(0xFF111111);
-  late Color secondaryText = const Color(0xFF57636C);
-  late Color primaryBackground = const Color(0xFFFBF9F5);
+  late Color secondaryText = const Color(0xFFFBF9F5);
+  late Color primaryBackground = const Color(0xFF8CD4CC);
   late Color secondaryBackground = const Color(0xFFFFFFFF);
   late Color accent1 = const Color(0x4F507583);
   late Color accent2 = const Color(0x4D18AA99);
@@ -184,49 +184,49 @@ class ThemeTypography extends Typography {
   String get displayLargeFamily => 'Readex Pro';
   TextStyle get displayLarge => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.w300,
         fontSize: 52.0,
       );
   String get displayMediumFamily => 'Readex Pro';
   TextStyle get displayMedium => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.w500,
         fontSize: 44.0,
       );
   String get displaySmallFamily => 'Readex Pro';
   TextStyle get displaySmall => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.w500,
         fontSize: 36.0,
       );
   String get headlineLargeFamily => 'Readex Pro';
   TextStyle get headlineLarge => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 32.0,
       );
   String get headlineMediumFamily => 'Readex Pro';
   TextStyle get headlineMedium => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 28.0,
       );
   String get headlineSmallFamily => 'Readex Pro';
   TextStyle get headlineSmall => GoogleFonts.getFont(
         'Readex Pro',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 24.0,
       );
   String get titleLargeFamily => 'Inter';
   TextStyle get titleLarge => GoogleFonts.getFont(
         'Inter',
-        color: theme.primaryText,
+        color: theme.secondaryText,
         fontWeight: FontWeight.w500,
         fontSize: 22.0,
       );

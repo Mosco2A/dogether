@@ -97,11 +97,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                       'kquxcdgb' /* DoGether */,
                     ),
                     style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Plus Jakarta Sans',
-                          color: Colors.white,
-                          fontSize: 36.0,
+                          fontFamily: 'Readex Pro',
                           letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
                         ),
                   ),
                 ),
@@ -122,11 +119,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Colors.white,
-                                fontSize: 24.0,
+                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
                               ),
                         ),
                         if (!FFAppState().vEnvVarSet)
@@ -141,11 +135,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: Colors.white,
-                                    fontSize: 14.0,
+                                    fontFamily: 'Inter',
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -157,7 +148,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                               FFLocalizations.of(context).getText(
                                 'q2hqbeyn' /* Vous avez déja un compte. Vous... */,
                               ),
-                              textAlign: TextAlign.start,
+                              textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -206,17 +197,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           FFLocalizations.of(context).getText(
                                         '3dqqfj7x' /* Saisissez votre prénom */,
                                       ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 12.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
@@ -224,7 +205,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
@@ -232,7 +213,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      errorBorder: OutlineInputBorder(
+                                      errorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -240,7 +221,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedErrorBorder: OutlineInputBorder(
+                                      focusedErrorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -255,12 +236,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 12.0,
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
                                         ),
                                     cursorColor: const Color(0xFF4B39EF),
                                     validator: _model
@@ -300,17 +277,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           FFLocalizations.of(context).getText(
                                         'l1cn1sfh' /* Saisissez votre nom ou votre p... */,
                                       ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .bodyLarge
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 12.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w300,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
@@ -318,7 +285,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
@@ -326,7 +293,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      errorBorder: OutlineInputBorder(
+                                      errorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -334,7 +301,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedErrorBorder: OutlineInputBorder(
+                                      focusedErrorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -349,12 +316,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 12.0,
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
                                         ),
                                     keyboardType: TextInputType.name,
                                     cursorColor: const Color(0xFF4B39EF),
@@ -397,7 +360,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           FFLocalizations.of(context).getText(
                                         'igknfcle' /* Saisissez un numéro type; +336... */,
                                       ),
-                                      enabledBorder: OutlineInputBorder(
+                                      enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
@@ -405,7 +368,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedBorder: OutlineInputBorder(
+                                      focusedBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
@@ -413,7 +376,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      errorBorder: OutlineInputBorder(
+                                      errorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -421,7 +384,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         borderRadius:
                                             BorderRadius.circular(12.0),
                                       ),
-                                      focusedErrorBorder: OutlineInputBorder(
+                                      focusedErrorBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
@@ -436,12 +399,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
                                         .override(
-                                          fontFamily: 'Plus Jakarta Sans',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          fontSize: 12.0,
+                                          fontFamily: 'Inter',
                                           letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
                                         ),
                                     maxLength: 12,
                                     keyboardType: TextInputType.phone,
@@ -583,13 +542,10 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                               0.0, 0.0, 0.0, 0.0),
                                       color: const Color(0xFF4B39EF),
                                       textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
+                                          .titleLarge
                                           .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: Colors.white,
-                                            fontSize: 16.0,
+                                            fontFamily: 'Inter',
                                             letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
                                           ),
                                       elevation: 3.0,
                                       borderSide: const BorderSide(
@@ -598,101 +554,6 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       ),
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    '7bxbpm2d' /* Se deconnecter */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    await authManager.signOut();
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
-
-                                    context.goNamedAuth(
-                                        'AuthTel', context.mounted);
-                                  },
-                                  child: Icon(
-                                    Icons.logout_sharp,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 24.0,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(1.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'j1lsyssu' /* vide env var */,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(1.0, 1.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    FFAppState().vName = '';
-                                    FFAppState().vFirstName = '';
-                                    FFAppState().VPhoneNum = '';
-                                    FFAppState().VMyUID = '';
-                                    FFAppState().vMyID = '';
-                                    FFAppState().vUserRecordRef = null;
-                                    FFAppState().vEnvVarSet = false;
-                                    safeSetState(() {});
-                                  },
-                                  child: Icon(
-                                    Icons.restore_from_trash_outlined,
-                                    color: FlutterFlowTheme.of(context).error,
-                                    size: 24.0,
                                   ),
                                 ),
                               ),
@@ -726,28 +587,89 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed('RecupCompte');
-                                      },
-                                      child: Text(
-                                        FFLocalizations.of(context).getText(
-                                          '9jdf9js2' /* Si vous n'avez plus accès au n... */,
+                                    Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 10.0),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.sizeOf(context).width *
+                                                0.95,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                         ),
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              letterSpacing: 0.0,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 10.0),
+                                              child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  '9jdf9js2' /* Si vous n'avez plus accès au n... */,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
+                                            Align(
+                                              alignment: const AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding: const EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: FFButtonWidget(
+                                                  onPressed: () async {
+                                                    context.pushNamed(
+                                                        'RecupCompte');
+                                                  },
+                                                  text: FFLocalizations.of(
+                                                          context)
+                                                      .getText(
+                                                    'dd4h1hg3' /* Récupérer mon compte */,
+                                                  ),
+                                                  options: FFButtonOptions(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    iconPadding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                0.0, 0.0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    textStyle: FlutterFlowTheme
+                                                            .of(context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                    elevation: 3.0,
+                                                    borderSide: const BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],

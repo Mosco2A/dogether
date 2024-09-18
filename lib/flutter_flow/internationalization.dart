@@ -205,17 +205,13 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Entrez un téléphone valide : +33nnnnnnn',
       'en': '',
     },
-    '7bxbpm2d': {
-      'fr': 'Se deconnecter',
-      'en': '',
-    },
-    'j1lsyssu': {
-      'fr': 'vide env var',
-      'en': '',
-    },
     '9jdf9js2': {
       'fr':
           'Si vous n\'avez plus accès au numéro de téléphone de votre compte client, vous pouvez le récupérer en cliquant ici',
+      'en': '',
+    },
+    'dd4h1hg3': {
+      'fr': 'Récupérer mon compte',
       'en': '',
     },
     'sr03j3h2': {
@@ -241,7 +237,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Mode jour/nuit',
       'en': '',
     },
-    'gn9iez8n': {
+    '7bxbpm2d': {
       'fr': 'Se deconnecter',
       'en': '',
     },
@@ -421,12 +417,16 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': '',
     },
     'ltdm96bg': {
-      'fr':
-          'Vous pouvez vous deconnecter de l\'application. Lorsque vous vous reconnecterez une vérification SMS sera à nouveau réalisée. Vous ne perdrez pas votre historique.',
+      'fr': 'Vous pouvez vous deconnecter de l\'application.',
       'en': '',
     },
     'tqidjcdf': {
       'fr': 'Deconnecter',
+      'en': '',
+    },
+    '8pvjvnuq': {
+      'fr':
+          ' Lorsque vous vous reconnecterez une vérification SMS sera à nouveau réalisée. \nVous ne perdrez pas votre historique.',
       'en': '',
     },
     'aj4mxkpr': {
@@ -437,11 +437,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // RecupCompte
   {
     'y37u8b03': {
-      'fr': 'Page Title',
-      'en': '',
-    },
-    'pn1sng0f': {
-      'fr': 'DoGether',
+      'fr': 'Compte',
       'en': '',
     },
     'oqan22jn': {
@@ -477,15 +473,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'fr': 'Saisissez un numéro type; +33611459151',
       'en': '',
     },
-    'syqe1liu': {
+    'jmogyxg5': {
       'fr': 'Connexion',
       'en': '',
     },
-    '7e9q8ar5': {
+    'gn9iez8n': {
       'fr': 'Se deconnecter',
       'en': '',
     },
-    'j77ws45z': {
+    'j1lsyssu': {
       'fr': 'vide env var',
       'en': '',
     },

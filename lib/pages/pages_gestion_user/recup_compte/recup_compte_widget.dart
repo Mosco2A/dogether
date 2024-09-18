@@ -87,22 +87,22 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         appBar: responsiveVisibility(
           context: context,
           desktop: false,
         )
             ? AppBar(
                 backgroundColor: FlutterFlowTheme.of(context).primary,
-                automaticallyImplyLeading: false,
+                iconTheme: IconThemeData(
+                    color: FlutterFlowTheme.of(context).secondaryText),
+                automaticallyImplyLeading: true,
                 title: Text(
                   FFLocalizations.of(context).getText(
-                    'y37u8b03' /* Page Title */,
+                    'y37u8b03' /* Compte */,
                   ),
-                  style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  style: FlutterFlowTheme.of(context).headlineLarge.override(
                         fontFamily: 'Readex Pro',
-                        color: Colors.white,
-                        fontSize: 22.0,
                         letterSpacing: 0.0,
                       ),
                 ),
@@ -117,21 +117,6 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
-                  child: Text(
-                    FFLocalizations.of(context).getText(
-                      'pn1sng0f' /* DoGether */,
-                    ),
-                    style: FlutterFlowTheme.of(context).displaySmall.override(
-                          fontFamily: 'Plus Jakarta Sans',
-                          color: FlutterFlowTheme.of(context).primary,
-                          fontSize: 36.0,
-                          letterSpacing: 0.0,
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ),
                 Align(
                   alignment: const AlignmentDirectional(0.0, -1.0),
                   child: Padding(
@@ -149,11 +134,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: const Color(0xFF101213),
-                                fontSize: 24.0,
+                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
                               ),
                         ),
                         Padding(
@@ -167,11 +149,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
-                                  fontSize: 14.0,
+                                  fontFamily: 'Inter',
                                   letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ),
@@ -224,7 +203,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w300,
                                             ),
-                                        enabledBorder: OutlineInputBorder(
+                                        enabledBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFE0E3E7),
                                             width: 2.0,
@@ -232,7 +211,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        focusedBorder: OutlineInputBorder(
+                                        focusedBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFF4B39EF),
                                             width: 2.0,
@@ -240,7 +219,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        errorBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
@@ -248,7 +227,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
@@ -328,7 +308,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w300,
                                             ),
-                                        enabledBorder: OutlineInputBorder(
+                                        enabledBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFE0E3E7),
                                             width: 2.0,
@@ -336,7 +316,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        focusedBorder: OutlineInputBorder(
+                                        focusedBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFF4B39EF),
                                             width: 2.0,
@@ -344,7 +324,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        errorBorder: OutlineInputBorder(
+                                        errorBorder: UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
@@ -352,7 +332,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           borderRadius:
                                               BorderRadius.circular(12.0),
                                         ),
-                                        focusedErrorBorder: OutlineInputBorder(
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
                                           borderSide: const BorderSide(
                                             color: Color(0xFFFF5963),
                                             width: 2.0,
@@ -414,28 +395,28 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 hintText: FFLocalizations.of(context).getText(
                                   'jesyy77q' /* Saisissez un numéro type; +336... */,
                                 ),
-                                enabledBorder: OutlineInputBorder(
+                                enabledBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                focusedBorder: OutlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFF4B39EF),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                errorBorder: OutlineInputBorder(
+                                errorBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
-                                focusedErrorBorder: OutlineInputBorder(
+                                focusedErrorBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
@@ -589,7 +570,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 if (shouldSetState) safeSetState(() {});
                               },
                               text: FFLocalizations.of(context).getText(
-                                'syqe1liu' /* Connexion */,
+                                'jmogyxg5' /* Connexion */,
                               ),
                               options: FFButtonOptions(
                                 width: 230.0,
@@ -600,13 +581,10 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                     0.0, 0.0, 0.0, 0.0),
                                 color: const Color(0xFF4B39EF),
                                 textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
+                                    .titleLarge
                                     .override(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: Colors.white,
-                                      fontSize: 16.0,
+                                      fontFamily: 'Inter',
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
                                     ),
                                 elevation: 3.0,
                                 borderSide: const BorderSide(
@@ -628,7 +606,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 alignment: const AlignmentDirectional(1.0, 1.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    '7e9q8ar5' /* Se deconnecter */,
+                                    'gn9iez8n' /* Se deconnecter */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -674,7 +652,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 alignment: const AlignmentDirectional(1.0, 1.0),
                                 child: Text(
                                   FFLocalizations.of(context).getText(
-                                    'j77ws45z' /* vide env var */,
+                                    'j1lsyssu' /* vide env var */,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium

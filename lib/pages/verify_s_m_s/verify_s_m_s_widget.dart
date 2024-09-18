@@ -55,33 +55,6 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
           ),
         ],
       ),
-      'containerOnPageLoadAnimation': AnimationInfo(
-        trigger: AnimationTrigger.onPageLoad,
-        effectsBuilder: () => [
-          VisibilityEffect(duration: 1.ms),
-          FadeEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: 0.0,
-            end: 1.0,
-          ),
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 400.0.ms,
-            begin: const Offset(0.0, 80.0),
-            end: const Offset(0.0, 0.0),
-          ),
-          ScaleEffect(
-            curve: Curves.easeInOut,
-            delay: 150.0.ms,
-            duration: 400.0.ms,
-            begin: const Offset(0.8, 0.8),
-            end: const Offset(1.0, 1.0),
-          ),
-        ],
-      ),
     });
   }
 
@@ -100,7 +73,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: FlutterFlowTheme.of(context).primary,
         appBar: responsiveVisibility(
           context: context,
           desktop: false,
@@ -118,14 +91,11 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                         FFLocalizations.of(context).getText(
                           'fj2z2sl6' /* Dogether */,
                         ),
-                        style: FlutterFlowTheme.of(context)
-                            .headlineMedium
-                            .override(
-                              fontFamily: 'Readex Pro',
-                              color: Colors.white,
-                              fontSize: 22.0,
-                              letterSpacing: 0.0,
-                            ),
+                        style:
+                            FlutterFlowTheme.of(context).headlineLarge.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0.0,
+                                ),
                       ),
                     ],
                   ),
@@ -139,6 +109,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
                 alignment: const AlignmentDirectional(0.0, -1.0),
@@ -156,37 +127,31 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                           ),
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
-                              .headlineMedium
+                              .headlineSmall
                               .override(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: const Color(0xFF101213),
-                                fontSize: 24.0,
+                                fontFamily: 'Readex Pro',
                                 letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
                               ),
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 24.0),
+                              0.0, 10.0, 0.0, 10.0),
                           child: Text(
                             FFLocalizations.of(context).getText(
                               'i1kqxsdi' /* Merci de saisir le code reçu p... */,
                             ),
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
-                                .labelMedium
+                                .labelLarge
                                 .override(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: const Color(0xFF57636C),
-                                  fontSize: 14.0,
+                                  fontFamily: 'Inter',
                                   letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 16.0),
+                              0.0, 20.0, 0.0, 16.0),
                           child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
@@ -370,26 +335,6 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                     ),
                   ).animateOnPageLoad(
                       animationsMap['columnOnPageLoadAnimation']!),
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.sizeOf(context).height * 0.8,
-                      constraints: const BoxConstraints(
-                        maxWidth: 530.0,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ).animateOnPageLoad(
-                        animationsMap['containerOnPageLoadAnimation']!),
-                  ),
                 ),
               ),
             ],
