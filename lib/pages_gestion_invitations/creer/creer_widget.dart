@@ -130,10 +130,37 @@ class _CreerWidgetState extends State<CreerWidget> {
                                 itemBuilder: (context, listContactsIndex) {
                                   final listContactsItem =
                                       listContacts[listContactsIndex];
-                                  return Container(
-                                      width: 100,
-                                      height: 100,
-                                      color: Colors.green);
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        getJsonField(
+                                          _model.outListContact,
+                                          r'''$.contact.displayName''',
+                                        ).toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      Text(
+                                        getJsonField(
+                                          _model.outListContact,
+                                          r'''$.contact.phones''',
+                                        ).toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ],
+                                  );
                                 },
                               );
                             },
