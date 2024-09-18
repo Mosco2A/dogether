@@ -52,12 +52,19 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 
 
 	<key>NSContactsUsageDescription</key>
     <string>L'utilisation de l'application nécessite l'accès à vos contacts pour fonctionner correctement.</string>
 	<key>PermissionGroupNotification</key>
     <string>L'utilisation de l'application nécessite l'utilisation des notifications pour fonctionner correctement.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>remote-notification</string>
+    </array>
 
 
 	<key>UILaunchStoryboardName</key>

@@ -8,28 +8,13 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'dart:convert';
-
 import 'package:flutter_contacts/flutter_contacts.dart';
 
 Future<dynamic> listContactFromPhoneBook() async {
-  // Get the list of contacts from the phone book
-  List<Contact> contacts = await FlutterContacts.getContacts(
-    withProperties: true,
-    withPhoto: false,
-  );
-
-  // Map the contacts to a JSON-friendly format
-  List<Map<String, dynamic>> contactList = contacts.map((contact) {
-    return {
-      'name': contact.displayName,
-      'phoneNumbers': contact.phones.map((phone) => phone.number).toList(),
-      'emails': contact.emails.map((email) => email.address).toList(),
-    };
-  }).toList();
-
-  // Return the contacts as a JSON string
-  return jsonEncode(contactList);
+  // create action will list contacts from phone book
+  List<Contact> contacts =
+      await FlutterContacts.getContacts(withProperties: true, withPhoto: false);
+  return contacts;
 }
 // Set your action name, define your arguments and return parameter,
 // and then add the boilerplate code using the green button on the right!
