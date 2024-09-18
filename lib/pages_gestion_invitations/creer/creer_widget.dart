@@ -1,7 +1,6 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
@@ -138,13 +137,10 @@ class _CreerWidgetState extends State<CreerWidget> {
                                             contactList[contactListIndex];
                                         return Text(
                                           valueOrDefault<String>(
-                                            ContactStruct.maybeFromMap(
-                                                    getJsonField(
+                                            getJsonField(
                                               _model.outListContact,
-                                              r'''$["first"]''',
-                                            )?.toString())
-                                                ?.hasCNom()
-                                                .toString(),
+                                              r'''$.first''',
+                                            )?.toString(),
                                             'faux',
                                           ),
                                           style: FlutterFlowTheme.of(context)
