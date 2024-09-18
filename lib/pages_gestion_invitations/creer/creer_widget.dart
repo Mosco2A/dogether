@@ -61,9 +61,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          '9vq0q4eu' /* Créer une invitation */,
-                        ),
+                        'Créer une invitation',
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(

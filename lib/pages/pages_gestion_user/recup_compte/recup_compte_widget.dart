@@ -98,9 +98,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                     color: FlutterFlowTheme.of(context).secondaryText),
                 automaticallyImplyLeading: true,
                 title: Text(
-                  FFLocalizations.of(context).getText(
-                    'y37u8b03' /* Compte */,
-                  ),
+                  'Compte',
                   style: FlutterFlowTheme.of(context).headlineLarge.override(
                         fontFamily: 'Readex Pro',
                         letterSpacing: 0.0,
@@ -127,9 +125,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          FFLocalizations.of(context).getText(
-                            'oqan22jn' /* Récupération du compte */,
-                          ),
+                          'Récupération du compte',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
@@ -142,9 +138,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 4.0, 0.0, 24.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              'mrk0550e' /* Si vous avez sauvegardé le num... */,
-                            ),
+                            'Si vous avez sauvegardé le numéro d\'UID correspondant à votre compte vous pourrez récupérer ce compte et le lier à votre nouveau numéro.',
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
@@ -175,10 +169,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           TextCapitalization.characters,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText:
-                                            FFLocalizations.of(context).getText(
-                                          'opgddf8o' /* Majuscules */,
-                                        ),
+                                        labelText: 'Majuscules',
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
@@ -188,10 +179,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
-                                        hintText:
-                                            FFLocalizations.of(context).getText(
-                                          'lbz39r2i' /* Partie gauche du code */,
-                                        ),
+                                        hintText: 'Partie gauche du code',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
@@ -280,10 +268,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                           TextCapitalization.none,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText:
-                                            FFLocalizations.of(context).getText(
-                                          '9dygtzdq' /* Chiffres */,
-                                        ),
+                                        labelText: 'Chiffres',
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
@@ -293,10 +278,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
-                                        hintText:
-                                            FFLocalizations.of(context).getText(
-                                          'r8xm3dyo' /* Partie droite du code */,
-                                        ),
+                                        hintText: 'Partie droite du code',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
@@ -380,9 +362,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                               autofillHints: const [AutofillHints.telephoneNumber],
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: FFLocalizations.of(context).getText(
-                                  'lyx4bsz7' /* Téléphone */,
-                                ),
+                                labelText: 'Téléphone',
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
@@ -392,9 +372,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                hintText: FFLocalizations.of(context).getText(
-                                  'jesyy77q' /* Saisissez un numéro type; +336... */,
-                                ),
+                                hintText:
+                                    'Saisissez un numéro type; +33611459151',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: const BorderSide(
                                     color: Color(0xFFE0E3E7),
@@ -569,9 +548,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
 
                                 if (shouldSetState) safeSetState(() {});
                               },
-                              text: FFLocalizations.of(context).getText(
-                                'jmogyxg5' /* Connexion */,
-                              ),
+                              text: 'Connexion',
                               options: FFButtonOptions(
                                 width: 230.0,
                                 height: 52.0,
@@ -605,9 +582,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                               Align(
                                 alignment: const AlignmentDirectional(1.0, 1.0),
                                 child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'gn9iez8n' /* Se deconnecter */,
-                                  ),
+                                  'Se deconnecter',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -651,9 +626,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                               Align(
                                 alignment: const AlignmentDirectional(1.0, 1.0),
                                 child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'j1lsyssu' /* vide env var */,
-                                  ),
+                                  'vide env var',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

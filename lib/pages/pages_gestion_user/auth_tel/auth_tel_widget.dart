@@ -93,9 +93,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
                   child: Text(
-                    FFLocalizations.of(context).getText(
-                      'kquxcdgb' /* DoGether */,
-                    ),
+                    'DoGether',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0.0,
@@ -112,9 +110,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          FFLocalizations.of(context).getText(
-                            'opp2vsk6' /* Connexion par téléphone */,
-                          ),
+                          'Connexion par téléphone',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
@@ -128,9 +124,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 24.0),
                             child: Text(
-                              FFLocalizations.of(context).getText(
-                                'xxzbadyb' /* Vous n'avez besoin que d'un nu... */,
-                              ),
+                              'Vous n\'avez besoin que d\'un numéro de téléphone pour vous inscrire (ou vous connecter si vous avez déja un compte).',
                               textAlign: TextAlign.start,
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
@@ -145,9 +139,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 24.0),
                             child: Text(
-                              FFLocalizations.of(context).getText(
-                                'q2hqbeyn' /* Vous avez déja un compte. Vous... */,
-                              ),
+                              'Vous avez déja un compte. Vous ne pouvez en modifier ses attribut qu\'après connexion.',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
                                   .labelMedium
@@ -179,10 +171,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     readOnly: FFAppState().vEnvVarSet,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText:
-                                          FFLocalizations.of(context).getText(
-                                        'ogigw7yu' /* Prénom */,
-                                      ),
+                                      labelText: 'Prénom',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -193,10 +182,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                           ),
-                                      hintText:
-                                          FFLocalizations.of(context).getText(
-                                        '3dqqfj7x' /* Saisissez votre prénom */,
-                                      ),
+                                      hintText: 'Saisissez votre prénom',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
@@ -259,10 +245,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     readOnly: FFAppState().vEnvVarSet,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText:
-                                          FFLocalizations.of(context).getText(
-                                        't2egpk8k' /* Nom ou pseudo */,
-                                      ),
+                                      labelText: 'Nom ou pseudo',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -274,9 +257,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             fontWeight: FontWeight.w500,
                                           ),
                                       hintText:
-                                          FFLocalizations.of(context).getText(
-                                        'l1cn1sfh' /* Saisissez votre nom ou votre p... */,
-                                      ),
+                                          'Saisissez votre nom ou votre pseudo',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
@@ -342,10 +323,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                     readOnly: FFAppState().vEnvVarSet,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelText:
-                                          FFLocalizations.of(context).getText(
-                                        'vtj2tu1p' /* Téléphone */,
-                                      ),
+                                      labelText: 'Téléphone',
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelLarge
                                           .override(
@@ -357,9 +335,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             fontWeight: FontWeight.w500,
                                           ),
                                       hintText:
-                                          FFLocalizations.of(context).getText(
-                                        'igknfcle' /* Saisissez un numéro type; +336... */,
-                                      ),
+                                          'Saisissez un numéro type; +33611459151',
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: Color(0xFFE0E3E7),
@@ -529,9 +505,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
 
                                       if (shouldSetState) safeSetState(() {});
                                     },
-                                    text: FFLocalizations.of(context).getText(
-                                      'n84c2vrn' /* Connexion */,
-                                    ),
+                                    text: 'Connexion',
                                     options: FFButtonOptions(
                                       width: 230.0,
                                       height: 52.0,
@@ -606,10 +580,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 10.0),
                                               child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  '9jdf9js2' /* Si vous n'avez plus accès au n... */,
-                                                ),
+                                                'Si vous n\'avez plus accès au numéro de téléphone de votre compte client, vous pouvez le récupérer en cliquant ici',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -632,11 +603,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                                     context.pushNamed(
                                                         'RecupCompte');
                                                   },
-                                                  text: FFLocalizations.of(
-                                                          context)
-                                                      .getText(
-                                                    'dd4h1hg3' /* Récupérer mon compte */,
-                                                  ),
+                                                  text: 'Récupérer mon compte',
                                                   options: FFButtonOptions(
                                                     padding:
                                                         const EdgeInsetsDirectional
@@ -716,10 +683,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             alignment:
                                                 const AlignmentDirectional(1.0, 1.0),
                                             child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'sr03j3h2' /* Mode jour/nuit */,
-                                              ),
+                                              'Mode jour/nuit',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -765,10 +729,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             alignment:
                                                 const AlignmentDirectional(1.0, 1.0),
                                             child: Text(
-                                              FFLocalizations.of(context)
-                                                  .getText(
-                                                'ekt75zyn' /* Se deconnecter */,
-                                              ),
+                                              'Se deconnecter',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

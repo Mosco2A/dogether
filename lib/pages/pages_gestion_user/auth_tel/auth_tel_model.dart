@@ -12,20 +12,14 @@ class AuthTelModel extends FlutterFlowModel<AuthTelWidget> {
   String? Function(BuildContext, String?)? prenomTextControllerValidator;
   String? _prenomTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return FFLocalizations.of(context).getText(
-        'nq186o74' /* Entrez votre prénom */,
-      );
+      return 'Entrez votre prénom';
     }
 
     if (val.length < 3) {
-      return FFLocalizations.of(context).getText(
-        '0cbw2n9s' /* Pas moins de 3 caratères */,
-      );
+      return 'Pas moins de 3 caratères';
     }
     if (val.length > 30) {
-      return FFLocalizations.of(context).getText(
-        'nycmc56y' /* Prénom limité à 30 caractères */,
-      );
+      return 'Prénom limité à 30 caractères';
     }
 
     return null;
@@ -37,20 +31,14 @@ class AuthTelModel extends FlutterFlowModel<AuthTelWidget> {
   String? Function(BuildContext, String?)? nomTextControllerValidator;
   String? _nomTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return FFLocalizations.of(context).getText(
-        'tnem4uyp' /* Entrez votre nom */,
-      );
+      return 'Entrez votre nom';
     }
 
     if (val.length < 2) {
-      return FFLocalizations.of(context).getText(
-        'lkmhs45t' /* Pas moins de 2 caratères */,
-      );
+      return 'Pas moins de 2 caratères';
     }
     if (val.length > 40) {
-      return FFLocalizations.of(context).getText(
-        '55m3u75h' /* Prénom limité à 40 caractères */,
-      );
+      return 'Prénom limité à 40 caractères';
     }
 
     return null;
@@ -63,25 +51,17 @@ class AuthTelModel extends FlutterFlowModel<AuthTelWidget> {
   String? _phoneNumberTextControllerValidator(
       BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
-      return FFLocalizations.of(context).getText(
-        'm2dhgrh6' /* Entrez un téléphone valide : +... */,
-      );
+      return 'Entrez un téléphone valide : +33nnnnnnn';
     }
 
     if (val.length < 12) {
-      return FFLocalizations.of(context).getText(
-        'unjr4mus' /* Mini 12 caractères */,
-      );
+      return 'Mini 12 caractères';
     }
     if (val.length > 12) {
-      return FFLocalizations.of(context).getText(
-        'gmrlnaxn' /* Limité à 12 caractères */,
-      );
+      return 'Limité à 12 caractères';
     }
     if (!RegExp('\\+33[6-7]\\d{8}').hasMatch(val)) {
-      return FFLocalizations.of(context).getText(
-        'h8w6ys27' /* Sous la forme : +33999999999 */,
-      );
+      return 'Sous la forme : +33999999999';
     }
     return null;
   }

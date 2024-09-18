@@ -52,9 +52,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          '06u64kip' /* Gérer ses contacts */,
-                        ),
+                        'Gérer ses contacts',
                         style: FlutterFlowTheme.of(context).titleLarge.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
@@ -127,9 +125,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 10.0),
                             child: Text(
-                              FFLocalizations.of(context).getText(
-                                'l7e0ajb4' /* Créer un contact */,
-                              ),
+                              'Créer un contact',
                               style: FlutterFlowTheme.of(context)
                                   .titleLarge
                                   .override(
@@ -145,9 +141,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                               Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'hfscqs7p' /* Depuis vos contact */,
-                                  ),
+                                  'Depuis vos contact',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

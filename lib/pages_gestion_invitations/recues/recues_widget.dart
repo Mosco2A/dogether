@@ -53,9 +53,7 @@ class _RecuesWidgetState extends State<RecuesWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          'p19e4we1' /* Invitations reçues */,
-                        ),
+                        'Invitations reçues',
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(

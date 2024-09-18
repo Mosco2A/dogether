@@ -99,9 +99,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          'o63lqcpq' /* Gérer mon profil */,
-                        ),
+                        'Gérer mon profil',
                         style:
                             FlutterFlowTheme.of(context).headlineLarge.override(
                                   fontFamily: 'Readex Pro',
@@ -149,9 +147,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: Text(
-                                  FFLocalizations.of(context).getText(
-                                    'w3w4lyem' /* Modification du profil */,
-                                  ),
+                                  'Modification du profil',
                                   textAlign: TextAlign.start,
                                   style: FlutterFlowTheme.of(context)
                                       .headlineSmall
@@ -200,12 +196,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   ],
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      'vakdq7mu' /* Prénom */,
-                                                    ),
+                                                    labelText: 'Prénom',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelLarge
@@ -220,11 +211,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w500,
                                                         ),
                                                     hintText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      'fh77oflu' /* Saisissez votre prénom */,
-                                                    ),
+                                                        'Saisissez votre prénom',
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyLarge
@@ -363,12 +350,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   ],
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      'jk4k0282' /* Nom ou pseudo */,
-                                                    ),
+                                                    labelText: 'Nom ou pseudo',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelLarge
@@ -383,11 +365,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w500,
                                                         ),
                                                     hintText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      '4z98jwzt' /* Saisissez votre nom ou votre p... */,
-                                                    ),
+                                                        'Saisissez votre nom ou votre pseudo',
                                                     hintStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .bodyLarge
@@ -527,12 +505,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   ],
                                                   obscureText: false,
                                                   decoration: InputDecoration(
-                                                    labelText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      '9qreu8lt' /* Téléphone */,
-                                                    ),
+                                                    labelText: 'Téléphone',
                                                     labelStyle: FlutterFlowTheme
                                                             .of(context)
                                                         .labelLarge
@@ -547,11 +520,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w500,
                                                         ),
                                                     hintText:
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                      'hg0r8n90' /* Saisissez un numéro type; +336... */,
-                                                    ),
+                                                        'Saisissez un numéro type; +33611459151',
                                                     enabledBorder:
                                                         UnderlineInputBorder(
                                                       borderSide: const BorderSide(
@@ -670,10 +639,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                           onPressed: () async {
                                             context.pushNamed('Accueil');
                                           },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'beo3l20y' /* Annuler */,
-                                          ),
+                                          text: 'Annuler',
                                           options: FFButtonOptions(
                                             width: 230.0,
                                             height: 40.0,
@@ -796,10 +762,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                               },
                                             );
                                           },
-                                          text: FFLocalizations.of(context)
-                                              .getText(
-                                            'o9771zno' /* Valider */,
-                                          ),
+                                          text: 'Valider',
                                           options: FFButtonOptions(
                                             width: 230.0,
                                             height: 40.0,
@@ -843,9 +806,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 10.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'm9keamty' /* Si vous changez de numéro de t... */,
-                                      ),
+                                      'Si vous changez de numéro de téléphone, il vous faudra ce code pour récupérer votre compte.Sauvegardez le !',
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -902,9 +863,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 10.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        'ltdm96bg' /* Vous pouvez vous deconnecter d... */,
-                                      ),
+                                      'Vous pouvez vous deconnecter de l\'application.',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .labelMedium
@@ -939,10 +898,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                 context.goNamedAuth(
                                                     'AuthTel', context.mounted);
                                               },
-                                              text: FFLocalizations.of(context)
-                                                  .getText(
-                                                'tqidjcdf' /* Deconnecter */,
-                                              ),
+                                              text: 'Deconnecter',
                                               options: FFButtonOptions(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -989,9 +945,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 10.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '8pvjvnuq' /*  Lorsque vous vous reconnecter... */,
-                                      ),
+                                      ' Lorsque vous vous reconnecterez une vérification SMS sera à nouveau réalisée. \nVous ne perdrez pas votre historique.',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall

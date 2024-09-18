@@ -88,9 +88,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          'fj2z2sl6' /* Dogether */,
-                        ),
+                        'Dogether',
                         style:
                             FlutterFlowTheme.of(context).headlineLarge.override(
                                   fontFamily: 'Readex Pro',
@@ -122,9 +120,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          FFLocalizations.of(context).getText(
-                            'aei8jwtb' /* Vérification du code SMS */,
-                          ),
+                          'Vérification du code SMS',
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
@@ -137,9 +133,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 10.0),
                           child: Text(
-                            FFLocalizations.of(context).getText(
-                              'i1kqxsdi' /* Merci de saisir le code reçu p... */,
-                            ),
+                            'Merci de saisir le code reçu par SMS.',
                             textAlign: TextAlign.start,
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
@@ -161,9 +155,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                               autofillHints: const [AutofillHints.email],
                               obscureText: false,
                               decoration: InputDecoration(
-                                labelText: FFLocalizations.of(context).getText(
-                                  'r42vc17i' /* Code SMS */,
-                                ),
+                                labelText: 'Code SMS',
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
@@ -301,9 +293,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 context.pushNamedAuth(
                                     'Accueil', context.mounted);
                               },
-                              text: FFLocalizations.of(context).getText(
-                                '5bz76abd' /* Valider */,
-                              ),
+                              text: 'Valider',
                               options: FFButtonOptions(
                                 width: 230.0,
                                 height: 52.0,

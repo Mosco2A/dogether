@@ -52,9 +52,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FFLocalizations.of(context).getText(
-                          'lmwyq2ch' /* Invitations émises */,
-                        ),
+                        'Invitations émises',
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(

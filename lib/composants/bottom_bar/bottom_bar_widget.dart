@@ -85,9 +85,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                             size: 40.0,
                           ),
                           Text(
-                            FFLocalizations.of(context).getText(
-                              '27jeh3t1' /* Recues */,
-                            ),
+                            'Recues',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -134,9 +132,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                             size: 40.0,
                           ),
                           Text(
-                            FFLocalizations.of(context).getText(
-                              'mym9dhcg' /* Emises */,
-                            ),
+                            'Emises',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -183,9 +179,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                             size: 40.0,
                           ),
                           Text(
-                            FFLocalizations.of(context).getText(
-                              'mrdfwvpk' /* Créer */,
-                            ),
+                            'Créer',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -232,9 +226,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                             size: 40.0,
                           ),
                           Text(
-                            FFLocalizations.of(context).getText(
-                              'ur2rbvx6' /* Contacts */,
-                            ),
+                            'Contacts',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

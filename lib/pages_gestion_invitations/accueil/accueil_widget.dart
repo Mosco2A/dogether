@@ -78,9 +78,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      FFLocalizations.of(context).getText(
-                        'nsfy0805' /* DoGether */,
-                      ),
+                      'DoGether',
                       style:
                           FlutterFlowTheme.of(context).headlineMedium.override(
                                 fontFamily: 'Readex Pro',
@@ -166,9 +164,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                   Align(
                                     alignment: const AlignmentDirectional(1.0, 1.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '0no91nk3' /* Mode jour/nuit */,
-                                      ),
+                                      'Mode jour/nuit',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -208,9 +204,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                   Align(
                                     alignment: const AlignmentDirectional(1.0, 1.0),
                                     child: Text(
-                                      FFLocalizations.of(context).getText(
-                                        '7bxbpm2d' /* Se deconnecter */,
-                                      ),
+                                      'Se deconnecter',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
