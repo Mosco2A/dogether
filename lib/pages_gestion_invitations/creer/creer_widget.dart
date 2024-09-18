@@ -148,8 +148,12 @@ class _CreerWidgetState extends State<CreerWidget> {
                                         return Text(
                                           valueOrDefault<String>(
                                             ContactStruct.maybeFromMap(
-                                                    _model.outListContact)
-                                                ?.cNom,
+                                                    getJsonField(
+                                              _model.outListContact,
+                                              r'''$.name''',
+                                            )?.toString())
+                                                ?.hasCNom()
+                                                .toString(),
                                             'faux',
                                           ),
                                           style: FlutterFlowTheme.of(context)
