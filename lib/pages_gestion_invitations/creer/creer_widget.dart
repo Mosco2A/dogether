@@ -125,23 +125,22 @@ class _CreerWidgetState extends State<CreerWidget> {
                               children: [
                                 Builder(
                                   builder: (context) {
-                                    final contactList =
+                                    final contacts =
                                         _model.outListContact!.toList();
 
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: contactList.length,
-                                      itemBuilder: (context, contactListIndex) {
-                                        final contactListItem =
-                                            contactList[contactListIndex];
+                                      itemCount: contacts.length,
+                                      itemBuilder: (context, contactsIndex) {
+                                        final contactsItem =
+                                            contacts[contactsIndex];
                                         return Text(
                                           valueOrDefault<String>(
                                             ContactStruct.maybeFromMap(
                                                     _model.outListContact)
-                                                ?.hasCNom()
-                                                .toString(),
+                                                ?.name,
                                             'faux',
                                           ),
                                           style: FlutterFlowTheme.of(context)

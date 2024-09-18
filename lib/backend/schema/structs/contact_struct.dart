@@ -14,6 +14,7 @@ class ContactStruct extends FFFirebaseStruct {
     String? cPhone,
     bool? cExiste,
     bool? ouiNon,
+    String? name,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _cRef = cRef,
         _cPrenom = cPrenom,
@@ -21,6 +22,7 @@ class ContactStruct extends FFFirebaseStruct {
         _cPhone = cPhone,
         _cExiste = cExiste,
         _ouiNon = ouiNon,
+        _name = name,
         super(firestoreUtilData);
 
   // "cRef" field.
@@ -65,6 +67,13 @@ class ContactStruct extends FFFirebaseStruct {
 
   bool hasOuiNon() => _ouiNon != null;
 
+  // "Name" field.
+  String? _name;
+  String get name => _name ?? '';
+  set name(String? val) => _name = val;
+
+  bool hasName() => _name != null;
+
   static ContactStruct fromMap(Map<String, dynamic> data) => ContactStruct(
         cRef: data['cRef'] as String?,
         cPrenom: data['cPrenom'] as String?,
@@ -72,6 +81,7 @@ class ContactStruct extends FFFirebaseStruct {
         cPhone: data['cPhone'] as String?,
         cExiste: data['cExiste'] as bool?,
         ouiNon: data['ouiNon'] as bool?,
+        name: data['Name'] as String?,
       );
 
   static ContactStruct? maybeFromMap(dynamic data) =>
@@ -84,6 +94,7 @@ class ContactStruct extends FFFirebaseStruct {
         'cPhone': _cPhone,
         'cExiste': _cExiste,
         'ouiNon': _ouiNon,
+        'Name': _name,
       }.withoutNulls;
 
   @override
@@ -111,6 +122,10 @@ class ContactStruct extends FFFirebaseStruct {
         'ouiNon': serializeParam(
           _ouiNon,
           ParamType.bool,
+        ),
+        'Name': serializeParam(
+          _name,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -146,6 +161,11 @@ class ContactStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
+        name: deserializeParam(
+          data['Name'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -159,12 +179,13 @@ class ContactStruct extends FFFirebaseStruct {
         cNom == other.cNom &&
         cPhone == other.cPhone &&
         cExiste == other.cExiste &&
-        ouiNon == other.ouiNon;
+        ouiNon == other.ouiNon &&
+        name == other.name;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([cRef, cPrenom, cNom, cPhone, cExiste, ouiNon]);
+  int get hashCode => const ListEquality()
+      .hash([cRef, cPrenom, cNom, cPhone, cExiste, ouiNon, name]);
 }
 
 ContactStruct createContactStruct({
@@ -174,6 +195,7 @@ ContactStruct createContactStruct({
   String? cPhone,
   bool? cExiste,
   bool? ouiNon,
+  String? name,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -186,6 +208,7 @@ ContactStruct createContactStruct({
       cPhone: cPhone,
       cExiste: cExiste,
       ouiNon: ouiNon,
+      name: name,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
