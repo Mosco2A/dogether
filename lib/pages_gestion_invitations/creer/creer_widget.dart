@@ -122,25 +122,19 @@ class _CreerWidgetState extends State<CreerWidget> {
                               final listContacts =
                                   _model.outListContact!.toList();
 
-                              return SingleChildScrollView(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: List.generate(listContacts.length,
-                                      (listContactsIndex) {
-                                    final listContactsItem =
-                                        listContacts[listContactsIndex];
-                                    return Text(
-                                      listContactsIndex.toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    );
-                                  }),
-                                ),
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listContacts.length,
+                                itemBuilder: (context, listContactsIndex) {
+                                  final listContactsItem =
+                                      listContacts[listContactsIndex];
+                                  return Container(
+                                      width: 100,
+                                      height: 100,
+                                      color: Colors.green);
+                                },
                               );
                             },
                           ),
