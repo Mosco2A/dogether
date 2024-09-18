@@ -119,36 +119,25 @@ class _CreerWidgetState extends State<CreerWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Builder(
-                                builder: (context) {
-                                  final contactList =
-                                      _model.outListContact!.toList();
-
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: contactList.length,
-                                    itemBuilder: (context, contactListIndex) {
-                                      final contactListItem =
-                                          contactList[contactListIndex];
-                                      return Text(
-                                        contactListIndex.toString(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ],
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  valueOrDefault<String>(
+                                    _model.outListContact?.toString(),
+                                    'a',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
