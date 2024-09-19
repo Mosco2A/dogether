@@ -9,12 +9,26 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'dart:convert'; // Pour utiliser jsonEncode
 
 Future<dynamic> listContactFromPhoneBook() async {
-  // create action will list contacts from phone book
+  // Récupérer les contacts avec leurs propriétés
   List<Contact> contacts =
       await FlutterContacts.getContacts(withProperties: true, withPhoto: false);
-  return contacts;
+
+  // Convertir les contacts en une liste de Map
+  List<Map<String, dynamic>> contactMaps = contacts.map((contact) {
+    return {
+      'name': contact.displayName,
+      'phones': contact.phones.map((phone) => phone.number).toList(),
+      'emails': contact.emails.map((email) => email.address).toList(),
+      // Vous pouvez ajouter d'autres champs comme 'photo', 'address', etc.
+    };
+  }).toList();
+
+  // Convertir la liste en JSON
+  String jsonContacts = jsonEncode(contactMaps);
+
+  // Retourner le JSON
+  return jsonContacts;
 }
-// Set your action name, define your arguments and return parameter,
-// and then add the boilerplate code using the green button on the right!
