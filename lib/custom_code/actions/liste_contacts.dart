@@ -25,7 +25,8 @@ import 'package:permission_handler/permission_handler.dart'; // Ajouter l'import
 Future<String?> listeContacts() async {
   /// MODIFY CODE ONLY BELOW THIS LINE
   List<Contact> contacts = [];
-  String result = '';
+  List<Map<String, dynamic>> contactsList =
+      []; // Liste pour stocker les contacts sous forme de JSON
   bool isLoading = false;
 
   List<ContactField> fields = ContactField.values.toList();
@@ -41,43 +42,42 @@ Future<String?> listeContacts() async {
     contacts = await FastContacts.getAllContacts(fields: fields);
 
     sw.stop();
-    result =
-        'Contacts: ${contacts.length}\nTook: ${sw.elapsedMilliseconds}ms\n\n';
 
-    // Ajout des détails des contacts dans le résultat
+    // Ajout des détails des contacts dans la liste JSON
     for (var contact in contacts) {
-      final phones = contact.phones.map((e) => e.number).join(', ');
-      final emails = contact.emails.map((e) => e.address).join(', ');
+      final phones = contact.phones.map((e) => e.number).toList();
+      final emails = contact.emails.map((e) => e.address).toList();
       final name = contact.structuredName;
-      final nameStr = name != null
-          ? [
-              if (name.namePrefix.isNotEmpty) name.namePrefix,
-              if (name.givenName.isNotEmpty) name.givenName,
-              if (name.middleName.isNotEmpty) name.middleName,
-              if (name.familyName.isNotEmpty) name.familyName,
-              if (name.nameSuffix.isNotEmpty) name.nameSuffix,
-            ].join(', ')
-          : '';
       final organization = contact.organization;
-      final organizationStr = organization != null
-          ? [
-              if (organization.company.isNotEmpty) organization.company,
-              if (organization.department.isNotEmpty) organization.department,
-              if (organization.jobDescription.isNotEmpty)
-                organization.jobDescription,
-            ].join(', ')
-          : '';
 
-      result +=
-          'Name: ${contact.displayName}\nPhones: $phones\nEmails: $emails\nName Parts: $nameStr\nOrganization: $organizationStr\n\n';
+      Map<String, dynamic> contactJson = {
+        'displayName': contact.displayName,
+        'phones': phones,
+        'emails': emails,
+        'nameParts': {
+          'prefix': name?.namePrefix ?? '',
+          'givenName': name?.givenName ?? '',
+          'middleName': name?.middleName ?? '',
+          'familyName': name?.familyName ?? '',
+          'suffix': name?.nameSuffix ?? '',
+        },
+        'organization': {
+          'company': organization?.company ?? '',
+          'department': organization?.department ?? '',
+          'jobDescription': organization?.jobDescription ?? '',
+        }
+      };
+
+      contactsList.add(contactJson);
     }
   } catch (e) {
-    result = 'Failed to get contacts:\n${e.toString()}';
+    return 'Failed to get contacts: ${e.toString()}';
   } finally {
     isLoading = false;
   }
 
-  return result;
+  // Conversion de la liste des contacts en JSON
+  return jsonEncode(contactsList);
 
   /// MODIFY CODE ONLY ABOVE THIS LINE
 }
