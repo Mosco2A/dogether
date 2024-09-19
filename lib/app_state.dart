@@ -127,10 +127,33 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_vLigthDark', value);
   }
 
-  String _contactJson = '';
-  String get contactJson => _contactJson;
-  set contactJson(String value) {
+  List<String> _contactJson = [];
+  List<String> get contactJson => _contactJson;
+  set contactJson(List<String> value) {
     _contactJson = value;
+  }
+
+  void addToContactJson(String value) {
+    contactJson.add(value);
+  }
+
+  void removeFromContactJson(String value) {
+    contactJson.remove(value);
+  }
+
+  void removeAtIndexFromContactJson(int index) {
+    contactJson.removeAt(index);
+  }
+
+  void updateContactJsonAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    contactJson[index] = updateFn(_contactJson[index]);
+  }
+
+  void insertAtIndexInContactJson(int index, String value) {
+    contactJson.insert(index, value);
   }
 }
 
