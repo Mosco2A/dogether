@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
@@ -12,8 +11,8 @@ const kPermissionStateToBool = {
   PermissionStatus.permanentlyDenied: false,
 };
 
-final contactsPermission = Permission.contacts;
-final notificationsPermission = Permission.notification;
+const contactsPermission = Permission.contacts;
+const notificationsPermission = Permission.notification;
 
 Future<bool> getPermissionStatus(Permission setting) async {
   final status = await setting.status;
