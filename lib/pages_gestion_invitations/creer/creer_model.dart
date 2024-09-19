@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class CreerModel extends FlutterFlowModel<CreerWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Custom Action - listeContacts] action in Creer widget.
+  String? resultContact;
   // Model for bottomBar component.
   late BottomBarModel bottomBarModel;
 

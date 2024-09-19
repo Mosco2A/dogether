@@ -1,7 +1,7 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -29,6 +29,7 @@ class _CreerWidgetState extends State<CreerWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await requestPermission(contactsPermission);
+      _model.resultContact = await actions.listeContacts();
     });
   }
 
@@ -110,34 +111,35 @@ class _CreerWidgetState extends State<CreerWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Button',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).primary,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
                         Container(
                           width: MediaQuery.sizeOf(context).width * 0.95,
                           height: MediaQuery.sizeOf(context).height * 0.72,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListView(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: const [],
+                              ),
+                              Text(
+                                valueOrDefault<String>(
+                                  _model.resultContact,
+                                  'A',
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
