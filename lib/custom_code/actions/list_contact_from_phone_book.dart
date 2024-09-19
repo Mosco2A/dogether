@@ -8,27 +8,39 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// Imports nécessaires
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'dart:convert'; // Pour utiliser jsonEncode
+import 'package:flutter/material.dart'; // Pour BuildContext
+import 'package:go_router/go_router.dart'; // Pour utiliser context.go()
 
-Future<dynamic> listContactFromPhoneBook() async {
-  // Récupérer les contacts avec leurs propriétés
-  List<Contact> contacts =
-      await FlutterContacts.getContacts(withProperties: true, withPhoto: false);
+// Ton programme : listContactFromPhoneBook
+Future<String?> listContactFromPhoneBook(BuildContext context) async {
+  try {
+    // Étape 1 : Récupérer les contacts avec leurs propriétés
+    List<Contact> contacts = await FlutterContacts.getContacts(
+        withProperties: true, withPhoto: false);
 
-  // Convertir les contacts en une liste de Map
-  List<Map<String, dynamic>> contactMaps = contacts.map((contact) {
-    return {
-      'name': contact.displayName,
-      'phones': contact.phones.map((phone) => phone.number).toList(),
-      'emails': contact.emails.map((email) => email.address).toList(),
-      // Vous pouvez ajouter d'autres champs comme 'photo', 'address', etc.
-    };
-  }).toList();
+    // Étape 2 : Convertir les contacts en une liste de Map
+    List<Map<String, dynamic>> contactMaps = contacts.map((contact) {
+      return {
+        'name': contact.displayName,
+        'phones': contact.phones.map((phone) => phone.number).toList(),
+        'emails': contact.emails.map((email) => email.address).toList(),
+      };
+    }).toList();
 
-  // Convertir la liste en JSON
-  String jsonContacts = jsonEncode(contactMaps);
+    // Étape 3 : Convertir la liste de contacts en JSON
+    String jsonContacts = jsonEncode(contactMaps);
 
-  // Retourner le JSON
-  return jsonContacts;
+    // Étape 4 : Naviguer vers la page de destination avec les données encodées en JSON
+    context.go('/creer', extra: jsonContacts);
+
+    // Retourner la chaîne JSON
+    return jsonContacts;
+  } catch (e) {
+    // Gestion d'erreur si quelque chose ne va pas
+    print('Erreur lors de la récupération des contacts : $e');
+    return null; // Retourner null en cas d'erreur
+  }
 }
