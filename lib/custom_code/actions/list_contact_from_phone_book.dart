@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 // Imports nécessaires
+import 'dart:convert'; // Pour jsonEncode
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'dart:convert'; // Pour utiliser jsonEncode
-import 'package:flutter/material.dart'; // Pour BuildContext
-import 'package:go_router/go_router.dart'; // Pour utiliser context.go()
+import 'package:go_router/go_router.dart';
 
 // Ton programme : listContactFromPhoneBook
 Future<String?> listContactFromPhoneBook(BuildContext context) async {
