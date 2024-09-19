@@ -126,6 +126,12 @@ class FFAppState extends ChangeNotifier {
     _vLigthDark = value;
     prefs.setBool('ff_vLigthDark', value);
   }
+
+  String _contactJson = '';
+  String get contactJson => _contactJson;
+  set contactJson(String value) {
+    _contactJson = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

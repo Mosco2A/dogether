@@ -1,6 +1,7 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,6 @@ class _CreerWidgetState extends State<CreerWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await requestPermission(contactsPermission);
-      _model.outListContact = await actions.listContactFromPhoneBook(
-        context,
-      );
     });
   }
 
@@ -130,10 +128,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    valueOrDefault<String>(
-                                      _model.outListContact,
-                                      'vide',
-                                    ),
+                                    'Hello World',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -153,6 +148,34 @@ class _CreerWidgetState extends State<CreerWidget> {
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                        FFButtonWidget(
+                          onPressed: () async {
+                            _model.contactsJson =
+                                await actions.listContactFromPhoneBook(
+                              context,
+                            );
+
+                            safeSetState(() {});
+                          },
+                          text: 'Button',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
                       ],
