@@ -14,13 +14,14 @@ import '/backend/schema/structs/index.dart';
 import '/auth/firebase_auth/auth_util.dart';
 
 String? decode() {
+  // Vérifie si contactsJson est non nul et non vide
   var contactsJson;
-  if (contactsJson != null) {
+  if (contactsJson != null && contactsJson!.isNotEmpty) {
     try {
       // Décoder la chaîne JSON
       List<dynamic> decodedJson = jsonDecode(contactsJson!);
 
-      // Supposons que la chaîne JSON contient une liste de contacts
+      // Convertir la liste dynamique en liste de maps
       List<Map<String, dynamic>> contactList =
           List<Map<String, dynamic>>.from(decodedJson);
 
@@ -42,5 +43,5 @@ String? decode() {
     }
   }
 
-  return null;
+  return 'Données JSON vides';
 }
