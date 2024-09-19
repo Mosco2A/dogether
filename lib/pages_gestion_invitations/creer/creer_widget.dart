@@ -1,8 +1,9 @@
+import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -112,13 +113,8 @@ class _CreerWidgetState extends State<CreerWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         FFButtonWidget(
-                          onPressed: () async {
-                            _model.contactsJson =
-                                await actions.listContactFromPhoneBook(
-                              context,
-                            );
-
-                            safeSetState(() {});
+                          onPressed: () {
+                            print('Button pressed ...');
                           },
                           text: 'Button',
                           options: FFButtonOptions(
@@ -145,40 +141,50 @@ class _CreerWidgetState extends State<CreerWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          child: ListView(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    valueOrDefault<String>(
-                                      _model.contactsJson,
-                                      'a',
+                          child: StreamBuilder<List<ContactsRecord>>(
+                            stream: queryContactsRecord(
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
                                   ),
-                                  Text(
-                                    'Hello World',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                );
+                              }
+                              List<ContactsRecord>
+                                  contactListNewContactsRecordList =
+                                  snapshot.data!;
+                              // Return an empty Container when the item does not exist.
+                              if (snapshot.data!.isEmpty) {
+                                return Container();
+                              }
+                              final contactListNewContactsRecord =
+                                  contactListNewContactsRecordList.isNotEmpty
+                                      ? contactListNewContactsRecordList.first
+                                      : null;
+
+                              return SizedBox(
+                                width: MediaQuery.sizeOf(context).width * 0.95,
+                                height: MediaQuery.sizeOf(context).height * 0.6,
+                                child: custom_widgets.ContactListNew(
+                                  width:
+                                      MediaQuery.sizeOf(context).width * 0.95,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.6,
+                                  callBackAction: () async {},
+                                  callBackActionNoContain: () async {},
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ],

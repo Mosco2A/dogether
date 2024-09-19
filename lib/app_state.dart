@@ -155,6 +155,35 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInContactsJson(int index, dynamic value) {
     contactsJson.insert(index, value);
   }
+
+  List<dynamic> _globalJsonContacts = [];
+  List<dynamic> get globalJsonContacts => _globalJsonContacts;
+  set globalJsonContacts(List<dynamic> value) {
+    _globalJsonContacts = value;
+  }
+
+  void addToGlobalJsonContacts(dynamic value) {
+    globalJsonContacts.add(value);
+  }
+
+  void removeFromGlobalJsonContacts(dynamic value) {
+    globalJsonContacts.remove(value);
+  }
+
+  void removeAtIndexFromGlobalJsonContacts(int index) {
+    globalJsonContacts.removeAt(index);
+  }
+
+  void updateGlobalJsonContactsAtIndex(
+    int index,
+    dynamic Function(dynamic) updateFn,
+  ) {
+    globalJsonContacts[index] = updateFn(_globalJsonContacts[index]);
+  }
+
+  void insertAtIndexInGlobalJsonContacts(int index, dynamic value) {
+    globalJsonContacts.insert(index, value);
+  }
 }
 
 void _safeInit(Function() initializeField) {
