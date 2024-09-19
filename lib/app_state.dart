@@ -127,17 +127,17 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_vLigthDark', value);
   }
 
-  List<String> _contactJson = [];
-  List<String> get contactJson => _contactJson;
-  set contactJson(List<String> value) {
+  List<dynamic> _contactJson = [];
+  List<dynamic> get contactJson => _contactJson;
+  set contactJson(List<dynamic> value) {
     _contactJson = value;
   }
 
-  void addToContactJson(String value) {
+  void addToContactJson(dynamic value) {
     contactJson.add(value);
   }
 
-  void removeFromContactJson(String value) {
+  void removeFromContactJson(dynamic value) {
     contactJson.remove(value);
   }
 
@@ -147,12 +147,12 @@ class FFAppState extends ChangeNotifier {
 
   void updateContactJsonAtIndex(
     int index,
-    String Function(String) updateFn,
+    dynamic Function(dynamic) updateFn,
   ) {
     contactJson[index] = updateFn(_contactJson[index]);
   }
 
-  void insertAtIndexInContactJson(int index, String value) {
+  void insertAtIndexInContactJson(int index, dynamic value) {
     contactJson.insert(index, value);
   }
 }
