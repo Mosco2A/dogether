@@ -1,12 +1,12 @@
-import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/permissions_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'creer_model.dart';
 export 'creer_model.dart';
 
@@ -56,7 +56,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,7 +73,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                             ),
                       ),
                       Container(
-                        constraints: const BoxConstraints(
+                        constraints: BoxConstraints(
                           minWidth: 60.0,
                         ),
                         decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                     ],
                   ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -119,9 +119,9 @@ class _CreerWidgetState extends State<CreerWidget> {
                           text: 'Button',
                           options: FFButtonOptions(
                             height: 40.0,
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
-                            iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             color: FlutterFlowTheme.of(context).primary,
                             textStyle: FlutterFlowTheme.of(context)
@@ -141,61 +141,16 @@ class _CreerWidgetState extends State<CreerWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          child: StreamBuilder<List<ContactsRecord>>(
-                            stream: queryContactsRecord(
-                              singleRecord: true,
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<ContactsRecord>
-                                  contactListNewContactsRecordList =
-                                  snapshot.data!;
-                              // Return an empty Container when the item does not exist.
-                              if (snapshot.data!.isEmpty) {
-                                return Container();
-                              }
-                              final contactListNewContactsRecord =
-                                  contactListNewContactsRecordList.isNotEmpty
-                                      ? contactListNewContactsRecordList.first
-                                      : null;
-
-                              return SizedBox(
-                                width: MediaQuery.sizeOf(context).width * 0.95,
-                                height: MediaQuery.sizeOf(context).height * 0.6,
-                                child: custom_widgets.ContactListNew(
-                                  width:
-                                      MediaQuery.sizeOf(context).width * 0.95,
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 0.6,
-                                  callBackAction: () async {},
-                                  callBackActionNoContain: () async {},
-                                ),
-                              );
-                            },
-                          ),
                         ),
                       ],
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.bottomBarModel,
                       updateCallback: () => safeSetState(() {}),
-                      child: const BottomBarWidget(),
+                      child: BottomBarWidget(),
                     ),
                   ),
                 ],

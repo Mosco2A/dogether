@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -125,64 +127,6 @@ class FFAppState extends ChangeNotifier {
   set vLigthDark(bool value) {
     _vLigthDark = value;
     prefs.setBool('ff_vLigthDark', value);
-  }
-
-  List<dynamic> _contactsJson = [];
-  List<dynamic> get contactsJson => _contactsJson;
-  set contactsJson(List<dynamic> value) {
-    _contactsJson = value;
-  }
-
-  void addToContactsJson(dynamic value) {
-    contactsJson.add(value);
-  }
-
-  void removeFromContactsJson(dynamic value) {
-    contactsJson.remove(value);
-  }
-
-  void removeAtIndexFromContactsJson(int index) {
-    contactsJson.removeAt(index);
-  }
-
-  void updateContactsJsonAtIndex(
-    int index,
-    dynamic Function(dynamic) updateFn,
-  ) {
-    contactsJson[index] = updateFn(_contactsJson[index]);
-  }
-
-  void insertAtIndexInContactsJson(int index, dynamic value) {
-    contactsJson.insert(index, value);
-  }
-
-  List<dynamic> _globalJsonContacts = [];
-  List<dynamic> get globalJsonContacts => _globalJsonContacts;
-  set globalJsonContacts(List<dynamic> value) {
-    _globalJsonContacts = value;
-  }
-
-  void addToGlobalJsonContacts(dynamic value) {
-    globalJsonContacts.add(value);
-  }
-
-  void removeFromGlobalJsonContacts(dynamic value) {
-    globalJsonContacts.remove(value);
-  }
-
-  void removeAtIndexFromGlobalJsonContacts(int index) {
-    globalJsonContacts.removeAt(index);
-  }
-
-  void updateGlobalJsonContactsAtIndex(
-    int index,
-    dynamic Function(dynamic) updateFn,
-  ) {
-    globalJsonContacts[index] = updateFn(_globalJsonContacts[index]);
-  }
-
-  void insertAtIndexInGlobalJsonContacts(int index, dynamic value) {
-    globalJsonContacts.insert(index, value);
   }
 }
 

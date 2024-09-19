@@ -4,9 +4,12 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'profil_model.dart';
@@ -61,8 +64,8 @@ class _ProfilWidgetState extends State<ProfilWidget>
             curve: Curves.easeInOut,
             delay: 300.0.ms,
             duration: 400.0.ms,
-            begin: const Offset(0.0, 20.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -93,7 +96,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,7 +117,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                     ],
                   ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -134,9 +137,9 @@ class _ProfilWidgetState extends State<ProfilWidget>
                       color: FlutterFlowTheme.of(context).primary,
                     ),
                     child: Align(
-                      alignment: const AlignmentDirectional(0.0, -1.0),
+                      alignment: AlignmentDirectional(0.0, -1.0),
                       child: Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                             24.0, 16.0, 24.0, 0.0),
                         child: SingleChildScrollView(
                           child: Column(
@@ -144,7 +147,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 20.0),
                                 child: Text(
                                   'Modification du profil',
@@ -173,10 +176,10 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                         children: [
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: AuthUserStreamWidget(
-                                              builder: (context) => SizedBox(
+                                              builder: (context) => Container(
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
@@ -186,12 +189,12 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.prenomTextController',
-                                                    const Duration(
+                                                    Duration(
                                                         milliseconds: 2000),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: true,
-                                                  autofillHints: const [
+                                                  autofillHints: [
                                                     AutofillHints.name
                                                   ],
                                                   obscureText: false,
@@ -204,7 +207,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF57636C),
+                                                              Color(0xFF57636C),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -228,7 +231,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         ),
                                                     enabledBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
                                                         width: 2.0,
@@ -239,7 +242,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
                                                         width: 2.0,
@@ -250,7 +253,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     errorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -261,7 +264,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedErrorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -273,7 +276,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     contentPadding:
-                                                        const EdgeInsets.all(24.0),
+                                                        EdgeInsets.all(24.0),
                                                     suffixIcon: _model
                                                             .prenomTextController!
                                                             .text
@@ -286,7 +289,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               safeSetState(
                                                                   () {});
                                                             },
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.clear,
                                                               color: Color(
                                                                   0xFF757575),
@@ -302,7 +305,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF101213),
+                                                            Color(0xFF101213),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -317,7 +320,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   keyboardType:
                                                       TextInputType.name,
                                                   cursorColor:
-                                                      const Color(0xFF4B39EF),
+                                                      Color(0xFF4B39EF),
                                                   validator: _model
                                                       .prenomTextControllerValidator
                                                       .asValidator(context),
@@ -327,10 +330,10 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: AuthUserStreamWidget(
-                                              builder: (context) => SizedBox(
+                                              builder: (context) => Container(
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller:
@@ -340,12 +343,12 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.nomTextController',
-                                                    const Duration(
+                                                    Duration(
                                                         milliseconds: 2000),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: true,
-                                                  autofillHints: const [
+                                                  autofillHints: [
                                                     AutofillHints.name
                                                   ],
                                                   obscureText: false,
@@ -358,7 +361,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF57636C),
+                                                              Color(0xFF57636C),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -382,7 +385,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         ),
                                                     enabledBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
                                                         width: 2.0,
@@ -393,7 +396,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
                                                         width: 2.0,
@@ -404,7 +407,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     errorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -415,7 +418,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedErrorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -427,7 +430,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     contentPadding:
-                                                        const EdgeInsets.all(24.0),
+                                                        EdgeInsets.all(24.0),
                                                     suffixIcon: _model
                                                             .nomTextController!
                                                             .text
@@ -440,7 +443,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               safeSetState(
                                                                   () {});
                                                             },
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.clear,
                                                               color: Color(
                                                                   0xFF757575),
@@ -456,7 +459,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF101213),
+                                                            Color(0xFF101213),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -471,7 +474,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   keyboardType:
                                                       TextInputType.name,
                                                   cursorColor:
-                                                      const Color(0xFF4B39EF),
+                                                      Color(0xFF4B39EF),
                                                   validator: _model
                                                       .nomTextControllerValidator
                                                       .asValidator(context),
@@ -481,10 +484,10 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                           ),
                                           Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: AuthUserStreamWidget(
-                                              builder: (context) => SizedBox(
+                                              builder: (context) => Container(
                                                 width: double.infinity,
                                                 child: TextFormField(
                                                   controller: _model
@@ -494,12 +497,12 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   onChanged: (_) =>
                                                       EasyDebounce.debounce(
                                                     '_model.phoneNumberTextController',
-                                                    const Duration(
+                                                    Duration(
                                                         milliseconds: 2000),
                                                     () => safeSetState(() {}),
                                                   ),
                                                   autofocus: true,
-                                                  autofillHints: const [
+                                                  autofillHints: [
                                                     AutofillHints
                                                         .telephoneNumber
                                                   ],
@@ -513,7 +516,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                           fontFamily:
                                                               'Plus Jakarta Sans',
                                                           color:
-                                                              const Color(0xFF57636C),
+                                                              Color(0xFF57636C),
                                                           fontSize: 14.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
@@ -523,7 +526,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         'Saisissez un numéro type; +33611459151',
                                                     enabledBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFE0E3E7),
                                                         width: 2.0,
@@ -534,7 +537,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFF4B39EF),
                                                         width: 2.0,
@@ -545,7 +548,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     errorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -556,7 +559,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     ),
                                                     focusedErrorBorder:
                                                         UnderlineInputBorder(
-                                                      borderSide: const BorderSide(
+                                                      borderSide: BorderSide(
                                                         color:
                                                             Color(0xFFFF5963),
                                                         width: 2.0,
@@ -568,7 +571,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                     filled: true,
                                                     fillColor: Colors.white,
                                                     contentPadding:
-                                                        const EdgeInsets.all(24.0),
+                                                        EdgeInsets.all(24.0),
                                                     suffixIcon: _model
                                                             .phoneNumberTextController!
                                                             .text
@@ -581,7 +584,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               safeSetState(
                                                                   () {});
                                                             },
-                                                            child: const Icon(
+                                                            child: Icon(
                                                               Icons.clear,
                                                               color: Color(
                                                                   0xFF757575),
@@ -597,7 +600,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         fontFamily:
                                                             'Plus Jakarta Sans',
                                                         color:
-                                                            const Color(0xFF101213),
+                                                            Color(0xFF101213),
                                                         fontSize: 14.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
@@ -612,7 +615,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                   keyboardType:
                                                       TextInputType.phone,
                                                   cursorColor:
-                                                      const Color(0xFF4B39EF),
+                                                      Color(0xFF4B39EF),
                                                   validator: _model
                                                       .phoneNumberTextControllerValidator
                                                       .asValidator(context),
@@ -631,9 +634,9 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                 children: [
                                   Flexible(
                                     child: Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -644,10 +647,10 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                             width: 230.0,
                                             height: 40.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             color: FlutterFlowTheme.of(context)
                                                 .error,
@@ -664,7 +667,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                           FontWeight.w500,
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -677,9 +680,9 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                   ),
                                   Flexible(
                                     child: Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
+                                      alignment: AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 0.0, 0.0, 16.0),
                                         child: FFButtonWidget(
                                           onPressed: () async {
@@ -699,9 +702,9 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                         builder:
                                                             (alertDialogContext) {
                                                           return AlertDialog(
-                                                            title: const Text(
+                                                            title: Text(
                                                                 'Vous avez initié votre changement de téléphone et par là même de votre compte de connection.'),
-                                                            content: const Text(
+                                                            content: Text(
                                                                 'Une fois le SMS validé cette action sera irrévocable! Vous conserverez vos données.'),
                                                             actions: [
                                                               TextButton(
@@ -709,7 +712,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                                     Navigator.pop(
                                                                         alertDialogContext,
                                                                         false),
-                                                                child: const Text(
+                                                                child: Text(
                                                                     'J\'annule ma requète'),
                                                               ),
                                                               TextButton(
@@ -717,7 +720,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                                     Navigator.pop(
                                                                         alertDialogContext,
                                                                         true),
-                                                                child: const Text(
+                                                                child: Text(
                                                                     'Je confirme la recréation de mon compte'),
                                                               ),
                                                             ],
@@ -738,12 +741,13 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                             }
                                             final phoneNumberVal = _model
                                                 .phoneNumberTextController.text;
-                                            if (phoneNumberVal.isEmpty ||
+                                            if (phoneNumberVal == null ||
+                                                phoneNumberVal.isEmpty ||
                                                 !phoneNumberVal
                                                     .startsWith('+')) {
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
-                                                const SnackBar(
+                                                SnackBar(
                                                   content: Text(
                                                       'Phone Number is required and has to start with +.'),
                                                 ),
@@ -767,12 +771,12 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                             width: 230.0,
                                             height: 40.0,
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
                                             iconPadding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 0.0),
-                                            color: const Color(0xFF4B39EF),
+                                            color: Color(0xFF4B39EF),
                                             textStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
@@ -786,7 +790,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                           FontWeight.w500,
                                                     ),
                                             elevation: 3.0,
-                                            borderSide: const BorderSide(
+                                            borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 1.0,
                                             ),
@@ -797,13 +801,13 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                       ),
                                     ),
                                   ),
-                                ].divide(const SizedBox(width: 10.0)),
+                                ].divide(SizedBox(width: 10.0)),
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 20.0, 0.0, 10.0),
                                     child: Text(
                                       'Si vous changez de numéro de téléphone, il vous faudra ce code pour récupérer votre compte.Sauvegardez le !',
@@ -821,7 +825,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 20.0, 0.0, 10.0),
                                         child: AuthUserStreamWidget(
                                           builder: (context) => Text(
@@ -860,7 +864,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     ],
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 10.0, 0.0, 10.0),
                                     child: Text(
                                       'Vous pouvez vous deconnecter de l\'application.',
@@ -874,7 +878,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 0.0),
+                                    alignment: AlignmentDirectional(1.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -882,10 +886,10 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                       children: [
                                         Align(
                                           alignment:
-                                              const AlignmentDirectional(0.0, 0.0),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Padding(
                                             padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
+                                                EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 0.0, 16.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
@@ -905,11 +909,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                             .width *
                                                         0.5,
                                                 height: 40.0,
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 0.0),
                                                 iconPadding:
-                                                    const EdgeInsetsDirectional
+                                                    EdgeInsetsDirectional
                                                         .fromSTEB(
                                                             0.0, 0.0, 0.0, 0.0),
                                                 color:
@@ -928,7 +932,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                                               FontWeight.w500,
                                                         ),
                                                 elevation: 3.0,
-                                                borderSide: const BorderSide(
+                                                borderSide: BorderSide(
                                                   color: Colors.transparent,
                                                   width: 1.0,
                                                 ),
@@ -942,7 +946,7 @@ class _ProfilWidgetState extends State<ProfilWidget>
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 10.0),
                                     child: Text(
                                       ' Lorsque vous vous reconnecterez une vérification SMS sera à nouveau réalisée. \nVous ne perdrez pas votre historique.',
@@ -967,11 +971,11 @@ class _ProfilWidgetState extends State<ProfilWidget>
                 ],
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const BottomBarWidget(),
+                  child: BottomBarWidget(),
                 ),
               ),
             ],

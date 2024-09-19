@@ -1,7 +1,10 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'contacts_model.dart';
 export 'contacts_model.dart';
 
@@ -46,7 +49,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +70,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                           context.pushNamed(
                             'Contacts',
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
+                              kTransitionInfoKey: TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.leftToRight,
                               ),
@@ -75,7 +78,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                           );
                         },
                         child: Container(
-                          constraints: const BoxConstraints(
+                          constraints: BoxConstraints(
                             minWidth: 60.0,
                           ),
                           decoration: BoxDecoration(
@@ -98,7 +101,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                     ],
                   ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -122,7 +125,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 10.0, 0.0, 10.0),
                             child: Text(
                               'Créer un contact',
@@ -139,7 +142,7 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(10.0),
+                                padding: EdgeInsets.all(10.0),
                                 child: Text(
                                   'Depuis vos contact',
                                   style: FlutterFlowTheme.of(context)
@@ -151,9 +154,9 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Text(
                                     '',
                                     style: FlutterFlowTheme.of(context)
@@ -180,11 +183,11 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const BottomBarWidget(),
+                  child: BottomBarWidget(),
                 ),
               ),
             ],
