@@ -13,6 +13,7 @@ import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
 List<Map<String, String>> maListeDeContacts = [];
+
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);
   List<Map<String, dynamic>> maListeDeContacts = []; // Variable globale
@@ -47,7 +48,12 @@ Widget ContactsPage({required String contactsJson}) {
                 });
               }
             },
-            child: Text(isInList ? 'Retirer' : 'Ajouter'),
+            style: ElevatedButton.styleFrom(
+              primary: isInList
+                  ? Colors.red
+                  : Colors.blue, // Bleu pour Ajouter, Rouge pour Enlever
+            ),
+            child: Text(isInList ? 'Enlever' : 'Ajouter'),
           ),
         );
       },
