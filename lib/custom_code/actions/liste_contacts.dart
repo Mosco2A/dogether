@@ -8,30 +8,13 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:shared_preferences/shared_preferences.dart'; // Ajout de SharedPreferences
 import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
-import 'package:shared_preferences/shared_preferences.dart'; // Pour la persistance
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
-
-// Fonction pour charger les contacts depuis SharedPreferences
-Future<void> loadContacts() async {
-  final prefs = await SharedPreferences.getInstance();
-  String? contactsJson = prefs.getString('maListeDeContacts');
-  if (contactsJson != null) {
-    maListeDeContacts = List<Map<String, String>>.from(
-        json.decode(contactsJson).map((x) => Map<String, String>.from(x)));
-  }
-}
-
-// Fonction pour sauvegarder les contacts dans SharedPreferences
-Future<void> saveContacts() async {
-  final prefs = await SharedPreferences.getInstance();
-  String contactsJson = json.encode(maListeDeContacts);
-  prefs.setString('maListeDeContacts', contactsJson);
-}
 
 class ContactsPage extends StatefulWidget {
   final String contactsJson;
@@ -46,7 +29,21 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   void initState() {
     super.initState();
-    loadContacts(); // Chargez la liste au démarrage
+    loadContacts(); // Charger les contacts au démarrage
+  }
+
+  void loadContacts() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? contactsJson = prefs.getString('maListeDeContacts');
+    if (contactsJson != null) {
+      List<dynamic> loadedContacts = jsonDecode(contactsJson);
+      maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+    }
+  }
+
+  void saveContacts() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('maListeDeContacts', jsonEncode(maListeDeContacts));
   }
 
   @override
@@ -61,7 +58,6 @@ class _ContactsPageState extends State<ContactsPage> {
         itemCount: contactsList.length,
         itemBuilder: (context, index) {
           var contact = contactsList[index];
-
           // Vérifiez si le contact est déjà dans la liste
           bool isInList = maListeDeContacts
               .any((c) => c['displayName'] == contact['displayName']);
@@ -83,12 +79,12 @@ class _ContactsPageState extends State<ContactsPage> {
                       'phones': contact['phones'].join(', '),
                     });
                   }
-                  saveContacts(); // Sauvegarde après chaque modification
+                  saveContacts(); // Sauvegarder les contacts après modification
                 });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    isInList ? Colors.red : Colors.blue, // Couleur selon l'état
+                    isInList ? Colors.red : Colors.blue, // Changement ici
               ),
               child: Text(isInList ? 'Enlever' : 'Ajouter'),
             ),
@@ -132,7 +128,6 @@ Future<void> listeContacts(BuildContext context) async {
       ),
     );
   } catch (e) {
-    // Gérer l'erreur ici
     print('Failed to get contacts: ${e.toString()}');
   }
 }
