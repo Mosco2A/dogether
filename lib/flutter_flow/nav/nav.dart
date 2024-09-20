@@ -108,9 +108,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const EmisesWidget(),
         ),
         FFRoute(
-          name: 'Contacts',
-          path: '/contacts',
-          builder: (context, params) => const ContactsWidget(),
+          name: 'ContactsPage',
+          path: '/contactsPage',
+          builder: (context, params) => ContactsPageWidget(
+            contactsJson: params.getParam(
+              'contactsJson',
+              ParamType.JSON,
+            ),
+          ),
         ),
         FFRoute(
           name: 'Creer',

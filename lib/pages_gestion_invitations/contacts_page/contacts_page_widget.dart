@@ -2,26 +2,31 @@ import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'contacts_model.dart';
-export 'contacts_model.dart';
+import 'contacts_page_model.dart';
+export 'contacts_page_model.dart';
 
-class ContactsWidget extends StatefulWidget {
+class ContactsPageWidget extends StatefulWidget {
   /// Page gestion des contacts
-  const ContactsWidget({super.key});
+  const ContactsPageWidget({
+    super.key,
+    required this.contactsJson,
+  });
+
+  final dynamic contactsJson;
 
   @override
-  State<ContactsWidget> createState() => _ContactsWidgetState();
+  State<ContactsPageWidget> createState() => _ContactsPageWidgetState();
 }
 
-class _ContactsWidgetState extends State<ContactsWidget> {
-  late ContactsModel _model;
+class _ContactsPageWidgetState extends State<ContactsPageWidget> {
+  late ContactsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ContactsModel());
+    _model = createModel(context, () => ContactsPageModel());
   }
 
   @override
@@ -58,41 +63,24 @@ class _ContactsWidgetState extends State<ContactsWidget> {
                               letterSpacing: 0.0,
                             ),
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(
-                            'Contacts',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.leftToRight,
-                              ),
-                            },
-                          );
-                        },
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            minWidth: 60.0,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.people_alt,
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
-                                size: 40.0,
-                              ),
-                            ],
-                          ),
+                      Container(
+                        constraints: const BoxConstraints(
+                          minWidth: 60.0,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.people_alt,
+                              color: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
+                              size: 40.0,
+                            ),
+                          ],
                         ),
                       ),
                     ],

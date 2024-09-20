@@ -12,18 +12,45 @@ import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
-Future<String?> listeContacts() async {
-  /// MODIFY CODE ONLY BELOW THIS LINE
+Widget ContactsPage({required String contactsJson}) {
+  // Convertir le JSON en liste
+  List<dynamic> contactsList = jsonDecode(contactsJson);
+
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('Liste des Contacts'),
+    ),
+    body: ListView.builder(
+      itemCount: contactsList.length,
+      itemBuilder: (context, index) {
+        var contact = contactsList[index];
+        return ListTile(
+          title: Text(contact['displayName']),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Phones: ${contact['phones'].join(', ')}'),
+              Text('Emails: ${contact['emails'].join(', ')}'),
+              Text('Organization: ${contact['organization']['company']}'),
+            ],
+          ),
+        );
+      },
+    ),
+  );
+}
+
+Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
 
   try {
-    // Demande de permission pour accéder aux contacts
-    await Permission.contacts.request();
+    var permissionStatus = await Permission.contacts.request();
+    if (permissionStatus != PermissionStatus.granted) {
+      return; // Permission refusée, rien à faire
+    }
 
-    // Récupération des contacts
     List<Contact> contacts = await FastContacts.getAllContacts();
 
-    // Ajout des détails des contacts dans la liste JSON
     for (var contact in contacts) {
       contactsList.add({
         'displayName': contact.displayName,
@@ -43,12 +70,20 @@ Future<String?> listeContacts() async {
         }
       });
     }
+
+    // Convertir la liste des contacts en JSON
+    String contactsJson = jsonEncode(contactsList);
+
+    // Naviguer vers la page cible en passant le JSON
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ContactsPage(
+            contactsJson:
+                contactsJson), // Assurez-vous que ce widget est bien défini
+      ),
+    );
   } catch (e) {
-    return 'Failed to get contacts: ${e.toString()}';
+    // Gérer l'erreur ici
+    print('Failed to get contacts: ${e.toString()}');
   }
-
-  // Retourne les contacts au format JSON
-  return jsonEncode(contactsList);
-
-  /// MODIFY CODE ONLY ABOVE THIS LINE
 }

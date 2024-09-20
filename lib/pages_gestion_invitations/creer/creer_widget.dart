@@ -27,7 +27,9 @@ class _CreerWidgetState extends State<CreerWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.resultContact = await actions.listeContacts();
+      await actions.listeContacts(
+        context,
+      );
     });
   }
 
@@ -124,18 +126,6 @@ class _CreerWidgetState extends State<CreerWidget> {
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 children: const [],
-                              ),
-                              Text(
-                                valueOrDefault<String>(
-                                  _model.resultContact,
-                                  'A',
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
-                                    ),
                               ),
                             ],
                           ),
