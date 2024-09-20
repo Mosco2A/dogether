@@ -12,8 +12,7 @@ import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
-// Variable globale pour stocker les contacts sélectionnés
-List<Map<String, String>> maListeDeContacts = [];
+List<Map<String, String>> maListeDeContacts = []; // Variable globale
 
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);
@@ -51,9 +50,9 @@ Widget ContactsPage({required String contactsJson}) {
               (context as Element).reassemble();
             },
             style: ElevatedButton.styleFrom(
-              primary: isInList
+              backgroundColor: isInList
                   ? Colors.red
-                  : Colors.blue, // Bleu pour Ajouter, Rouge pour Enlever
+                  : Colors.blue, // Utilisez backgroundColor
             ),
             child: Text(isInList ? 'Enlever' : 'Ajouter'),
           ),
@@ -109,7 +108,9 @@ Future<void> listeContacts(BuildContext context) async {
     // Naviguer vers la page cible en passant le JSON
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ContactsPage(contactsJson: contactsJson),
+        builder: (context) => ContactsPage(
+            contactsJson:
+                contactsJson), // Assurez-vous que ce widget est bien défini
       ),
     );
   } catch (e) {
