@@ -25,30 +25,29 @@ Widget ContactsPage({required String contactsJson}) {
       itemCount: contactsList.length,
       itemBuilder: (context, index) {
         var contact = contactsList[index];
-        bool isChecked = false;
+
+        // Vérifiez si le contact est déjà dans la liste
+        bool isInList = maListeDeContacts
+            .any((c) => c['displayName'] == contact['displayName']);
 
         return ListTile(
           title: Text(contact['displayName']),
           subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
-          trailing: Checkbox(
-            value: isChecked,
-            onChanged: (bool? value) {
-              isChecked = value ?? false;
-              if (isChecked) {
-                // Ajouter le contact s'il n'existe pas déjà
-                if (!maListeDeContacts
-                    .any((c) => c['displayName'] == contact['displayName'])) {
-                  maListeDeContacts.add({
-                    'displayName': contact['displayName'],
-                    'phones': contact['phones'],
-                  });
-                }
-              } else {
-                // Optionnel : enlever le contact de la liste si décoché
+          trailing: ElevatedButton(
+            onPressed: () {
+              if (isInList) {
+                // Si le contact est déjà dans la liste, le supprimer
                 maListeDeContacts.removeWhere(
                     (c) => c['displayName'] == contact['displayName']);
+              } else {
+                // Ajouter le contact s'il n'existe pas déjà
+                maListeDeContacts.add({
+                  'displayName': contact['displayName'],
+                  'phones': contact['phones'],
+                });
               }
             },
+            child: Text(isInList ? 'Retirer' : 'Ajouter'),
           ),
         );
       },
