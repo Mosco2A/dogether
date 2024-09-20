@@ -11,18 +11,47 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
+import 'package:shared_preferences/shared_preferences.dart'; // Pour la persistance
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
 
-class ContactsPage extends StatelessWidget {
+// Fonction pour charger les contacts depuis SharedPreferences
+Future<void> loadContacts() async {
+  final prefs = await SharedPreferences.getInstance();
+  String? contactsJson = prefs.getString('maListeDeContacts');
+  if (contactsJson != null) {
+    maListeDeContacts = List<Map<String, String>>.from(
+        json.decode(contactsJson).map((x) => Map<String, String>.from(x)));
+  }
+}
+
+// Fonction pour sauvegarder les contacts dans SharedPreferences
+Future<void> saveContacts() async {
+  final prefs = await SharedPreferences.getInstance();
+  String contactsJson = json.encode(maListeDeContacts);
+  prefs.setString('maListeDeContacts', contactsJson);
+}
+
+class ContactsPage extends StatefulWidget {
   final String contactsJson;
 
   ContactsPage({required this.contactsJson});
 
   @override
+  _ContactsPageState createState() => _ContactsPageState();
+}
+
+class _ContactsPageState extends State<ContactsPage> {
+  @override
+  void initState() {
+    super.initState();
+    loadContacts(); // Chargez la liste au démarrage
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<dynamic> contactsList = jsonDecode(contactsJson);
+    List<dynamic> contactsList = jsonDecode(widget.contactsJson);
 
     return Scaffold(
       appBar: AppBar(
@@ -42,23 +71,24 @@ class ContactsPage extends StatelessWidget {
             subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
             trailing: ElevatedButton(
               onPressed: () {
-                if (isInList) {
-                  // Si le contact est déjà dans la liste, le supprimer
-                  maListeDeContacts.removeWhere(
-                      (c) => c['displayName'] == contact['displayName']);
-                } else {
-                  // Ajouter le contact s'il n'existe pas déjà
-                  maListeDeContacts.add({
-                    'displayName': contact['displayName'],
-                    'phones': contact['phones'].join(', '),
-                  });
-                }
-                // Rebuild the UI to reflect changes
-                (context as Element).reassemble();
+                setState(() {
+                  if (isInList) {
+                    // Si le contact est déjà dans la liste, le supprimer
+                    maListeDeContacts.removeWhere(
+                        (c) => c['displayName'] == contact['displayName']);
+                  } else {
+                    // Ajouter le contact s'il n'existe pas déjà
+                    maListeDeContacts.add({
+                      'displayName': contact['displayName'],
+                      'phones': contact['phones'].join(', '),
+                    });
+                  }
+                  saveContacts(); // Sauvegarde après chaque modification
+                });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    isInList ? Colors.red : Colors.blue, // Changement ici
+                    isInList ? Colors.red : Colors.blue, // Couleur selon l'état
               ),
               child: Text(isInList ? 'Enlever' : 'Ajouter'),
             ),
@@ -102,6 +132,7 @@ Future<void> listeContacts(BuildContext context) async {
       ),
     );
   } catch (e) {
+    // Gérer l'erreur ici
     print('Failed to get contacts: ${e.toString()}');
   }
 }
