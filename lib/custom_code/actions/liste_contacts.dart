@@ -15,6 +15,7 @@ import 'package:permission_handler/permission_handler.dart'; // Gestion des perm
 List<Map<String, String>> maListeDeContacts = [];
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);
+  List<Map<String, dynamic>> maListeDeContacts = []; // Variable globale
 
   return Scaffold(
     appBar: AppBar(
@@ -24,21 +25,26 @@ Widget ContactsPage({required String contactsJson}) {
       itemCount: contactsList.length,
       itemBuilder: (context, index) {
         var contact = contactsList[index];
-        bool isSelected = false;
+        bool isChecked = false;
 
         return ListTile(
           title: Text(contact['displayName']),
           subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
           trailing: Checkbox(
-            value: isSelected,
-            onChanged: (value) {
-              isSelected = value!;
-              if (isSelected) {
-                maListeDeContacts.add({
-                  'displayName': contact['displayName'],
-                  'phone': contact['phones'].first, // Prend le premier numéro
-                });
+            value: isChecked,
+            onChanged: (bool? value) {
+              isChecked = value ?? false;
+              if (isChecked) {
+                // Ajouter le contact s'il n'existe pas déjà
+                if (!maListeDeContacts
+                    .any((c) => c['displayName'] == contact['displayName'])) {
+                  maListeDeContacts.add({
+                    'displayName': contact['displayName'],
+                    'phones': contact['phones'],
+                  });
+                }
               } else {
+                // Optionnel : enlever le contact de la liste si décoché
                 maListeDeContacts.removeWhere(
                     (c) => c['displayName'] == contact['displayName']);
               }
@@ -49,13 +55,15 @@ Widget ContactsPage({required String contactsJson}) {
     ),
     floatingActionButton: FloatingActionButton(
       onPressed: () {
-        // Utilisez maListeDeContacts ici
+        // Utilisez maListeDeContacts ici pour faire quelque chose avec les contacts sélectionnés
         print(maListeDeContacts);
       },
       child: Icon(Icons.check),
     ),
   );
 }
+
+//FIN DE WIDGET
 
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
