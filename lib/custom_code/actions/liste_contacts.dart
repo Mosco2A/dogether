@@ -12,7 +12,9 @@ import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
-List<Map<String, String>> maListeDeContacts = []; // Variable globale
+// Variable globale pour stocker les contacts sélectionnés
+Map<String, String> maListeDeContacts =
+    {}; // Map pour stocker displayName et phones
 
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);
@@ -27,8 +29,7 @@ Widget ContactsPage({required String contactsJson}) {
         var contact = contactsList[index];
 
         // Vérifiez si le contact est déjà dans la liste
-        bool isInList = maListeDeContacts
-            .any((c) => c['displayName'] == contact['displayName']);
+        bool isInList = maListeDeContacts.containsKey(contact['displayName']);
 
         return ListTile(
           title: Text(contact['displayName']),
@@ -37,14 +38,11 @@ Widget ContactsPage({required String contactsJson}) {
             onPressed: () {
               if (isInList) {
                 // Si le contact est déjà dans la liste, le supprimer
-                maListeDeContacts.removeWhere(
-                    (c) => c['displayName'] == contact['displayName']);
+                maListeDeContacts.remove(contact['displayName']);
               } else {
                 // Ajouter le contact s'il n'existe pas déjà
-                maListeDeContacts.add({
-                  'displayName': contact['displayName'],
-                  'phones': contact['phones'].join(', '),
-                });
+                maListeDeContacts[contact['displayName']] =
+                    contact['phones'].join(', ');
               }
               // Mettre à jour l'interface utilisateur
               (context as Element).reassemble();

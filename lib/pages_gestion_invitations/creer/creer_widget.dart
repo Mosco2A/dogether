@@ -116,6 +116,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               FFButtonWidget(
@@ -124,7 +125,8 @@ class _CreerWidgetState extends State<CreerWidget> {
                                     context,
                                   );
                                 },
-                                text: 'Button',
+                                text:
+                                    'Ajouter des contacts depuis votre répertoire',
                                 options: FFButtonOptions(
                                   height: 40.0,
                                   padding: const EdgeInsetsDirectional.fromSTEB(
@@ -142,6 +144,12 @@ class _CreerWidgetState extends State<CreerWidget> {
                                   elevation: 0.0,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
+                              ),
+                              ListView(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                children: const [],
                               ),
                             ],
                           ),
