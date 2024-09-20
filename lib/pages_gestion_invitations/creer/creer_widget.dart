@@ -168,7 +168,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            contactsAjoutesItem.displayName,
+                                            contactsAjoutesIndex.toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
