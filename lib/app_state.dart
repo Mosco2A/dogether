@@ -44,8 +44,8 @@ class FFAppState extends ChangeNotifier {
       _vLigthDark = prefs.getBool('ff_vLigthDark') ?? _vLigthDark;
     });
     _safeInit(() {
-      _dgContacts = prefs
-              .getStringList('ff_dgContacts')
+      _maListeDeContacts = prefs
+              .getStringList('ff_maListeDeContacts')
               ?.map((x) {
                 try {
                   return PhoneContactStruct.fromSerializableMap(jsonDecode(x));
@@ -56,7 +56,7 @@ class FFAppState extends ChangeNotifier {
               })
               .withoutNulls
               .toList() ??
-          _dgContacts;
+          _maListeDeContacts;
     });
   }
 
@@ -143,45 +143,45 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_vLigthDark', value);
   }
 
-  List<PhoneContactStruct> _dgContacts = [];
-  List<PhoneContactStruct> get dgContacts => _dgContacts;
-  set dgContacts(List<PhoneContactStruct> value) {
-    _dgContacts = value;
+  List<PhoneContactStruct> _maListeDeContacts = [];
+  List<PhoneContactStruct> get maListeDeContacts => _maListeDeContacts;
+  set maListeDeContacts(List<PhoneContactStruct> value) {
+    _maListeDeContacts = value;
     prefs.setStringList(
-        'ff_dgContacts', value.map((x) => x.serialize()).toList());
+        'ff_maListeDeContacts', value.map((x) => x.serialize()).toList());
   }
 
-  void addToDgContacts(PhoneContactStruct value) {
-    dgContacts.add(value);
-    prefs.setStringList(
-        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  void addToMaListeDeContacts(PhoneContactStruct value) {
+    maListeDeContacts.add(value);
+    prefs.setStringList('ff_maListeDeContacts',
+        _maListeDeContacts.map((x) => x.serialize()).toList());
   }
 
-  void removeFromDgContacts(PhoneContactStruct value) {
-    dgContacts.remove(value);
-    prefs.setStringList(
-        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  void removeFromMaListeDeContacts(PhoneContactStruct value) {
+    maListeDeContacts.remove(value);
+    prefs.setStringList('ff_maListeDeContacts',
+        _maListeDeContacts.map((x) => x.serialize()).toList());
   }
 
-  void removeAtIndexFromDgContacts(int index) {
-    dgContacts.removeAt(index);
-    prefs.setStringList(
-        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  void removeAtIndexFromMaListeDeContacts(int index) {
+    maListeDeContacts.removeAt(index);
+    prefs.setStringList('ff_maListeDeContacts',
+        _maListeDeContacts.map((x) => x.serialize()).toList());
   }
 
-  void updateDgContactsAtIndex(
+  void updateMaListeDeContactsAtIndex(
     int index,
     PhoneContactStruct Function(PhoneContactStruct) updateFn,
   ) {
-    dgContacts[index] = updateFn(_dgContacts[index]);
-    prefs.setStringList(
-        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+    maListeDeContacts[index] = updateFn(_maListeDeContacts[index]);
+    prefs.setStringList('ff_maListeDeContacts',
+        _maListeDeContacts.map((x) => x.serialize()).toList());
   }
 
-  void insertAtIndexInDgContacts(int index, PhoneContactStruct value) {
-    dgContacts.insert(index, value);
-    prefs.setStringList(
-        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  void insertAtIndexInMaListeDeContacts(int index, PhoneContactStruct value) {
+    maListeDeContacts.insert(index, value);
+    prefs.setStringList('ff_maListeDeContacts',
+        _maListeDeContacts.map((x) => x.serialize()).toList());
   }
 }
 

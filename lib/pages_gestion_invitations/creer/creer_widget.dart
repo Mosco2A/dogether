@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 import 'creer_model.dart';
 export 'creer_model.dart';
 
@@ -39,6 +40,8 @@ class _CreerWidgetState extends State<CreerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -145,11 +148,46 @@ class _CreerWidgetState extends State<CreerWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
-                              ListView(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: const [],
+                              Builder(
+                                builder: (context) {
+                                  final contactsAjoutes =
+                                      FFAppState().maListeDeContacts.toList();
+
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: contactsAjoutes.length,
+                                    itemBuilder:
+                                        (context, contactsAjoutesIndex) {
+                                      final contactsAjoutesItem =
+                                          contactsAjoutes[contactsAjoutesIndex];
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            contactsAjoutesItem.displayName,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            contactsAjoutesItem.phone,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Inter',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ],
                           ),
