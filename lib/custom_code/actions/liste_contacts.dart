@@ -13,8 +13,7 @@ import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
 // Variable globale pour stocker les contacts sélectionnés
-Map<String, String> maListeDeContacts =
-    {}; // Map pour stocker displayName et phones
+// Map<String, String> maListeDeContacts = {}; // Map pour stocker displayName et phones
 
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);

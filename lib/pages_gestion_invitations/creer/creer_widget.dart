@@ -164,6 +164,8 @@ class _CreerWidgetState extends State<CreerWidget> {
                                           contactsAjoutes[contactsAjoutesIndex];
                                       return Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             contactsAjoutesItem.displayName,
