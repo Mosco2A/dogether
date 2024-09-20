@@ -161,6 +161,67 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                     Container(
                       width: MediaQuery.sizeOf(context).width * 0.95,
                       decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Builder(
+                              builder: (context) {
+                                final listView = widget.contactsJson!.toList();
+
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listView.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewItem =
+                                        listView[listViewIndex];
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          getJsonField(
+                                            listViewItem,
+                                            r'''$.displayName''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Text(
+                                          getJsonField(
+                                            listViewItem,
+                                            r'''$.phones''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 0.95,
+                      decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
                     ),
