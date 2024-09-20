@@ -57,7 +57,8 @@ class ContactsPage extends StatelessWidget {
                 (context as Element).reassemble();
               },
               style: ElevatedButton.styleFrom(
-                primary: isInList ? Colors.red : Colors.blue,
+                backgroundColor:
+                    isInList ? Colors.red : Colors.blue, // Changement ici
               ),
               child: Text(isInList ? 'Enlever' : 'Ajouter'),
             ),
