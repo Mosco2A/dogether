@@ -9,64 +9,73 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:convert';
-import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
-import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
+import 'package:fast_contacts/fast_contacts.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-// Variable globale pour stocker les contacts sélectionnés
-// Map<String, String> maListeDeContacts = {}; // Map pour stocker displayName et phones
+// Déclaration de la variable globale
+List<Map<String, String>> maListeDeContacts = [];
 
-Widget ContactsPage({required String contactsJson}) {
-  List<dynamic> contactsList = jsonDecode(contactsJson);
+class ContactsPage extends StatefulWidget {
+  final String contactsJson;
 
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Liste des Contacts'),
-    ),
-    body: ListView.builder(
-      itemCount: contactsList.length,
-      itemBuilder: (context, index) {
-        var contact = contactsList[index];
+  ContactsPage({required this.contactsJson});
 
-        // Vérifiez si le contact est déjà dans la liste
-        bool isInList = maListeDeContacts.containsKey(contact['displayName']);
-
-        return ListTile(
-          title: Text(contact['displayName']),
-          subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
-          trailing: ElevatedButton(
-            onPressed: () {
-              if (isInList) {
-                // Si le contact est déjà dans la liste, le supprimer
-                maListeDeContacts.remove(contact['displayName']);
-              } else {
-                // Ajouter le contact s'il n'existe pas déjà
-                maListeDeContacts[contact['displayName']] =
-                    contact['phones'].join(', ');
-              }
-              // Mettre à jour l'interface utilisateur
-              (context as Element).reassemble();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: isInList
-                  ? Colors.red
-                  : Colors.blue, // Utilisez backgroundColor
-            ),
-            child: Text(isInList ? 'Enlever' : 'Ajouter'),
-          ),
-        );
-      },
-    ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        // Utilisez maListeDeContacts ici pour faire quelque chose avec les contacts sélectionnés
-        print(maListeDeContacts);
-      },
-      child: Icon(Icons.check),
-    ),
-  );
+  @override
+  _ContactsPageState createState() => _ContactsPageState();
 }
 
-// FIN DE WIDGET
+class _ContactsPageState extends State<ContactsPage> {
+  @override
+  Widget build(BuildContext context) {
+    List<dynamic> contactsList = jsonDecode(widget.contactsJson);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Liste des Contacts'),
+      ),
+      body: ListView.builder(
+        itemCount: contactsList.length,
+        itemBuilder: (context, index) {
+          var contact = contactsList[index];
+          // Vérifiez si le contact est déjà dans la liste
+          bool isInList = maListeDeContacts
+              .any((c) => c['displayName'] == contact['displayName']);
+
+          return ListTile(
+            title: Text(contact['displayName']),
+            subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
+            trailing: ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  if (isInList) {
+                    maListeDeContacts.removeWhere(
+                        (c) => c['displayName'] == contact['displayName']);
+                  } else {
+                    maListeDeContacts.add({
+                      'displayName': contact['displayName'],
+                      'phones': contact['phones'].join(', '),
+                    });
+                  }
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor:
+                    isInList ? Colors.red : Colors.blue, // Changement ici
+              ),
+              child: Text(isInList ? 'Enlever' : 'Ajouter'),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print(maListeDeContacts); // Affiche les contacts sélectionnés
+        },
+        child: Icon(Icons.check),
+      ),
+    );
+  }
+}
 
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
@@ -83,35 +92,17 @@ Future<void> listeContacts(BuildContext context) async {
       contactsList.add({
         'displayName': contact.displayName,
         'phones': contact.phones.map((e) => e.number).toList(),
-        'emails': contact.emails.map((e) => e.address).toList(),
-        'nameParts': {
-          'prefix': contact.structuredName?.namePrefix ?? '',
-          'givenName': contact.structuredName?.givenName ?? '',
-          'middleName': contact.structuredName?.middleName ?? '',
-          'familyName': contact.structuredName?.familyName ?? '',
-          'suffix': contact.structuredName?.nameSuffix ?? '',
-        },
-        'organization': {
-          'company': contact.organization?.company ?? '',
-          'department': contact.organization?.department ?? '',
-          'jobDescription': contact.organization?.jobDescription ?? '',
-        }
       });
     }
 
-    // Convertir la liste des contacts en JSON
     String contactsJson = jsonEncode(contactsList);
 
-    // Naviguer vers la page cible en passant le JSON
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ContactsPage(
-            contactsJson:
-                contactsJson), // Assurez-vous que ce widget est bien défini
+        builder: (context) => ContactsPage(contactsJson: contactsJson),
       ),
     );
   } catch (e) {
-    // Gérer l'erreur ici
     print('Failed to get contacts: ${e.toString()}');
   }
 }
