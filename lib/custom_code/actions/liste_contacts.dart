@@ -12,11 +12,11 @@ import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
+// Variable globale pour stocker les contacts sélectionnés
 List<Map<String, String>> maListeDeContacts = [];
 
 Widget ContactsPage({required String contactsJson}) {
   List<dynamic> contactsList = jsonDecode(contactsJson);
-  List<Map<String, dynamic>> maListeDeContacts = []; // Variable globale
 
   return Scaffold(
     appBar: AppBar(
@@ -44,9 +44,11 @@ Widget ContactsPage({required String contactsJson}) {
                 // Ajouter le contact s'il n'existe pas déjà
                 maListeDeContacts.add({
                   'displayName': contact['displayName'],
-                  'phones': contact['phones'],
+                  'phones': contact['phones'].join(', '),
                 });
               }
+              // Mettre à jour l'interface utilisateur
+              (context as Element).reassemble();
             },
             style: ElevatedButton.styleFrom(
               primary: isInList
@@ -68,7 +70,7 @@ Widget ContactsPage({required String contactsJson}) {
   );
 }
 
-//FIN DE WIDGET
+// FIN DE WIDGET
 
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
@@ -107,9 +109,7 @@ Future<void> listeContacts(BuildContext context) async {
     // Naviguer vers la page cible en passant le JSON
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ContactsPage(
-            contactsJson:
-                contactsJson), // Assurez-vous que ce widget est bien défini
+        builder: (context) => ContactsPage(contactsJson: contactsJson),
       ),
     );
   } catch (e) {
