@@ -27,11 +27,7 @@ class _CreerWidgetState extends State<CreerWidget> {
     _model = createModel(context, () => CreerModel());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.listeContacts(
-        context,
-      );
-    });
+    SchedulerBinding.instance.addPostFrameCallback((_) async {});
   }
 
   @override

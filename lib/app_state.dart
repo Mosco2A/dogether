@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/backend/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -41,6 +42,21 @@ class FFAppState extends ChangeNotifier {
     });
     _safeInit(() {
       _vLigthDark = prefs.getBool('ff_vLigthDark') ?? _vLigthDark;
+    });
+    _safeInit(() {
+      _dgContacts = prefs
+              .getStringList('ff_dgContacts')
+              ?.map((x) {
+                try {
+                  return PhoneContactStruct.fromSerializableMap(jsonDecode(x));
+                } catch (e) {
+                  print("Can't decode persisted data type. Error: $e.");
+                  return null;
+                }
+              })
+              .withoutNulls
+              .toList() ??
+          _dgContacts;
     });
   }
 
@@ -125,6 +141,47 @@ class FFAppState extends ChangeNotifier {
   set vLigthDark(bool value) {
     _vLigthDark = value;
     prefs.setBool('ff_vLigthDark', value);
+  }
+
+  List<PhoneContactStruct> _dgContacts = [];
+  List<PhoneContactStruct> get dgContacts => _dgContacts;
+  set dgContacts(List<PhoneContactStruct> value) {
+    _dgContacts = value;
+    prefs.setStringList(
+        'ff_dgContacts', value.map((x) => x.serialize()).toList());
+  }
+
+  void addToDgContacts(PhoneContactStruct value) {
+    dgContacts.add(value);
+    prefs.setStringList(
+        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  }
+
+  void removeFromDgContacts(PhoneContactStruct value) {
+    dgContacts.remove(value);
+    prefs.setStringList(
+        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  }
+
+  void removeAtIndexFromDgContacts(int index) {
+    dgContacts.removeAt(index);
+    prefs.setStringList(
+        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  }
+
+  void updateDgContactsAtIndex(
+    int index,
+    PhoneContactStruct Function(PhoneContactStruct) updateFn,
+  ) {
+    dgContacts[index] = updateFn(_dgContacts[index]);
+    prefs.setStringList(
+        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
+  }
+
+  void insertAtIndexInDgContacts(int index, PhoneContactStruct value) {
+    dgContacts.insert(index, value);
+    prefs.setStringList(
+        'ff_dgContacts', _dgContacts.map((x) => x.serialize()).toList());
   }
 }
 

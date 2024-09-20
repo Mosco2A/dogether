@@ -12,8 +12,8 @@ import 'dart:convert';
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
+List<Map<String, String>> maListeDeContacts = [];
 Widget ContactsPage({required String contactsJson}) {
-  // Convertir le JSON en liste
   List<dynamic> contactsList = jsonDecode(contactsJson);
 
   return Scaffold(
@@ -24,18 +24,35 @@ Widget ContactsPage({required String contactsJson}) {
       itemCount: contactsList.length,
       itemBuilder: (context, index) {
         var contact = contactsList[index];
+        bool isSelected = false;
+
         return ListTile(
           title: Text(contact['displayName']),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Phones: ${contact['phones'].join(', ')}'),
-              Text('Emails: ${contact['emails'].join(', ')}'),
-              Text('Organization: ${contact['organization']['company']}'),
-            ],
+          subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
+          trailing: Checkbox(
+            value: isSelected,
+            onChanged: (value) {
+              isSelected = value!;
+              if (isSelected) {
+                maListeDeContacts.add({
+                  'displayName': contact['displayName'],
+                  'phone': contact['phones'].first, // Prend le premier numéro
+                });
+              } else {
+                maListeDeContacts.removeWhere(
+                    (c) => c['displayName'] == contact['displayName']);
+              }
+            },
           ),
         );
       },
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        // Utilisez maListeDeContacts ici
+        print(maListeDeContacts);
+      },
+      child: Icon(Icons.check),
     ),
   );
 }
