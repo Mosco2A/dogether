@@ -1,7 +1,9 @@
+import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -99,145 +101,148 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 0.95,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 10.0),
-                            child: Text(
-                              'Créer un contact',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleLarge
-                                  .override(
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.95,
+                height: MediaQuery.sizeOf(context).height * 0.6,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 10.0, 0.0, 10.0),
+                        child: Text(
+                          'Dogether Contacts',
+                          style:
+                              FlutterFlowTheme.of(context).labelLarge.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                            ),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Text(
-                                  'Depuis vos contact',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        letterSpacing: 0.0,
-                                      ),
+                        ),
+                      ),
+                      StreamBuilder<List<MyContactsRecord>>(
+                        stream: queryMyContactsRecord(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
-                              Align(
-                                alignment: AlignmentDirectional(-1.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Text(
-                                    '',
+                            );
+                          }
+                          List<MyContactsRecord> listViewMyContactsRecordList =
+                              snapshot.data!;
+
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewMyContactsRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewMyContactsRecord =
+                                  listViewMyContactsRecordList[listViewIndex];
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    listViewMyContactsRecord.name,
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .override(
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 0.95,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Builder(
-                              builder: (context) {
-                                final listView = widget!.contactsJson!.toList();
-
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listView.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewItem =
-                                        listView[listViewIndex];
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          getJsonField(
-                                            listViewItem,
-                                            r'''$.displayName''',
-                                          ).toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
+                                  Text(
+                                    listViewMyContactsRecord.phone,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
                                         ),
-                                        Text(
-                                          getJsonField(
-                                            listViewItem,
-                                            r'''$.phones''',
-                                          ).toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.95,
+                height: MediaQuery.sizeOf(context).height * 0.12,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                      child: Text(
+                        'Vous pouvez ajouter des contacts depuis votre répertoire.',
+                        style: FlutterFlowTheme.of(context).labelLarge.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
                             ),
-                          ),
-                        ],
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 0.95,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                    Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          await actions.listeContacts(
+                            context,
+                          );
+                        },
+                        text: 'Ajouter',
+                        options: FFButtonOptions(
+                          width: 120.0,
+                          height: 30.0,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 0.0),
+                          color: Color(0xFF4B39EF),
+                          textStyle:
+                              FlutterFlowTheme.of(context).titleLarge.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                          elevation: 3.0,
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: wrapWithModel(
-                  model: _model.bottomBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: BottomBarWidget(),
-                ),
+              wrapWithModel(
+                model: _model.bottomBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: BottomBarWidget(),
               ),
             ],
           ),

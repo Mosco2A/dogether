@@ -125,30 +125,41 @@ class _CreerWidgetState extends State<CreerWidget> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  await actions.listeContacts(
-                                    context,
-                                  );
-                                },
-                                text:
-                                    'Ajouter des contacts depuis votre répertoire',
-                                options: FFButtonOptions(
-                                  height: 40.0,
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).secondary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
+                                      0.0, 0.0, 0.0, 16.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      await actions.listeContacts(
+                                        context,
+                                      );
+                                    },
+                                    text: 'Ajouter',
+                                    options: FFButtonOptions(
+                                      width: 230.0,
+                                      height: 52.0,
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color: Color(0xFF4B39EF),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 3.0,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1.0,
                                       ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                  ),
                                 ),
                               ),
                               StreamBuilder<List<MyContactsRecord>>(
