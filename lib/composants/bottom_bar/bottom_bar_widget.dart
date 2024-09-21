@@ -156,16 +156,6 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                          'Creer',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.leftToRight,
-                            ),
-                          },
-                        );
-
                         await showDialog(
                           context: context,
                           builder: (dialogContext) {
@@ -177,6 +167,16 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                                   .resolve(Directionality.of(context)),
                               child: CreateInvitationWidget(),
                             );
+                          },
+                        );
+
+                        context.pushNamed(
+                          'Creer',
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.leftToRight,
+                            ),
                           },
                         );
                       },
