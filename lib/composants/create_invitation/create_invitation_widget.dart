@@ -259,6 +259,16 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       ),
                     ));
 
+                    context.pushNamed(
+                      'Creer',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.leftToRight,
+                        ),
+                      },
+                    );
+
                     safeSetState(() {});
                   },
                   text: 'Créer',

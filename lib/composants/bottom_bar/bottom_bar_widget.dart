@@ -169,16 +169,6 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                             );
                           },
                         );
-
-                        context.pushNamed(
-                          'Creer',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.leftToRight,
-                            ),
-                          },
-                        );
                       },
                       child: Container(
                         constraints: BoxConstraints(
