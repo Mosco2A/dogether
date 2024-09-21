@@ -3,9 +3,12 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:math';
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'auth_tel_model.dart';
 export 'auth_tel_model.dart';
@@ -60,8 +63,8 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
             curve: Curves.easeInOut,
             delay: 300.0.ms,
             duration: 400.0.ms,
-            begin: const Offset(0.0, 20.0),
-            end: const Offset(0.0, 0.0),
+            begin: Offset(0.0, 20.0),
+            end: Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -91,7 +94,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 16.0),
                   child: Text(
                     'DoGether',
                     style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -101,10 +104,10 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                   ),
                 ),
                 Align(
-                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.0, -1.0),
                   child: Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +124,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                         ),
                         if (!FFAppState().vEnvVarSet)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 24.0),
                             child: Text(
                               'Vous n\'avez besoin que d\'un numéro de téléphone pour vous inscrire (ou vous connecter si vous avez déja un compte).',
@@ -136,7 +139,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                           ),
                         if (FFAppState().vEnvVarSet)
                           Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
+                            padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 24.0),
                             child: Text(
                               'Vous avez déja un compte. Vous ne pouvez en modifier ses attribut qu\'après connexion.',
@@ -159,15 +162,15 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
-                                child: SizedBox(
+                                child: Container(
                                   width: double.infinity,
                                   child: TextFormField(
                                     controller: _model.prenomTextController,
                                     focusNode: _model.prenomFocusNode,
                                     autofocus: true,
-                                    autofillHints: const [AutofillHints.name],
+                                    autofillHints: [AutofillHints.name],
                                     readOnly: FFAppState().vEnvVarSet,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -184,7 +187,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           ),
                                       hintText: 'Saisissez votre prénom',
                                       enabledBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
                                         ),
@@ -192,7 +195,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
                                         ),
@@ -200,7 +203,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       errorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -208,7 +211,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -217,7 +220,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      contentPadding: const EdgeInsets.all(24.0),
+                                      contentPadding: EdgeInsets.all(24.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
@@ -225,7 +228,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
                                         ),
-                                    cursorColor: const Color(0xFF4B39EF),
+                                    cursorColor: Color(0xFF4B39EF),
                                     validator: _model
                                         .prenomTextControllerValidator
                                         .asValidator(context),
@@ -233,15 +236,15 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
-                                child: SizedBox(
+                                child: Container(
                                   width: double.infinity,
                                   child: TextFormField(
                                     controller: _model.nomTextController,
                                     focusNode: _model.nomFocusNode,
                                     autofocus: true,
-                                    autofillHints: const [AutofillHints.name],
+                                    autofillHints: [AutofillHints.name],
                                     readOnly: FFAppState().vEnvVarSet,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -259,7 +262,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       hintText:
                                           'Saisissez votre nom ou votre pseudo',
                                       enabledBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
                                         ),
@@ -267,7 +270,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
                                         ),
@@ -275,7 +278,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       errorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -283,7 +286,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -292,7 +295,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      contentPadding: const EdgeInsets.all(24.0),
+                                      contentPadding: EdgeInsets.all(24.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
@@ -301,23 +304,23 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           letterSpacing: 0.0,
                                         ),
                                     keyboardType: TextInputType.name,
-                                    cursorColor: const Color(0xFF4B39EF),
+                                    cursorColor: Color(0xFF4B39EF),
                                     validator: _model.nomTextControllerValidator
                                         .asValidator(context),
                                   ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 16.0),
-                                child: SizedBox(
+                                child: Container(
                                   width: double.infinity,
                                   child: TextFormField(
                                     controller:
                                         _model.phoneNumberTextController,
                                     focusNode: _model.phoneNumberFocusNode,
                                     autofocus: true,
-                                    autofillHints: const [
+                                    autofillHints: [
                                       AutofillHints.telephoneNumber
                                     ],
                                     readOnly: FFAppState().vEnvVarSet,
@@ -337,7 +340,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       hintText:
                                           'Saisissez un numéro type; +33611459151',
                                       enabledBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFE0E3E7),
                                           width: 2.0,
                                         ),
@@ -345,7 +348,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFF4B39EF),
                                           width: 2.0,
                                         ),
@@ -353,7 +356,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       errorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -361,7 +364,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             BorderRadius.circular(12.0),
                                       ),
                                       focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide: const BorderSide(
+                                        borderSide: BorderSide(
                                           color: Color(0xFFFF5963),
                                           width: 2.0,
                                         ),
@@ -370,7 +373,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       ),
                                       filled: true,
                                       fillColor: Colors.white,
-                                      contentPadding: const EdgeInsets.all(24.0),
+                                      contentPadding: EdgeInsets.all(24.0),
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyLarge
@@ -380,7 +383,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         ),
                                     maxLength: 12,
                                     keyboardType: TextInputType.phone,
-                                    cursorColor: const Color(0xFF4B39EF),
+                                    cursorColor: Color(0xFF4B39EF),
                                     validator: _model
                                         .phoneNumberTextControllerValidator
                                         .asValidator(context),
@@ -388,20 +391,20 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                 ),
                               ),
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      var shouldSetState = false;
+                                      var _shouldSetState = false;
                                       _model.resultValidateForm = true;
                                       if (_model.formKey.currentState == null ||
                                           !_model.formKey.currentState!
                                               .validate()) {
                                         _model.resultValidateForm = false;
                                       }
-                                      shouldSetState = true;
+                                      _shouldSetState = true;
                                       if (_model.resultValidateForm!) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
@@ -415,7 +418,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .secondary,
@@ -435,15 +438,14 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                               ),
                                             ),
                                             duration:
-                                                const Duration(milliseconds: 4000),
+                                                Duration(milliseconds: 4000),
                                             backgroundColor:
                                                 FlutterFlowTheme.of(context)
                                                     .error,
                                           ),
                                         );
-                                        if (shouldSetState) {
+                                        if (_shouldSetState)
                                           safeSetState(() {});
-                                        }
                                         return;
                                       }
 
@@ -480,11 +482,12 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       safeSetState(() {});
                                       final phoneNumberVal =
                                           _model.phoneNumberTextController.text;
-                                      if (phoneNumberVal.isEmpty ||
+                                      if (phoneNumberVal == null ||
+                                          phoneNumberVal.isEmpty ||
                                           !phoneNumberVal.startsWith('+')) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
-                                          const SnackBar(
+                                          SnackBar(
                                             content: Text(
                                                 'Phone Number is required and has to start with +.'),
                                           ),
@@ -503,18 +506,18 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         },
                                       );
 
-                                      if (shouldSetState) safeSetState(() {});
+                                      if (_shouldSetState) safeSetState(() {});
                                     },
                                     text: 'Connexion',
                                     options: FFButtonOptions(
                                       width: 230.0,
                                       height: 52.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 0.0),
                                       iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
+                                          EdgeInsetsDirectional.fromSTEB(
                                               0.0, 0.0, 0.0, 0.0),
-                                      color: const Color(0xFF4B39EF),
+                                      color: Color(0xFF4B39EF),
                                       textStyle: FlutterFlowTheme.of(context)
                                           .titleLarge
                                           .override(
@@ -522,7 +525,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                             letterSpacing: 0.0,
                                           ),
                                       elevation: 3.0,
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1.0,
                                       ),
@@ -542,7 +545,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                 if (!FFAppState().vEnvVarSet)
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -556,13 +559,13 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Align(
-                                alignment: const AlignmentDirectional(-1.0, 0.0),
+                                alignment: AlignmentDirectional(-1.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 10.0),
                                       child: Container(
                                         width:
@@ -576,7 +579,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsetsDirectional
+                                              padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 10.0),
                                               child: Text(
@@ -592,10 +595,10 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                               ),
                                             ),
                                             Align(
-                                              alignment: const AlignmentDirectional(
+                                              alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Padding(
-                                                padding: const EdgeInsetsDirectional
+                                                padding: EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 0.0, 16.0),
                                                 child: FFButtonWidget(
@@ -606,11 +609,11 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                                   text: 'Récupérer mon compte',
                                                   options: FFButtonOptions(
                                                     padding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     iconPadding:
-                                                        const EdgeInsetsDirectional
+                                                        EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
                                                                 0.0, 0.0),
                                                     color: FlutterFlowTheme.of(
@@ -624,7 +627,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                                           letterSpacing: 0.0,
                                                         ),
                                                     elevation: 3.0,
-                                                    borderSide: const BorderSide(
+                                                    borderSide: BorderSide(
                                                       color: Colors.transparent,
                                                       width: 1.0,
                                                     ),
@@ -651,7 +654,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
+                                      alignment: AlignmentDirectional(1.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -659,7 +662,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 1.0),
+                                                AlignmentDirectional(1.0, 1.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -681,7 +684,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 1.0),
+                                                AlignmentDirectional(1.0, 1.0),
                                             child: Text(
                                               'Mode jour/nuit',
                                               style:
@@ -695,7 +698,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 1.0),
+                                                AlignmentDirectional(1.0, 1.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
@@ -719,7 +722,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                       ),
                                     ),
                                     Align(
-                                      alignment: const AlignmentDirectional(1.0, 0.0),
+                                      alignment: AlignmentDirectional(1.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -727,7 +730,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                         children: [
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 1.0),
+                                                AlignmentDirectional(1.0, 1.0),
                                             child: Text(
                                               'Se deconnecter',
                                               style:
@@ -741,7 +744,7 @@ class _AuthTelWidgetState extends State<AuthTelWidget>
                                           ),
                                           Align(
                                             alignment:
-                                                const AlignmentDirectional(1.0, 1.0),
+                                                AlignmentDirectional(1.0, 1.0),
                                             child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,

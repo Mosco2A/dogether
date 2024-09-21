@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -5,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'creer_model.dart';
 export 'creer_model.dart';
@@ -55,7 +57,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: const BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +74,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                             ),
                       ),
                       Container(
-                        constraints: const BoxConstraints(
+                        constraints: BoxConstraints(
                           minWidth: 60.0,
                         ),
                         decoration: BoxDecoration(
@@ -94,7 +96,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                     ],
                   ),
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -132,9 +134,9 @@ class _CreerWidgetState extends State<CreerWidget> {
                                     'Ajouter des contacts depuis votre répertoire',
                                 options: FFButtonOptions(
                                   height: 40.0,
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).secondary,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -198,11 +200,11 @@ class _CreerWidgetState extends State<CreerWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.0, 1.0),
+                    alignment: AlignmentDirectional(0.0, 1.0),
                     child: wrapWithModel(
                       model: _model.bottomBarModel,
                       updateCallback: () => safeSetState(() {}),
-                      child: const BottomBarWidget(),
+                      child: BottomBarWidget(),
                     ),
                   ),
                 ],

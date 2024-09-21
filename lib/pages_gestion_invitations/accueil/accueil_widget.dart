@@ -3,10 +3,13 @@ import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/permissions_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'accueil_model.dart';
 export 'accueil_model.dart';
@@ -88,7 +91,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                               ),
                     ),
                     Align(
-                      alignment: const AlignmentDirectional(1.0, 1.0),
+                      alignment: AlignmentDirectional(1.0, 1.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -97,7 +100,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                         onTap: () async {
                           context.pushNamed('Profil');
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.person,
                           color: Colors.white,
                           size: 40.0,
@@ -106,7 +109,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                     ),
                   ],
                 ),
-                actions: const [],
+                actions: [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -137,13 +140,13 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Align(
-                              alignment: const AlignmentDirectional(1.0, 0.0),
+                              alignment: AlignmentDirectional(1.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -162,7 +165,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     child: Text(
                                       'Mode jour/nuit',
                                       style: FlutterFlowTheme.of(context)
@@ -174,7 +177,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -196,13 +199,13 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(1.0, 0.0),
+                              alignment: AlignmentDirectional(1.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     child: Text(
                                       'Se deconnecter',
                                       style: FlutterFlowTheme.of(context)
@@ -214,7 +217,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                                     ),
                                   ),
                                   Align(
-                                    alignment: const AlignmentDirectional(1.0, 1.0),
+                                    alignment: AlignmentDirectional(1.0, 1.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -247,11 +250,11 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                 ),
               ),
               Align(
-                alignment: const AlignmentDirectional(0.0, 1.0),
+                alignment: AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: const BottomBarWidget(),
+                  child: BottomBarWidget(),
                 ),
               ),
             ],
