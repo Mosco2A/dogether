@@ -35,9 +35,17 @@ class _ContactsPageState extends State<ContactsPage> {
   void loadContacts() async {
     final prefs = await SharedPreferences.getInstance();
     final String? contactsJson = prefs.getString('maListeDeContacts');
+
+    // Vider la liste avant de charger
+    maListeDeContacts.clear();
+
     if (contactsJson != null) {
-      List<dynamic> loadedContacts = jsonDecode(contactsJson);
-      maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+      try {
+        List<dynamic> loadedContacts = jsonDecode(contactsJson);
+        maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+      } catch (e) {
+        print('Erreur lors du chargement des contacts : $e');
+      }
     }
   }
 
@@ -104,12 +112,16 @@ class _ContactsPageState extends State<ContactsPage> {
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
 
-  try {
-    var permissionStatus = await Permission.contacts.request();
-    if (permissionStatus != PermissionStatus.granted) {
-      return; // Permission refusée, rien à faire
-    }
+  // Vérifier et demander les permissions
+  PermissionStatus permissionStatus = await _getContactPermission();
 
+  if (permissionStatus != PermissionStatus.granted) {
+    // Si les permissions ne sont toujours pas accordées, quitter
+    return;
+  }
+
+  try {
+    // Récupérer les contacts après que les permissions aient été accordées
     List<Contact> contacts = await FastContacts.getAllContacts();
     for (var contact in contacts) {
       contactsList.add({
@@ -130,4 +142,24 @@ Future<void> listeContacts(BuildContext context) async {
   } catch (e) {
     print('Failed to get contacts: ${e.toString()}');
   }
+}
+
+// Fonction pour vérifier et demander les permissions
+Future<PermissionStatus> _getContactPermission() async {
+  // Vérifier si la permission a déjà été accordée
+  var status = await Permission.contacts.status;
+
+  if (status.isDenied || status.isPermanentlyDenied) {
+    // Demander à l'utilisateur s'il a refusé ou refusé de façon permanente
+    PermissionStatus newStatus = await Permission.contacts.request();
+
+    if (newStatus.isPermanentlyDenied) {
+      // Si refus permanent, ouvrir les paramètres pour l'autoriser manuellement
+      await openAppSettings();
+    }
+
+    return newStatus;
+  }
+
+  return status;
 }
