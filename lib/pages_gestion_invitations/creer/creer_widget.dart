@@ -114,113 +114,115 @@ class _CreerWidgetState extends State<CreerWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        StreamBuilder<List<MyContactsRecord>>(
-                          stream: queryMyContactsRecord(),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 0.95,
+                          height: MediaQuery.sizeOf(context).height * 0.6,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 10.0),
+                                      child: Text(
+                                        'Dogether Contacts',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }
-                            List<MyContactsRecord>
-                                containerMyContactsRecordList = snapshot.data!;
-
-                            return Container(
-                              width: MediaQuery.sizeOf(context).width * 0.95,
-                              height: MediaQuery.sizeOf(context).height * 0.6,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 10.0),
-                                          child: Text(
-                                            'Dogether Contacts',
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily: 'Inter',
-                                                  letterSpacing: 0.0,
+                                    StreamBuilder<List<MyContactsRecord>>(
+                                      stream: queryMyContactsRecord(),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                                 ),
-                                          ),
-                                        ),
-                                        Builder(
-                                          builder: (context) {
-                                            final listviewContacts =
-                                                containerMyContactsRecordList
-                                                    .toList();
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<MyContactsRecord>
+                                            listViewMyContactsRecordList =
+                                            snapshot.data!;
 
-                                            return ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.vertical,
-                                              itemCount:
-                                                  listviewContacts.length,
-                                              itemBuilder: (context,
-                                                  listviewContactsIndex) {
-                                                final listviewContactsItem =
-                                                    listviewContacts[
-                                                        listviewContactsIndex];
-                                                return Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      listviewContactsItem.name,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                    Text(
-                                                      listviewContactsItem
-                                                          .phone,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount:
+                                              listViewMyContactsRecordList
+                                                  .length,
+                                          itemBuilder:
+                                              (context, listViewIndex) {
+                                            final listViewMyContactsRecord =
+                                                listViewMyContactsRecordList[
+                                                    listViewIndex];
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  valueOrDefault<String>(
+                                                    listViewMyContactsRecord
+                                                        .name,
+                                                    'Vide',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  valueOrDefault<String>(
+                                                    listViewMyContactsRecord
+                                                        .phone,
+                                                    'Vide',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ],
                                             );
                                           },
-                                        ),
-                                      ],
+                                        );
+                                      },
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            );
-                          },
+                            ],
+                          ),
                         ),
                         Container(
                           width: MediaQuery.sizeOf(context).width * 0.95,

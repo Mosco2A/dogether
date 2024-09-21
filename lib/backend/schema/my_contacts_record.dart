@@ -16,19 +16,19 @@ class MyContactsRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "Name" field.
+  // "name" field.
   String? _name;
   String get name => _name ?? '';
   bool hasName() => _name != null;
 
-  // "Phone" field.
+  // "phone" field.
   String? _phone;
   String get phone => _phone ?? '';
   bool hasPhone() => _phone != null;
 
   void _initializeFields() {
-    _name = snapshotData['Name'] as String?;
-    _phone = snapshotData['Phone'] as String?;
+    _name = snapshotData['name'] as String?;
+    _phone = snapshotData['phone'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -71,8 +71,8 @@ Map<String, dynamic> createMyContactsRecordData({
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'Name': name,
-      'Phone': phone,
+      'name': name,
+      'phone': phone,
     }.withoutNulls,
   );
 

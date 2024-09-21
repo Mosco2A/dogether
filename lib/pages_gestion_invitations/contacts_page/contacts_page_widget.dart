@@ -159,7 +159,10 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    listViewMyContactsRecord!.name,
+                                    valueOrDefault<String>(
+                                      listViewMyContactsRecord?.name,
+                                      'Vide',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -168,7 +171,10 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                         ),
                                   ),
                                   Text(
-                                    listViewMyContactsRecord!.phone,
+                                    valueOrDefault<String>(
+                                      listViewMyContactsRecord?.phone,
+                                      'Vide',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
