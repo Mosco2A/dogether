@@ -18,6 +18,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class ContactsPage extends StatefulWidget {
   final String contactsJson;
+
   ContactsPage({required this.contactsJson});
 
   @override
@@ -33,8 +34,10 @@ class _ContactsPageState extends State<ContactsPage> {
 
   void loadContacts() async {
     final String? contactsJson = widget.contactsJson;
+
     // Vider la liste avant de charger
     maListeDeContacts.clear();
+
     if (contactsJson != null) {
       try {
         List<dynamic> loadedContacts = jsonDecode(contactsJson);
@@ -90,8 +93,7 @@ class _ContactsPageState extends State<ContactsPage> {
 
               return ListTile(
                 title: Text(contact['displayName']),
-                subtitle:
-                    Text('Phone: ${_getFirstMobileNumber(contact['phones'])}'),
+                subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
                 trailing: ElevatedButton(
                   onPressed: () async {
                     setState(() {
@@ -101,7 +103,7 @@ class _ContactsPageState extends State<ContactsPage> {
                       } else {
                         // Ajouter le contact s'il n'existe pas déjà
                         _addContactToFirestore(contact['displayName'],
-                            _getFirstMobileNumber(contact['phones']));
+                            contact['phones'].join(', '));
                       }
                       loadContacts(); // Recharge les contacts après modification
                     });
@@ -124,20 +126,6 @@ class _ContactsPageState extends State<ContactsPage> {
       ),
     );
   }
-
-  // Fonction pour obtenir le premier numéro mobile valide
-  String _getFirstMobileNumber(List<dynamic> phones) {
-    for (var phone in phones) {
-      String number = phone.number;
-      if (number.startsWith('+337') ||
-          number.startsWith('+336') ||
-          number.startsWith('06') ||
-          number.startsWith('07')) {
-        return number; // Retourner le numéro valide
-      }
-    }
-    return 'Aucun numéro mobile'; // Retourne un message si aucun mobile trouvé
-  }
 }
 
 Future<void> listeContacts(BuildContext context) async {
@@ -145,6 +133,7 @@ Future<void> listeContacts(BuildContext context) async {
 
   // Vérifier et demander les permissions
   PermissionStatus permissionStatus = await _getContactPermission();
+
   if (permissionStatus != PermissionStatus.granted) {
     // Si les permissions ne sont toujours pas accordées, quitter
     return;
@@ -156,12 +145,13 @@ Future<void> listeContacts(BuildContext context) async {
     for (var contact in contacts) {
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': contact.phones,
+        'phones': contact.phones.map((e) => e.number).toList(),
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
 
     String contactsJson = jsonEncode(contactsList);
+
     // Naviguer vers la page cible en passant le JSON
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -177,14 +167,18 @@ Future<void> listeContacts(BuildContext context) async {
 Future<PermissionStatus> _getContactPermission() async {
   // Vérifier si la permission a déjà été accordée
   var status = await Permission.contacts.status;
+
   if (status.isDenied || status.isPermanentlyDenied) {
     // Demander à l'utilisateur s'il a refusé ou refusé de façon permanente
     PermissionStatus newStatus = await Permission.contacts.request();
+
     if (newStatus.isPermanentlyDenied) {
       // Si refus permanent, ouvrir les paramètres pour l'autoriser manuellement
       await openAppSettings();
     }
+
     return newStatus;
   }
+
   return status;
 }
