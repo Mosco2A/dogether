@@ -65,15 +65,16 @@ class _ContactsPageState extends State<ContactsPage> {
   String formatPhoneNumber(String phone) {
     // Transformer le numéro de téléphone au format +33(7)82644001
     if (phone.startsWith('06')) {
-      return '+33(6)' + phone.substring(2);
+      return '+33(6)' + phone.substring(2).replaceAll(' ', '');
     } else if (phone.startsWith('07')) {
-      return '+33(7)' + phone.substring(2);
+      return '+33(7)' + phone.substring(2).replaceAll(' ', '');
     } else if (phone.startsWith('+336')) {
-      return phone.replaceFirst('+336', '+33(6)');
+      return phone.replaceFirst('+336', '+33(6)').replaceAll(' ', '');
     } else if (phone.startsWith('+337')) {
-      return phone.replaceFirst('+337', '+33(7)');
+      return phone.replaceFirst('+337', '+33(7)').replaceAll(' ', '');
     }
-    return phone; // Retourne le numéro tel quel si aucun format ne correspond
+    return phone.replaceAll(' ',
+        ''); // Retourne le numéro sans espaces si aucun format ne correspond
   }
 
   @override
