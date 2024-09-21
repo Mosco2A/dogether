@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:shared_preferences/shared_preferences.dart'; // Ajout de SharedPreferences
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Importer Firestore
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class ContactsPage extends StatefulWidget {
   final String contactsJson;
@@ -33,8 +33,7 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   void loadContacts() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? contactsJson = prefs.getString('maListeDeContacts');
+    final String? contactsJson = widget.contactsJson;
 
     // Vider la liste avant de charger
     maListeDeContacts.clear();
@@ -49,9 +48,20 @@ class _ContactsPageState extends State<ContactsPage> {
     }
   }
 
-  void saveContacts() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('maListeDeContacts', jsonEncode(maListeDeContacts));
+  Future<void> _addContactToFirestore(String name, String phone) async {
+    await _firestore.collection('myContacts').doc(name).set({
+      'name': name,
+      'phone': phone,
+    });
+  }
+
+  Future<void> _removeContactFromFirestore(String name) async {
+    await _firestore.collection('myContacts').doc(name).delete();
+  }
+
+  Future<bool> _isContactInFirestore(String name) async {
+    var doc = await _firestore.collection('myContacts').doc(name).get();
+    return doc.exists;
   }
 
   @override
@@ -66,36 +76,45 @@ class _ContactsPageState extends State<ContactsPage> {
         itemCount: contactsList.length,
         itemBuilder: (context, index) {
           var contact = contactsList[index];
-          // Vérifiez si le contact est déjà dans la liste
           bool isInList = maListeDeContacts
               .any((c) => c['displayName'] == contact['displayName']);
 
-          return ListTile(
-            title: Text(contact['displayName']),
-            subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
-            trailing: ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  if (isInList) {
-                    // Si le contact est déjà dans la liste, le supprimer
-                    maListeDeContacts.removeWhere(
-                        (c) => c['displayName'] == contact['displayName']);
-                  } else {
-                    // Ajouter le contact s'il n'existe pas déjà
-                    maListeDeContacts.add({
-                      'displayName': contact['displayName'],
-                      'phones': contact['phones'].join(', '),
+          // Vérifier si le contact est déjà dans Firestore
+          bool isInFirestore = false;
+
+          // Utilisation d'un FutureBuilder pour vérifier la présence du contact
+          return FutureBuilder<bool>(
+            future: _isContactInFirestore(contact['displayName']),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+              isInFirestore = snapshot.data ?? false;
+
+              return ListTile(
+                title: Text(contact['displayName']),
+                subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
+                trailing: ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      if (isInFirestore) {
+                        // Si le contact est déjà dans Firestore, le supprimer
+                        _removeContactFromFirestore(contact['displayName']);
+                      } else {
+                        // Ajouter le contact s'il n'existe pas déjà
+                        _addContactToFirestore(contact['displayName'],
+                            contact['phones'].join(', '));
+                      }
+                      loadContacts(); // Recharge les contacts après modification
                     });
-                  }
-                  saveContacts(); // Sauvegarder les contacts après modification
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    isInList ? Colors.red : Colors.blue, // Changement ici
-              ),
-              child: Text(isInList ? 'Enlever' : 'Ajouter'),
-            ),
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isInFirestore ? Colors.red : Colors.blue,
+                  ),
+                  child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
+                ),
+              );
+            },
           );
         },
       ),
