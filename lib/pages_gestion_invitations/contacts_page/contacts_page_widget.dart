@@ -119,7 +119,9 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                         ),
                       ),
                       StreamBuilder<List<MyContactsRecord>>(
-                        stream: queryMyContactsRecord(),
+                        stream: queryMyContactsRecord(
+                          singleRecord: true,
+                        ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -137,22 +139,27 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                           }
                           List<MyContactsRecord> listViewMyContactsRecordList =
                               snapshot.data!;
+                          // Return an empty Container when the item does not exist.
+                          if (snapshot.data!.isEmpty) {
+                            return Container();
+                          }
+                          final listViewMyContactsRecord =
+                              listViewMyContactsRecordList.isNotEmpty
+                                  ? listViewMyContactsRecordList.first
+                                  : null;
 
-                          return ListView.builder(
+                          return ListView(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            itemCount: listViewMyContactsRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewMyContactsRecord =
-                                  listViewMyContactsRecordList[listViewIndex];
-                              return Row(
+                            children: [
+                              Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    listViewMyContactsRecord.name,
+                                    listViewMyContactsRecord!.name,
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -161,7 +168,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                         ),
                                   ),
                                   Text(
-                                    listViewMyContactsRecord.phone,
+                                    listViewMyContactsRecord!.phone,
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -170,8 +177,8 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                         ),
                                   ),
                                 ],
-                              );
-                            },
+                              ),
+                            ],
                           );
                         },
                       ),
