@@ -35,6 +35,7 @@ class _ContactsPageState extends State<ContactsPage> {
     final String? contactsJson = widget.contactsJson;
     // Vider la liste avant de charger
     maListeDeContacts.clear();
+
     if (contactsJson != null) {
       try {
         List<dynamic> loadedContacts = jsonDecode(contactsJson);
@@ -46,12 +47,10 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   Future<void> _addContactToFirestore(String name, String phone) async {
-    if (phone.isNotEmpty) {
-      await _firestore.collection('myContacts').doc(name).set({
-        'name': name,
-        'phone': phone,
-      });
-    }
+    await _firestore.collection('myContacts').doc(name).set({
+      'name': name,
+      'phone': phone,
+    });
   }
 
   Future<void> _removeContactFromFirestore(String name) async {
@@ -79,33 +78,38 @@ class _ContactsPageState extends State<ContactsPage> {
               .any((c) => c['displayName'] == contact['displayName']);
 
           // Vérifier si le contact est déjà dans Firestore
-          bool isInFirestore = false;
-
-          // Utilisation d'un FutureBuilder pour vérifier la présence du contact
           return FutureBuilder<bool>(
             future: _isContactInFirestore(contact['displayName']),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               }
-              isInFirestore = snapshot.data ?? false;
 
-              // Récupérer le premier numéro mobile valide
-              String phone = _getFirstMobileNumber(contact['phones']);
+              bool isInFirestore = snapshot.data ?? false;
+
+              // Filtrer le numéro de téléphone
+              String phoneToSave = contact['phones'].firstWhere(
+                (phone) =>
+                    phone.startsWith('+337') ||
+                    phone.startsWith('+336') ||
+                    phone.startsWith('06') ||
+                    phone.startsWith('07'),
+                orElse: () => '',
+              );
 
               return ListTile(
                 title: Text(contact['displayName']),
-                subtitle: Text(
-                    'Phone: $phone'), // Afficher uniquement le premier numéro mobile valide
+                subtitle: Text('Phone: $phoneToSave'),
                 trailing: ElevatedButton(
                   onPressed: () async {
                     setState(() {
                       if (isInFirestore) {
                         // Si le contact est déjà dans Firestore, le supprimer
                         _removeContactFromFirestore(contact['displayName']);
-                      } else {
+                      } else if (phoneToSave.isNotEmpty) {
                         // Ajouter le contact s'il n'existe pas déjà
-                        _addContactToFirestore(contact['displayName'], phone);
+                        _addContactToFirestore(
+                            contact['displayName'], phoneToSave);
                       }
                       loadContacts(); // Recharge les contacts après modification
                     });
@@ -128,20 +132,6 @@ class _ContactsPageState extends State<ContactsPage> {
       ),
     );
   }
-
-  // Fonction pour obtenir le premier numéro mobile valide
-  String _getFirstMobileNumber(List<dynamic> phones) {
-    for (var phone in phones) {
-      String number = phone.number;
-      if (number.startsWith('+337') ||
-          number.startsWith('+336') ||
-          number.startsWith('06') ||
-          number.startsWith('07')) {
-        return number; // Retourner le numéro valide
-      }
-    }
-    return ''; // Retourne une chaîne vide si aucun mobile trouvé
-  }
 }
 
 Future<void> listeContacts(BuildContext context) async {
@@ -158,9 +148,12 @@ Future<void> listeContacts(BuildContext context) async {
     // Récupérer les contacts après que les permissions aient été accordées
     List<Contact> contacts = await FastContacts.getAllContacts();
     for (var contact in contacts) {
+      // Extraire uniquement les numéros de téléphone
+      List<String> phoneNumbers = contact.phones.map((e) => e.number).toList();
+
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': contact.phones,
+        'phones': phoneNumbers, // Remplacer par une liste de chaînes
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
@@ -181,14 +174,17 @@ Future<void> listeContacts(BuildContext context) async {
 Future<PermissionStatus> _getContactPermission() async {
   // Vérifier si la permission a déjà été accordée
   var status = await Permission.contacts.status;
+
   if (status.isDenied || status.isPermanentlyDenied) {
     // Demander à l'utilisateur s'il a refusé ou refusé de façon permanente
     PermissionStatus newStatus = await Permission.contacts.request();
+
     if (newStatus.isPermanentlyDenied) {
       // Si refus permanent, ouvrir les paramètres pour l'autoriser manuellement
       await openAppSettings();
     }
     return newStatus;
   }
+
   return status;
 }
