@@ -12,12 +12,7 @@ export 'contacts_page_model.dart';
 
 class ContactsPageWidget extends StatefulWidget {
   /// Page gestion des contacts
-  const ContactsPageWidget({
-    super.key,
-    required this.contactsJson,
-  });
-
-  final dynamic contactsJson;
+  const ContactsPageWidget({super.key});
 
   @override
   State<ContactsPageWidget> createState() => _ContactsPageWidgetState();

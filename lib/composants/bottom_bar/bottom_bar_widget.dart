@@ -195,33 +195,43 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       ),
                     ),
                   ),
-                  Container(
-                    constraints: BoxConstraints(
-                      minWidth: 60.0,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      shape: BoxShape.rectangle,
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.people_alt,
-                          color: Colors.white,
-                          size: 40.0,
-                        ),
-                        Text(
-                          'Contacts',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ],
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('ContactsPage');
+                    },
+                    child: Container(
+                      constraints: BoxConstraints(
+                        minWidth: 60.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.people_alt,
+                            color: Colors.white,
+                            size: 40.0,
+                          ),
+                          Text(
+                            'Contacts',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Inter',
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

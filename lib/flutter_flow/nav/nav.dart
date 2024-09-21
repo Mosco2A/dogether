@@ -116,12 +116,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ContactsPage',
           path: '/contactsPage',
-          builder: (context, params) => ContactsPageWidget(
-            contactsJson: params.getParam(
-              'contactsJson',
-              ParamType.JSON,
-            ),
-          ),
+          builder: (context, params) => ContactsPageWidget(),
         ),
         FFRoute(
           name: 'Creer',
