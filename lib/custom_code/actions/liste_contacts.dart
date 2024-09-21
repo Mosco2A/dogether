@@ -93,7 +93,7 @@ class _ContactsPageState extends State<ContactsPage> {
 
               return ListTile(
                 title: Text(contact['displayName']),
-                subtitle: Text('Phones: ${contact['phones'].join(', ')}'),
+                subtitle: Text('Phone: ${_getMobileNumber(contact['phones'])}'),
                 trailing: ElevatedButton(
                   onPressed: () async {
                     setState(() {
@@ -103,7 +103,7 @@ class _ContactsPageState extends State<ContactsPage> {
                       } else {
                         // Ajouter le contact s'il n'existe pas déjà
                         _addContactToFirestore(contact['displayName'],
-                            contact['phones'].join(', '));
+                            _getMobileNumber(contact['phones']));
                       }
                       loadContacts(); // Recharge les contacts après modification
                     });
@@ -126,6 +126,17 @@ class _ContactsPageState extends State<ContactsPage> {
       ),
     );
   }
+
+  // Fonction pour obtenir uniquement le numéro de téléphone mobile
+  String _getMobileNumber(List<dynamic> phones) {
+    // Vous pouvez personnaliser la logique pour identifier le numéro mobile
+    for (var phone in phones) {
+      if (phone.type == 'mobile') {
+        return phone.number; // Retourner le numéro mobile
+      }
+    }
+    return 'Aucun numéro mobile'; // Retourne un message si aucun mobile trouvé
+  }
 }
 
 Future<void> listeContacts(BuildContext context) async {
@@ -145,7 +156,9 @@ Future<void> listeContacts(BuildContext context) async {
     for (var contact in contacts) {
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': contact.phones.map((e) => e.number).toList(),
+        'phones': contact.phones
+            .where((phone) => phone.type == 'mobile')
+            .toList(), // Filtrer pour n'avoir que les mobiles
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
