@@ -1,4 +1,4 @@
-import '/backend/schema/structs/index.dart';
+import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -45,8 +45,6 @@ class _CreerWidgetState extends State<CreerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -153,27 +151,46 @@ class _CreerWidgetState extends State<CreerWidget> {
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                               ),
-                              Builder(
-                                builder: (context) {
-                                  final contactsAjoutes =
-                                      FFAppState().maListeDeContacts.toList();
+                              StreamBuilder<List<MyContactsRecord>>(
+                                stream: queryMyContactsRecord(),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<MyContactsRecord>
+                                      listViewMyContactsRecordList =
+                                      snapshot.data!;
 
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
-                                    itemCount: contactsAjoutes.length,
-                                    itemBuilder:
-                                        (context, contactsAjoutesIndex) {
-                                      final contactsAjoutesItem =
-                                          contactsAjoutes[contactsAjoutesIndex];
+                                    itemCount:
+                                        listViewMyContactsRecordList.length,
+                                    itemBuilder: (context, listViewIndex) {
+                                      final listViewMyContactsRecord =
+                                          listViewMyContactsRecordList[
+                                              listViewIndex];
                                       return Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            contactsAjoutesIndex.toString(),
+                                            listViewMyContactsRecord.name,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -182,7 +199,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            contactsAjoutesItem.phone,
+                                            listViewMyContactsRecord.phone,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
