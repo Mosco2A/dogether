@@ -88,12 +88,13 @@ class _ContactsPageState extends State<ContactsPage> {
         itemCount: contactsList.length,
         itemBuilder: (context, index) {
           var contact = contactsList[index];
-          List<String> validPhones = contact['phones']
+          List<String> validPhones = (contact['phones'] as List<dynamic>)
               .where((phone) =>
                   phone.startsWith('+337') ||
                   phone.startsWith('+336') ||
                   phone.startsWith('06') ||
                   phone.startsWith('07'))
+              .map((phone) => phone.toString()) // Convertir en String
               .toList();
 
           // Ne pas afficher le contact s'il n'a pas de numéro valide
