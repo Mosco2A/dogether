@@ -62,6 +62,20 @@ class _ContactsPageState extends State<ContactsPage> {
     return doc.exists;
   }
 
+  String formatPhoneNumber(String phone) {
+    // Transformer le numéro de téléphone au format +33(7)82644001
+    if (phone.startsWith('06')) {
+      return '+33(6)' + phone.substring(2);
+    } else if (phone.startsWith('07')) {
+      return '+33(7)' + phone.substring(2);
+    } else if (phone.startsWith('+336')) {
+      return phone.replaceFirst('+336', '+33(6)');
+    } else if (phone.startsWith('+337')) {
+      return phone.replaceFirst('+337', '+33(7)');
+    }
+    return phone; // Retourne le numéro tel quel si aucun format ne correspond
+  }
+
   @override
   Widget build(BuildContext context) {
     List<dynamic> contactsList = jsonDecode(widget.contactsJson);
@@ -74,10 +88,24 @@ class _ContactsPageState extends State<ContactsPage> {
         itemCount: contactsList.length,
         itemBuilder: (context, index) {
           var contact = contactsList[index];
-          bool isInList = maListeDeContacts
-              .any((c) => c['displayName'] == contact['displayName']);
+          List<String> validPhones = contact['phones']
+              .where((phone) =>
+                  phone.startsWith('+337') ||
+                  phone.startsWith('+336') ||
+                  phone.startsWith('06') ||
+                  phone.startsWith('07'))
+              .toList();
 
-          // Vérifier si le contact est déjà dans Firestore
+          // Ne pas afficher le contact s'il n'a pas de numéro valide
+          if (validPhones.isEmpty) {
+            return SizedBox.shrink(); // Ne rien afficher
+          }
+
+          String phoneToSave =
+              validPhones.first; // Prendre le premier numéro valide
+          String formattedPhone =
+              formatPhoneNumber(phoneToSave); // Formater le numéro
+
           return FutureBuilder<bool>(
             future: _isContactInFirestore(contact['displayName']),
             builder: (context, snapshot) {
@@ -87,29 +115,19 @@ class _ContactsPageState extends State<ContactsPage> {
 
               bool isInFirestore = snapshot.data ?? false;
 
-              // Filtrer le numéro de téléphone
-              String phoneToSave = contact['phones'].firstWhere(
-                (phone) =>
-                    phone.startsWith('+337') ||
-                    phone.startsWith('+336') ||
-                    phone.startsWith('06') ||
-                    phone.startsWith('07'),
-                orElse: () => '',
-              );
-
               return ListTile(
                 title: Text(contact['displayName']),
-                subtitle: Text('Phone: $phoneToSave'),
+                subtitle: Text('Phone: $formattedPhone'),
                 trailing: ElevatedButton(
                   onPressed: () async {
                     setState(() {
                       if (isInFirestore) {
                         // Si le contact est déjà dans Firestore, le supprimer
                         _removeContactFromFirestore(contact['displayName']);
-                      } else if (phoneToSave.isNotEmpty) {
+                      } else {
                         // Ajouter le contact s'il n'existe pas déjà
                         _addContactToFirestore(
-                            contact['displayName'], phoneToSave);
+                            contact['displayName'], formattedPhone);
                       }
                       loadContacts(); // Recharge les contacts après modification
                     });
