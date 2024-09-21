@@ -1,3 +1,5 @@
+import '/backend/schema/structs/index.dart';
+import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -148,50 +150,68 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       ),
                     ),
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'Creer',
-                        extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
-                            hasTransition: true,
-                            transitionType: PageTransitionType.leftToRight,
-                          ),
-                        },
-                      );
-                    },
-                    child: Container(
-                      constraints: BoxConstraints(
-                        minWidth: 60.0,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.add_task,
-                            color: Colors.white,
-                            size: 40.0,
-                          ),
-                          Text(
-                            'Créer',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
-                        ],
+                  Builder(
+                    builder: (context) => InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        context.pushNamed(
+                          'Creer',
+                          extra: <String, dynamic>{
+                            kTransitionInfoKey: TransitionInfo(
+                              hasTransition: true,
+                              transitionType: PageTransitionType.leftToRight,
+                            ),
+                          },
+                        );
+
+                        FFAppState().checkboxList = [];
+                        safeSetState(() {});
+                        await showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            return Dialog(
+                              elevation: 0,
+                              insetPadding: EdgeInsets.zero,
+                              backgroundColor: Colors.transparent,
+                              alignment: AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              child: CreateInvitationWidget(),
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        constraints: BoxConstraints(
+                          minWidth: 60.0,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.add_task,
+                              color: Colors.white,
+                              size: 40.0,
+                            ),
+                            Text(
+                              'Créer',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

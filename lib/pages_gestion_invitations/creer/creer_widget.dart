@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -119,31 +120,154 @@ class _CreerWidgetState extends State<CreerWidget> {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).primary,
                           ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 10.0),
-                                  child: Text(
-                                    'Dogether Contacts',
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelLarge
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
+                          child: StreamBuilder<List<MyContactsRecord>>(
+                            stream: queryMyContactsRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<MyContactsRecord>
+                                  containerMyContactsRecordList =
+                                  snapshot.data!;
+
+                              return Container(
+                                width: MediaQuery.sizeOf(context).width * 0.95,
+                                height: MediaQuery.sizeOf(context).height * 0.6,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 10.0),
+                                        child: Text(
+                                          'Dogether Contacts',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelLarge
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
+                                      ),
+                                      Builder(
+                                        builder: (context) {
+                                          final listeviewCreate =
+                                              containerMyContactsRecordList
+                                                  .toList();
+
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: listeviewCreate.length,
+                                            itemBuilder: (context,
+                                                listeviewCreateIndex) {
+                                              final listeviewCreateItem =
+                                                  listeviewCreate[
+                                                      listeviewCreateIndex];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    listeviewCreateItem.name,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    listeviewCreateItem.phone,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                  Theme(
+                                                    data: ThemeData(
+                                                      checkboxTheme:
+                                                          CheckboxThemeData(
+                                                        visualDensity:
+                                                            VisualDensity
+                                                                .compact,
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize
+                                                                .shrinkWrap,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      4.0),
+                                                        ),
+                                                      ),
+                                                      unselectedWidgetColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
+                                                    ),
+                                                    child: Checkbox(
+                                                      value: _model
+                                                              .checkboxValueMap[
+                                                          listeviewCreateItem] ??= false,
+                                                      onChanged:
+                                                          (newValue) async {
+                                                        safeSetState(() => _model
+                                                                    .checkboxValueMap[
+                                                                listeviewCreateItem] =
+                                                            newValue!);
+                                                      },
+                                                      side: BorderSide(
+                                                        width: 2,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                      ),
+                                                      activeColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      checkColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .info,
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                ListView(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  children: [],
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
                         ),
                         Container(

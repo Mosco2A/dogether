@@ -44,21 +44,6 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _vLigthDark = prefs.getBool('ff_vLigthDark') ?? _vLigthDark;
     });
-    _safeInit(() {
-      _maListeDeContacts = prefs
-              .getStringList('ff_maListeDeContacts')
-              ?.map((x) {
-                try {
-                  return PhoneContactStruct.fromSerializableMap(jsonDecode(x));
-                } catch (e) {
-                  print("Can't decode persisted data type. Error: $e.");
-                  return null;
-                }
-              })
-              .withoutNulls
-              .toList() ??
-          _maListeDeContacts;
-    });
   }
 
   void update(VoidCallback callback) {
@@ -144,45 +129,33 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_vLigthDark', value);
   }
 
-  List<PhoneContactStruct> _maListeDeContacts = [];
-  List<PhoneContactStruct> get maListeDeContacts => _maListeDeContacts;
-  set maListeDeContacts(List<PhoneContactStruct> value) {
-    _maListeDeContacts = value;
-    prefs.setStringList(
-        'ff_maListeDeContacts', value.map((x) => x.serialize()).toList());
+  List<PhoneContactStruct> _checkboxList = [];
+  List<PhoneContactStruct> get checkboxList => _checkboxList;
+  set checkboxList(List<PhoneContactStruct> value) {
+    _checkboxList = value;
   }
 
-  void addToMaListeDeContacts(PhoneContactStruct value) {
-    maListeDeContacts.add(value);
-    prefs.setStringList('ff_maListeDeContacts',
-        _maListeDeContacts.map((x) => x.serialize()).toList());
+  void addToCheckboxList(PhoneContactStruct value) {
+    checkboxList.add(value);
   }
 
-  void removeFromMaListeDeContacts(PhoneContactStruct value) {
-    maListeDeContacts.remove(value);
-    prefs.setStringList('ff_maListeDeContacts',
-        _maListeDeContacts.map((x) => x.serialize()).toList());
+  void removeFromCheckboxList(PhoneContactStruct value) {
+    checkboxList.remove(value);
   }
 
-  void removeAtIndexFromMaListeDeContacts(int index) {
-    maListeDeContacts.removeAt(index);
-    prefs.setStringList('ff_maListeDeContacts',
-        _maListeDeContacts.map((x) => x.serialize()).toList());
+  void removeAtIndexFromCheckboxList(int index) {
+    checkboxList.removeAt(index);
   }
 
-  void updateMaListeDeContactsAtIndex(
+  void updateCheckboxListAtIndex(
     int index,
     PhoneContactStruct Function(PhoneContactStruct) updateFn,
   ) {
-    maListeDeContacts[index] = updateFn(_maListeDeContacts[index]);
-    prefs.setStringList('ff_maListeDeContacts',
-        _maListeDeContacts.map((x) => x.serialize()).toList());
+    checkboxList[index] = updateFn(_checkboxList[index]);
   }
 
-  void insertAtIndexInMaListeDeContacts(int index, PhoneContactStruct value) {
-    maListeDeContacts.insert(index, value);
-    prefs.setStringList('ff_maListeDeContacts',
-        _maListeDeContacts.map((x) => x.serialize()).toList());
+  void insertAtIndexInCheckboxList(int index, PhoneContactStruct value) {
+    checkboxList.insert(index, value);
   }
 }
 
