@@ -114,18 +114,33 @@ class _CreerWidgetState extends State<CreerWidget> {
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 0.95,
-                          height: MediaQuery.sizeOf(context).height * 0.6,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SingleChildScrollView(
+                        StreamBuilder<List<MyContactsRecord>>(
+                          stream: queryMyContactsRecord(),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+                            List<MyContactsRecord>
+                                containerMyContactsRecordList = snapshot.data!;
+
+                            return Container(
+                              width: MediaQuery.sizeOf(context).width * 0.95,
+                              height: MediaQuery.sizeOf(context).height * 0.6,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).primary,
+                              ),
+                              child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -143,7 +158,9 @@ class _CreerWidgetState extends State<CreerWidget> {
                                       ),
                                     ),
                                     StreamBuilder<List<MyContactsRecord>>(
-                                      stream: queryMyContactsRecord(),
+                                      stream: queryMyContactsRecord(
+                                        singleRecord: true,
+                                      ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -165,20 +182,23 @@ class _CreerWidgetState extends State<CreerWidget> {
                                         List<MyContactsRecord>
                                             listViewMyContactsRecordList =
                                             snapshot.data!;
+                                        // Return an empty Container when the item does not exist.
+                                        if (snapshot.data!.isEmpty) {
+                                          return Container();
+                                        }
+                                        final listViewMyContactsRecord =
+                                            listViewMyContactsRecordList
+                                                    .isNotEmpty
+                                                ? listViewMyContactsRecordList
+                                                    .first
+                                                : null;
 
-                                        return ListView.builder(
+                                        return ListView(
                                           padding: EdgeInsets.zero,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
-                                          itemCount:
-                                              listViewMyContactsRecordList
-                                                  .length,
-                                          itemBuilder:
-                                              (context, listViewIndex) {
-                                            final listViewMyContactsRecord =
-                                                listViewMyContactsRecordList[
-                                                    listViewIndex];
-                                            return Row(
+                                          children: [
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -187,7 +207,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     listViewMyContactsRecord
-                                                        .name,
+                                                        ?.name,
                                                     'Vide',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -201,7 +221,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     listViewMyContactsRecord
-                                                        .phone,
+                                                        ?.phone,
                                                     'Vide',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -213,16 +233,16 @@ class _CreerWidgetState extends State<CreerWidget> {
                                                       ),
                                                 ),
                                               ],
-                                            );
-                                          },
+                                            ),
+                                          ],
                                         );
                                       },
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
                         Container(
                           width: MediaQuery.sizeOf(context).width * 0.95,
