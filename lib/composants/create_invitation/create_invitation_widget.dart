@@ -61,12 +61,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
           children: [
             Align(
               alignment: AlignmentDirectional(0.0, 0.0),
-              child: Text(
-                'Créer une Invitation',
-                style: FlutterFlowTheme.of(context).headlineSmall.override(
-                      fontFamily: 'Readex Pro',
-                      letterSpacing: 0.0,
-                    ),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                child: Text(
+                  'Créer une Invitation',
+                  style: FlutterFlowTheme.of(context).headlineSmall.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
+                ),
               ),
             ),
             TextFormField(
