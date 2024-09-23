@@ -202,8 +202,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
             ),
             FlutterFlowDropDown<String>(
               controller: _model.dropDownValueController ??=
-                  FormFieldController<String>(null),
-              options: FFAppState().listTypeInvit,
+                  FormFieldController<String>(
+                _model.dropDownValue ??= '',
+              ),
+              options: List<String>.from(['Option 1', 'Option 2', 'Option 3']),
+              optionLabels: FFAppState().listTypeInvit,
               onChanged: (val) =>
                   safeSetState(() => _model.dropDownValue = val),
               width: 200.0,
