@@ -595,7 +595,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 safeSetState(() =>
                                                                     _model.numDureeValue =
                                                                         val),
-                                                            width: 200.0,
+                                                            width: 250.0,
                                                             height: 40.0,
                                                             textStyle:
                                                                 FlutterFlowTheme.of(
@@ -1250,122 +1250,118 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   ),
                 ),
               ),
-              Container(
-                width: MediaQuery.sizeOf(context).width * 0.95,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primary,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FFButtonWidget(
-                        onPressed: () async {
-                          context.safePop();
-                        },
-                        text: 'Annuler',
-                        options: FFButtonOptions(
-                          height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: FlutterFlowTheme.of(context).error,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .titleSmall
-                              .override(
-                                fontFamily: 'Inter',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                          elevation: 0.0,
-                          borderSide: BorderSide(
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
+            ],
+          ),
+        ),
+        Container(
+          width: MediaQuery.sizeOf(context).width * 0.95,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primary,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FFButtonWidget(
+                  onPressed: () async {
+                    context.safePop();
+                  },
+                  text: 'Annuler',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).error,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ),
-                      FFButtonWidget(
-                        onPressed: () async {
-                          var invitationsEmisesRecordReference =
-                              InvitationsEmisesRecord.collection.doc();
-                          await invitationsEmisesRecordReference
-                              .set(createInvitationsEmisesRecordData(
-                            eInvitation: createInvitationStruct(
-                              iRef: '',
-                              iTitre: '',
-                              iDetail: '',
-                              clearUnsetFields: false,
-                              create: true,
-                            ),
-                          ));
-                          _model.createdDocument =
-                              InvitationsEmisesRecord.getDocumentFromData(
-                                  createInvitationsEmisesRecordData(
-                                    eInvitation: createInvitationStruct(
-                                      iRef: '',
-                                      iTitre: '',
-                                      iDetail: '',
-                                      clearUnsetFields: false,
-                                      create: true,
-                                    ),
-                                  ),
-                                  invitationsEmisesRecordReference);
-
-                          await _model.createdDocument!.reference
-                              .update(createInvitationsEmisesRecordData(
-                            eInvitation: createInvitationStruct(
-                              iRef: _model.createdDocument?.reference.id,
-                              iTitre: _model.textController1.text,
-                              iDetail: _model.textController2.text,
-                              iType: _model.typeDureeValue,
-                              idateInvite: _model.dateInvitSelectedDay?.end,
-                              iDateReponse: _model.calendLimitSelectedDay?.end,
-                              clearUnsetFields: false,
-                            ),
-                          ));
-
-                          context.pushNamed(
-                            'Creer',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.leftToRight,
-                              ),
-                            },
-                          );
-
-                          safeSetState(() {});
-                        },
-                        text: 'Créer',
-                        options: FFButtonOptions(
-                          height: 40.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 10.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF4B39EF),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Inter',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                          elevation: 2.0,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ].divide(SizedBox(width: 8.0)),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-              ),
-            ],
+                FFButtonWidget(
+                  onPressed: () async {
+                    var invitationsEmisesRecordReference =
+                        InvitationsEmisesRecord.collection.doc();
+                    await invitationsEmisesRecordReference
+                        .set(createInvitationsEmisesRecordData(
+                      eInvitation: createInvitationStruct(
+                        iRef: '',
+                        iTitre: '',
+                        iDetail: '',
+                        clearUnsetFields: false,
+                        create: true,
+                      ),
+                    ));
+                    _model.createdDocument =
+                        InvitationsEmisesRecord.getDocumentFromData(
+                            createInvitationsEmisesRecordData(
+                              eInvitation: createInvitationStruct(
+                                iRef: '',
+                                iTitre: '',
+                                iDetail: '',
+                                clearUnsetFields: false,
+                                create: true,
+                              ),
+                            ),
+                            invitationsEmisesRecordReference);
+
+                    await _model.createdDocument!.reference
+                        .update(createInvitationsEmisesRecordData(
+                      eInvitation: createInvitationStruct(
+                        iRef: _model.createdDocument?.reference.id,
+                        iTitre: _model.textController1.text,
+                        iDetail: _model.textController2.text,
+                        iType: _model.typeDureeValue,
+                        idateInvite: _model.dateInvitSelectedDay?.end,
+                        iDateReponse: _model.calendLimitSelectedDay?.end,
+                        clearUnsetFields: false,
+                      ),
+                    ));
+
+                    context.pushNamed(
+                      'Creer',
+                      extra: <String, dynamic>{
+                        kTransitionInfoKey: TransitionInfo(
+                          hasTransition: true,
+                          transitionType: PageTransitionType.leftToRight,
+                        ),
+                      },
+                    );
+
+                    safeSetState(() {});
+                  },
+                  text: 'Créer',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF4B39EF),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    elevation: 2.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ].divide(SizedBox(width: 8.0)),
+            ),
           ),
         ),
       ],
