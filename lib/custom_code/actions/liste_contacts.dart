@@ -63,9 +63,6 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   String formatPhoneNumber(String phone) {
-    // Retirer tous les espaces dans le numéro de téléphone
-    phone = phone.replaceAll(' ', '');
-
     // Transformer le numéro de téléphone au format +33(7)82644001
     if (phone.startsWith('06')) {
       return '+33(6)' + phone.substring(2);
@@ -76,7 +73,8 @@ class _ContactsPageState extends State<ContactsPage> {
     } else if (phone.startsWith('+337')) {
       return phone.replaceFirst('+337', '+33(7)');
     }
-
+    // Retirer tous les espaces dans le numéro de téléphone
+    phone = phone.replaceAll(' ', '');
     return phone; // Retourne le numéro formaté sans espaces
   }
 
