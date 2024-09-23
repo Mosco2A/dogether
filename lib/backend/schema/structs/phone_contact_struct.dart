@@ -12,9 +12,11 @@ class PhoneContactStruct extends FFFirebaseStruct {
   PhoneContactStruct({
     String? displayName,
     String? phone,
+    DocumentReference? refPhoneContact,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _displayName = displayName,
         _phone = phone,
+        _refPhoneContact = refPhoneContact,
         super(firestoreUtilData);
 
   // "displayName" field.
@@ -31,10 +33,18 @@ class PhoneContactStruct extends FFFirebaseStruct {
 
   bool hasPhone() => _phone != null;
 
+  // "refPhoneContact" field.
+  DocumentReference? _refPhoneContact;
+  DocumentReference? get refPhoneContact => _refPhoneContact;
+  set refPhoneContact(DocumentReference? val) => _refPhoneContact = val;
+
+  bool hasRefPhoneContact() => _refPhoneContact != null;
+
   static PhoneContactStruct fromMap(Map<String, dynamic> data) =>
       PhoneContactStruct(
         displayName: data['displayName'] as String?,
         phone: data['phone'] as String?,
+        refPhoneContact: data['refPhoneContact'] as DocumentReference?,
       );
 
   static PhoneContactStruct? maybeFromMap(dynamic data) => data is Map
@@ -44,6 +54,7 @@ class PhoneContactStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'displayName': _displayName,
         'phone': _phone,
+        'refPhoneContact': _refPhoneContact,
       }.withoutNulls;
 
   @override
@@ -55,6 +66,10 @@ class PhoneContactStruct extends FFFirebaseStruct {
         'phone': serializeParam(
           _phone,
           ParamType.String,
+        ),
+        'refPhoneContact': serializeParam(
+          _refPhoneContact,
+          ParamType.DocumentReference,
         ),
       }.withoutNulls;
 
@@ -70,6 +85,12 @@ class PhoneContactStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        refPhoneContact: deserializeParam(
+          data['refPhoneContact'],
+          ParamType.DocumentReference,
+          false,
+          collectionNamePath: ['myContacts'],
+        ),
       );
 
   @override
@@ -79,16 +100,19 @@ class PhoneContactStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     return other is PhoneContactStruct &&
         displayName == other.displayName &&
-        phone == other.phone;
+        phone == other.phone &&
+        refPhoneContact == other.refPhoneContact;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([displayName, phone]);
+  int get hashCode =>
+      const ListEquality().hash([displayName, phone, refPhoneContact]);
 }
 
 PhoneContactStruct createPhoneContactStruct({
   String? displayName,
   String? phone,
+  DocumentReference? refPhoneContact,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -97,6 +121,7 @@ PhoneContactStruct createPhoneContactStruct({
     PhoneContactStruct(
       displayName: displayName,
       phone: phone,
+      refPhoneContact: refPhoneContact,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
