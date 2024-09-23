@@ -1015,57 +1015,67 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                             context)
                                                         .secondaryBackground,
                                                   ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Builder(
-                                                        builder: (context) {
-                                                          final listeviewCreate =
-                                                              containerMyContactsRecordList
-                                                                  .toList();
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Builder(
+                                                          builder: (context) {
+                                                            final listeviewCreate =
+                                                                containerMyContactsRecordList
+                                                                    .toList();
 
-                                                          return ListView
-                                                              .builder(
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            shrinkWrap: true,
-                                                            scrollDirection:
-                                                                Axis.vertical,
-                                                            itemCount:
-                                                                listeviewCreate
-                                                                    .length,
-                                                            itemBuilder: (context,
-                                                                listeviewCreateIndex) {
-                                                              final listeviewCreateItem =
-                                                                  listeviewCreate[
-                                                                      listeviewCreateIndex];
-                                                              return Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
+                                                            return ListView
+                                                                .builder(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  listeviewCreate
+                                                                      .length,
+                                                              itemBuilder: (context,
+                                                                  listeviewCreateIndex) {
+                                                                final listeviewCreateItem =
+                                                                    listeviewCreate[
+                                                                        listeviewCreateIndex];
+                                                                return Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              10.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            listeviewCreateItem.name,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Inter',
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                        Text(
                                                                           listeviewCreateItem
-                                                                              .name,
+                                                                              .phone,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -1073,84 +1083,73 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 letterSpacing: 0.0,
                                                                               ),
                                                                         ),
-                                                                      ),
-                                                                      Text(
-                                                                        listeviewCreateItem
-                                                                            .phone,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Inter',
-                                                                              letterSpacing: 0.0,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            0.0,
-                                                                            1.0),
-                                                                    child:
-                                                                        Theme(
-                                                                      data:
-                                                                          ThemeData(
-                                                                        checkboxTheme:
-                                                                            CheckboxThemeData(
-                                                                          visualDensity:
-                                                                              VisualDensity.compact,
-                                                                          materialTapTargetSize:
-                                                                              MaterialTapTargetSize.shrinkWrap,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(4.0),
-                                                                          ),
-                                                                        ),
-                                                                        unselectedWidgetColor:
-                                                                            FlutterFlowTheme.of(context).primaryText,
-                                                                      ),
+                                                                      ],
+                                                                    ),
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              1.0),
                                                                       child:
-                                                                          Checkbox(
-                                                                        value: _model.checkboxValueMap[listeviewCreateItem] ??=
-                                                                            false,
-                                                                        onChanged:
-                                                                            (newValue) async {
-                                                                          safeSetState(() =>
-                                                                              _model.checkboxValueMap[listeviewCreateItem] = newValue!);
-                                                                          if (newValue!) {
-                                                                            FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                              refPhoneContact: listeviewCreateItem.reference,
-                                                                            ));
-                                                                            safeSetState(() {});
-                                                                          } else {
-                                                                            FFAppState().removeFromCheckboxList(PhoneContactStruct(
-                                                                              refPhoneContact: listeviewCreateItem.reference,
-                                                                            ));
-                                                                            safeSetState(() {});
-                                                                          }
-                                                                        },
-                                                                        side:
-                                                                            BorderSide(
-                                                                          width:
-                                                                              2,
-                                                                          color:
+                                                                          Theme(
+                                                                        data:
+                                                                            ThemeData(
+                                                                          checkboxTheme:
+                                                                              CheckboxThemeData(
+                                                                            visualDensity:
+                                                                                VisualDensity.compact,
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(4.0),
+                                                                            ),
+                                                                          ),
+                                                                          unselectedWidgetColor:
                                                                               FlutterFlowTheme.of(context).primaryText,
                                                                         ),
-                                                                        activeColor:
-                                                                            FlutterFlowTheme.of(context).primary,
-                                                                        checkColor:
-                                                                            FlutterFlowTheme.of(context).info,
+                                                                        child:
+                                                                            Checkbox(
+                                                                          value: _model.checkboxValueMap[listeviewCreateItem] ??=
+                                                                              false,
+                                                                          onChanged:
+                                                                              (newValue) async {
+                                                                            safeSetState(() =>
+                                                                                _model.checkboxValueMap[listeviewCreateItem] = newValue!);
+                                                                            if (newValue!) {
+                                                                              FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                                refPhoneContact: listeviewCreateItem.reference,
+                                                                              ));
+                                                                              safeSetState(() {});
+                                                                            } else {
+                                                                              FFAppState().removeFromCheckboxList(PhoneContactStruct(
+                                                                                refPhoneContact: listeviewCreateItem.reference,
+                                                                              ));
+                                                                              safeSetState(() {});
+                                                                            }
+                                                                          },
+                                                                          side:
+                                                                              BorderSide(
+                                                                            width:
+                                                                                2,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                          ),
+                                                                          activeColor:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          checkColor:
+                                                                              FlutterFlowTheme.of(context).info,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                                  ],
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 );
                                               },
