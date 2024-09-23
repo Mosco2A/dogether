@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'create_invitation_widget.dart' show CreateInvitationWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +28,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for Calendar widget.
+  DateTimeRange? calendarSelectedDay1;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode3;
   TextEditingController? textController3;
@@ -47,7 +48,7 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // State field(s) for Calendar widget.
-  DateTimeRange? calendarSelectedDay;
+  DateTimeRange? calendarSelectedDay2;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
@@ -59,7 +60,11 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
 
   @override
   void initState(BuildContext context) {
-    calendarSelectedDay = DateTimeRange(
+    calendarSelectedDay1 = DateTimeRange(
+      start: DateTime.now().startOfDay,
+      end: DateTime.now().endOfDay,
+    );
+    calendarSelectedDay2 = DateTimeRange(
       start: DateTime.now().startOfDay,
       end: DateTime.now().endOfDay,
     );
