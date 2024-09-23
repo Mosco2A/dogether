@@ -342,10 +342,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 newSelectedDate);
                                       },
                                       titleStyle: FlutterFlowTheme.of(context)
-                                          .bodySmall
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            fontSize: 10.0,
                                             letterSpacing: 0.0,
                                           ),
                                       dayOfWeekStyle:
@@ -366,6 +365,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Inter',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                               ),
