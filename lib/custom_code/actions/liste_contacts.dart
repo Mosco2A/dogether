@@ -74,8 +74,11 @@ class _ContactsPageState extends State<ContactsPage> {
     return null; // Aucun document trouvé
   }
 
-  // Formate le numéro de téléphone selon les normes françaises
   String formatPhoneNumber(String phone) {
+    // Supprimer tous les espaces avant tout traitement
+    phone = phone.replaceAll(' ', '');
+
+    // Appliquer les règles de formatage des numéros français
     if (phone.startsWith('06')) {
       return '+33(6)' + phone.substring(2);
     } else if (phone.startsWith('07')) {
@@ -85,10 +88,8 @@ class _ContactsPageState extends State<ContactsPage> {
     } else if (phone.startsWith('+337')) {
       return phone.replaceFirst('+337', '+33(7)');
     }
-    // Retirer tous les espaces dans le numéro de téléphone
-    phone = phone.replaceAll(' ', '.');
 
-    return phone; // Retourne le numéro formaté sans espaces
+    return phone; // Retourne le numéro sans espaces et formaté
   }
 
   @override

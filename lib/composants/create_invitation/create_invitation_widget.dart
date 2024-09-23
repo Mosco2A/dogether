@@ -398,7 +398,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primaryText,
+                                                                .error,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                       ),
@@ -885,8 +885,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                               String>(
                                                                           null),
                                                                   options: [
-                                                                    'Heure(s)',
-                                                                    'Jours(s)'
+                                                                    'H',
+                                                                    'J'
                                                                   ],
                                                                   onChanged: (val) =>
                                                                       safeSetState(() =>
@@ -902,7 +902,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             0.0,
                                                                       ),
                                                                   hintText:
-                                                                      'J / H',
+                                                                      'Type',
                                                                   icon: Icon(
                                                                     Icons
                                                                         .keyboard_arrow_down_rounded,
@@ -1116,8 +1116,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                               _model.checkboxValueMap[listeviewCreateItem] = newValue!);
                                                                           if (newValue!) {
                                                                             FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                              displayName: listeviewCreateItem.name,
-                                                                              phone: listeviewCreateItem.phone,
                                                                               refPhoneContact: listeviewCreateItem.reference,
                                                                             ));
                                                                             safeSetState(() {});
@@ -1388,6 +1386,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                         if (_shouldSetState) safeSetState(() {});
                         return;
                       }
+
+                      context.pushNamed('Accueil');
 
                       if (_shouldSetState) safeSetState(() {});
                     },
