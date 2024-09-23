@@ -11,12 +11,11 @@ import 'package:flutter/material.dart';
 
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 
-void main() async {
-  runApp(const DateTimePicker());
-}
-
 class DateTimePicker extends StatelessWidget {
-  const DateTimePicker({super.key});
+  final double? width; // Ajout du paramètre width
+  final double? height; // Ajout du paramètre height
+
+  const DateTimePicker({Key? key, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +26,17 @@ class DateTimePicker extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 235, 235, 241),
         useMaterial3: false,
       ),
-      // home: const Home(),
-      home: const MySampleApp(),
+      home: MySampleApp(
+          width: width, height: height), // Passer les paramètres à MySampleApp
     );
   }
 }
 
 class MySampleApp extends StatefulWidget {
-  const MySampleApp({super.key});
+  final double? width;
+  final double? height;
+
+  const MySampleApp({super.key, this.width, this.height});
 
   @override
   State<MySampleApp> createState() => _MySampleAppState();
@@ -43,7 +45,6 @@ class MySampleApp extends StatefulWidget {
 class _MySampleAppState extends State<MySampleApp> {
   final scrollController = ScrollController();
   final controller = BoardDateTimeController();
-
   final ValueNotifier<DateTime> builderDate = ValueNotifier(DateTime.now());
 
   @override
@@ -60,8 +61,9 @@ class _MySampleAppState extends State<MySampleApp> {
           child: Align(
             alignment: Alignment.topCenter,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxWidth: 560,
+              constraints: BoxConstraints(
+                maxWidth: widget.width ??
+                    560, // Utilisation de la largeur fournie ou valeur par défaut
               ),
               child: Column(
                 children: [
@@ -135,32 +137,7 @@ class _MySampleAppState extends State<MySampleApp> {
       controller: controller,
       options: const BoardDateTimeOptions(
         languages: BoardPickerLanguages.en(),
-        // boardTitle: 'Board Picker',
-        // backgroundColor: Colors.black,
-        // textColor: Colors.white,
-        // foregroundColor: const Color(0xff303030),
-        // activeColor: Colors.blueGrey,
-        // backgroundDecoration: const BoxDecoration(
-        //   gradient: LinearGradient(
-        //     colors: <Color>[
-        //       Color(0xff1A2980),
-        //       Color(0xff26D0CE),
-        //     ],
-        //   ),
-        // ),
-        // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
-        // customOptions: BoardPickerCustomOptions.every15minutes(),
-        // customOptions: BoardPickerCustomOptions(
-        //   hours: [0, 6, 12, 18],
-        //   minutes: [0, 15, 30, 45],
-        // ),
-        // weekend: BoardPickerWeekendOptions(
-        //   sundayColor: Colors.yellow,
-        //   saturdayColor: Colors.red,
-        // ),
       ),
-      // minimumDate: DateTime(2023, 12, 15, 0, 15),
-      // maximumDate: DateTime(2024, 12, 31),
       onChange: (val) {
         builderDate.value = val;
       },
@@ -202,14 +179,10 @@ class SectionWidget extends StatelessWidget {
 }
 
 class PickerItemWidget extends StatelessWidget {
-  PickerItemWidget({
-    super.key,
-    required this.pickerType,
-  });
-
   final DateTimePickerType pickerType;
-
   final ValueNotifier<DateTime> date = ValueNotifier(DateTime.now());
+
+  PickerItemWidget({super.key, required this.pickerType});
 
   @override
   Widget build(BuildContext context) {
@@ -220,14 +193,10 @@ class PickerItemWidget extends StatelessWidget {
           final result = await showBoardDateTimePicker(
             context: context,
             pickerType: pickerType,
-            // initialDate: DateTime.now(),
-            // minimumDate: DateTime.now().add(const Duration(days: 1)),
             options: BoardDateTimeOptions(
               languages: const BoardPickerLanguages.en(),
               startDayOfWeek: DateTime.sunday,
               pickerFormat: PickerFormat.ymd,
-              // boardTitle: 'Board Picker',
-              // pickerSubTitles: BoardDateTimeItemTitles(year: 'year'),
               withSecond: DateTimePickerType.time == pickerType,
               customOptions: DateTimePickerType.time == pickerType
                   ? BoardPickerCustomOptions(
@@ -235,7 +204,6 @@ class PickerItemWidget extends StatelessWidget {
                     )
                   : null,
             ),
-            // Specify if you want changes in the picker to take effect immediately.
             valueNotifier: date,
           );
           if (result != null) {
@@ -290,17 +258,13 @@ class PickerItemWidget extends StatelessWidget {
 }
 
 class PickerMultiSelectionItemWidget extends StatelessWidget {
-  PickerMultiSelectionItemWidget({
-    super.key,
-    required this.pickerType,
-  });
-
   final DateTimePickerType pickerType;
-
   final ValueNotifier<DateTime> start = ValueNotifier(DateTime.now());
   final ValueNotifier<DateTime> end = ValueNotifier(
     DateTime.now().add(const Duration(days: 7)),
   );
+
+  PickerMultiSelectionItemWidget({super.key, required this.pickerType});
 
   @override
   Widget build(BuildContext context) {
@@ -311,32 +275,13 @@ class PickerMultiSelectionItemWidget extends StatelessWidget {
           final result = await showBoardDateTimeMultiPicker(
             context: context,
             pickerType: pickerType,
-            // minimumDate: DateTime.now().add(const Duration(days: 1)),
             startDate: start.value,
             endDate: end.value,
             options: const BoardDateTimeOptions(
               languages: BoardPickerLanguages.en(),
               startDayOfWeek: DateTime.sunday,
               pickerFormat: PickerFormat.ymd,
-              // topMargin: 0,
             ),
-            // headerWidget: Container(
-            //   height: 60,
-            //   margin: const EdgeInsets.all((8)),
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     border: Border.all(color: Colors.red, width: 4),
-            //     borderRadius: BorderRadius.circular(24),
-            //   ),
-            //   alignment: Alignment.center,
-            //   child: Text(
-            //     'Header Widget',
-            //     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.red,
-            //         ),
-            //   ),
-            // ),
           );
           if (result != null) {
             start.value = result.start;
@@ -383,12 +328,11 @@ class PickerMultiSelectionItemWidget extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 4),
                   ValueListenableBuilder(
                     valueListenable: end,
                     builder: (context, data, _) {
                       return Text(
-                        '~ ${BoardDateFormat(pickerType.format).format(data)}',
+                        BoardDateFormat(pickerType.format).format(data),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -406,16 +350,14 @@ class PickerMultiSelectionItemWidget extends StatelessWidget {
 }
 
 class PickerBuilderItemWidget extends StatelessWidget {
+  final DateTimePickerType pickerType;
+  final ValueNotifier<DateTime> date;
+
   const PickerBuilderItemWidget({
     super.key,
     required this.pickerType,
     required this.date,
-    required this.onOpen,
   });
-
-  final DateTimePickerType pickerType;
-  final ValueNotifier<DateTime> date;
-  final void Function() onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -423,7 +365,19 @@ class PickerBuilderItemWidget extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: () async {
-          onOpen.call();
+          final result = await showBoardDateTimePicker(
+            context: context,
+            pickerType: pickerType,
+            options: const BoardDateTimeOptions(
+              languages: BoardPickerLanguages.en(),
+              startDayOfWeek: DateTime.sunday,
+              pickerFormat: PickerFormat.ymd,
+            ),
+            valueNotifier: date,
+          );
+          if (result != null) {
+            date.value = result;
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -468,116 +422,3 @@ class PickerBuilderItemWidget extends StatelessWidget {
     );
   }
 }
-
-class InputFieldWidget extends StatelessWidget {
-  InputFieldWidget({super.key});
-
-  final textController = BoardDateTimeTextController();
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          const Expanded(
-            child: Text('InputField'),
-          ),
-          SizedBox(
-            width: 140,
-            height: 44,
-            child: BoardDateTimeInputField(
-              controller: textController,
-              pickerType: DateTimePickerType.datetime,
-              options: const BoardDateTimeOptions(
-                languages: BoardPickerLanguages.en(),
-                // The following parameters are only for `time`
-                // withSecond: true,
-              ),
-              initialDate: DateTime.now(),
-              maximumDate: DateTime(2040),
-              minimumDate: DateTime(1900, 1, 1),
-              // showPickerType: BoardDateTimeFieldPickerType.mini,
-              textStyle: Theme.of(context).textTheme.bodyMedium,
-              onChanged: (date) {
-                print('onchanged: $date');
-              },
-              onFocusChange: (val, date, text) {
-                print('on focus changed date: $val, $date, $text');
-              },
-              onResult: (p0) {},
-              decoration: InputDecoration(
-                fillColor:
-                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
-                filled: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-extension DateTimePickerTypeExtension on DateTimePickerType {
-  String get title {
-    switch (this) {
-      case DateTimePickerType.date:
-        return 'Date';
-      case DateTimePickerType.datetime:
-        return 'DateTime';
-      case DateTimePickerType.time:
-        return 'Time';
-    }
-  }
-
-  IconData get icon {
-    switch (this) {
-      case DateTimePickerType.date:
-        return Icons.date_range_rounded;
-      case DateTimePickerType.datetime:
-        return Icons.date_range_rounded;
-      case DateTimePickerType.time:
-        return Icons.schedule_rounded;
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case DateTimePickerType.date:
-        return Colors.blue;
-      case DateTimePickerType.datetime:
-        return Colors.orange;
-      case DateTimePickerType.time:
-        return Colors.pink;
-    }
-  }
-
-  String get format {
-    switch (this) {
-      case DateTimePickerType.date:
-        return 'yyyy/MM/dd';
-      case DateTimePickerType.datetime:
-        return 'yyyy/MM/dd HH:mm';
-      case DateTimePickerType.time:
-        return 'HH:mm';
-    }
-  }
-
-  String formatter({bool withSecond = false}) {
-    switch (this) {
-      case DateTimePickerType.date:
-        return 'yyyy/MM/dd';
-      case DateTimePickerType.datetime:
-        return 'yyyy/MM/dd HH:mm';
-      case DateTimePickerType.time:
-        return withSecond ? 'HH:mm:ss' : 'HH:mm';
-    }
-  }
-}
-// Set your widget name, define your parameter, and then add the
-// boilerplate code using the green button on the right!
