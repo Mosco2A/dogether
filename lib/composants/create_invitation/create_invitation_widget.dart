@@ -669,131 +669,203 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                   ),
-                                  child: Builder(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Builder(
+                                        builder: (context) {
+                                          final listeviewCreate =
+                                              containerMyContactsRecordList
+                                                  .toList();
+
+                                          return ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: listeviewCreate.length,
+                                            itemBuilder: (context,
+                                                listeviewCreateIndex) {
+                                              final listeviewCreateItem =
+                                                  listeviewCreate[
+                                                      listeviewCreateIndex];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    listeviewCreateItem.name,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    listeviewCreateItem.phone,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 1.0),
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        checkboxTheme:
+                                                            CheckboxThemeData(
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .compact,
+                                                          materialTapTargetSize:
+                                                              MaterialTapTargetSize
+                                                                  .shrinkWrap,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
+                                                        ),
+                                                        unselectedWidgetColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                                      child: Checkbox(
+                                                        value: _model
+                                                                .checkboxValueMap[
+                                                            listeviewCreateItem] ??= false,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.checkboxValueMap[
+                                                                      listeviewCreateItem] =
+                                                                  newValue!);
+                                                          if (newValue!) {
+                                                            FFAppState()
+                                                                .addToCheckboxList(
+                                                                    PhoneContactStruct(
+                                                              displayName:
+                                                                  listeviewCreateItem
+                                                                      .name,
+                                                              phone:
+                                                                  listeviewCreateItem
+                                                                      .phone,
+                                                              refPhoneContact:
+                                                                  listeviewCreateItem
+                                                                      .reference,
+                                                            ));
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            FFAppState()
+                                                                .removeFromCheckboxList(
+                                                                    PhoneContactStruct(
+                                                              refPhoneContact:
+                                                                  listeviewCreateItem
+                                                                      .reference,
+                                                            ));
+                                                            safeSetState(() {});
+                                                          }
+                                                        },
+                                                        side: BorderSide(
+                                                          width: 2,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'Contacts sélectionnés',
+                                      style: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                  Builder(
                                     builder: (context) {
-                                      final listeviewCreate =
-                                          containerMyContactsRecordList
-                                              .toList();
+                                      final listeviewVar =
+                                          FFAppState().checkboxList.toList();
 
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
-                                        itemCount: listeviewCreate.length,
+                                        itemCount: listeviewVar.length,
                                         itemBuilder:
-                                            (context, listeviewCreateIndex) {
-                                          final listeviewCreateItem =
-                                              listeviewCreate[
-                                                  listeviewCreateIndex];
+                                            (context, listeviewVarIndex) {
+                                          final listeviewVarItem =
+                                              listeviewVar[listeviewVarIndex];
                                           return Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                listeviewCreateItem.name,
+                                                listeviewVarItem.displayName,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelLarge
+                                                        .labelSmall
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
                                                           letterSpacing: 0.0,
                                                         ),
                                               ),
                                               Text(
-                                                listeviewCreateItem.phone,
+                                                listeviewVarItem.phone,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelLarge
+                                                        .labelSmall
                                                         .override(
                                                           fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
                                                           letterSpacing: 0.0,
                                                         ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 1.0),
-                                                child: Theme(
-                                                  data: ThemeData(
-                                                    checkboxTheme:
-                                                        CheckboxThemeData(
-                                                      visualDensity:
-                                                          VisualDensity.compact,
-                                                      materialTapTargetSize:
-                                                          MaterialTapTargetSize
-                                                              .shrinkWrap,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4.0),
-                                                      ),
-                                                    ),
-                                                    unselectedWidgetColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primaryText,
-                                                  ),
-                                                  child: Checkbox(
-                                                    value: _model
-                                                                .checkboxValueMap[
-                                                            listeviewCreateItem] ??=
-                                                        false,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      safeSetState(() => _model
-                                                                  .checkboxValueMap[
-                                                              listeviewCreateItem] =
-                                                          newValue!);
-                                                      if (newValue!) {
-                                                        FFAppState()
-                                                            .addToCheckboxList(
-                                                                PhoneContactStruct(
-                                                          displayName:
-                                                              listeviewCreateItem
-                                                                  .name,
-                                                          phone:
-                                                              listeviewCreateItem
-                                                                  .phone,
-                                                          refPhoneContact:
-                                                              listeviewCreateItem
-                                                                  .reference,
-                                                        ));
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        FFAppState()
-                                                            .removeFromCheckboxList(
-                                                                PhoneContactStruct(
-                                                          refPhoneContact:
-                                                              listeviewCreateItem
-                                                                  .reference,
-                                                        ));
-                                                        safeSetState(() {});
-                                                      }
-                                                    },
-                                                    side: BorderSide(
-                                                      width: 2,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                    ),
-                                                    activeColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    checkColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .info,
-                                                  ),
-                                                ),
                                               ),
                                             ],
                                           );
@@ -801,50 +873,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       );
                                     },
                                   ),
-                                );
-                              },
-                            ),
-                            Builder(
-                              builder: (context) {
-                                final listeviewVar =
-                                    FFAppState().checkboxList.toList();
-
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listeviewVar.length,
-                                  itemBuilder: (context, listeviewVarIndex) {
-                                    final listeviewVarItem =
-                                        listeviewVar[listeviewVarIndex];
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          listeviewVarItem.displayName,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelSmall
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                        Text(
-                                          listeviewVarItem.phone,
-                                          style: FlutterFlowTheme.of(context)
-                                              .labelLarge
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
+                                ],
+                              ),
                             ),
                           ],
                         ),
