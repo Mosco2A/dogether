@@ -261,7 +261,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             0.0, 10.0, 0.0, 10.0),
                         child: Text(
-                          'Selectionner la date de l\'Invitation',
+                          'Selectionner date, heure, durée de l\'Invitation',
+                          textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).labelLarge.override(
                                     fontFamily: 'Inter',
@@ -281,7 +282,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 3.0, 0.0, 3.0, 0.0),
                             child: FlutterFlowCalendar(
-                              color: FlutterFlowTheme.of(context).tertiary,
+                              color: FlutterFlowTheme.of(context).warning,
                               iconColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               weekFormat: false,
@@ -350,7 +351,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       child: Text(
                                         'Heure début',
                                         style: FlutterFlowTheme.of(context)
-                                            .labelLarge
+                                            .labelSmall
                                             .override(
                                               fontFamily: 'Inter',
                                               letterSpacing: 0.0,
@@ -469,7 +470,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               'Durée',
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelLarge
+                                                      .labelSmall
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         letterSpacing: 0.0,
@@ -835,7 +836,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 3.0, 0.0, 3.0, 0.0),
                             child: FlutterFlowCalendar(
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).warning,
                               iconColor:
                                   FlutterFlowTheme.of(context).primaryText,
                               weekFormat: false,

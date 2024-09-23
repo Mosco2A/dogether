@@ -63,18 +63,21 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 
   String formatPhoneNumber(String phone) {
+    // Retirer tous les espaces dans le numéro de téléphone
+    phone = phone.replaceAll(' ', '');
+
     // Transformer le numéro de téléphone au format +33(7)82644001
     if (phone.startsWith('06')) {
-      return '+33(6)' + phone.substring(2).replaceAll(' ', '');
+      return '+33(6)' + phone.substring(2);
     } else if (phone.startsWith('07')) {
-      return '+33(7)' + phone.substring(2).replaceAll(' ', '');
+      return '+33(7)' + phone.substring(2);
     } else if (phone.startsWith('+336')) {
-      return phone.replaceFirst('+336', '+33(6)').replaceAll(' ', '');
+      return phone.replaceFirst('+336', '+33(6)');
     } else if (phone.startsWith('+337')) {
-      return phone.replaceFirst('+337', '+33(7)').replaceAll(' ', '');
+      return phone.replaceFirst('+337', '+33(7)');
     }
-    return phone.replaceAll(' ',
-        ''); // Retourne le numéro sans espaces si aucun format ne correspond
+
+    return phone; // Retourne le numéro formaté sans espaces
   }
 
   @override
