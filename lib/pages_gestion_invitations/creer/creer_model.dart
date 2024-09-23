@@ -1,4 +1,3 @@
-import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,11 +13,6 @@ import 'package:provider/provider.dart';
 
 class CreerModel extends FlutterFlowModel<CreerWidget> {
   ///  State fields for stateful widgets in this page.
-
-  // State field(s) for Checkbox widget.
-  Map<MyContactsRecord, bool> checkboxValueMap = {};
-  List<MyContactsRecord> get checkboxCheckedItems =>
-      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // Model for bottomBar component.
   late BottomBarModel bottomBarModel;

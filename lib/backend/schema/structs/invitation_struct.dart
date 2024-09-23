@@ -17,6 +17,7 @@ class InvitationStruct extends FFFirebaseStruct {
     DateTime? idateInvite,
     DateTime? iDateReponse,
     List<ContactStruct>? iInvites,
+    DureeStruct? iDuree,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _iRef = iRef,
         _iTitre = iTitre,
@@ -25,6 +26,7 @@ class InvitationStruct extends FFFirebaseStruct {
         _idateInvite = idateInvite,
         _iDateReponse = iDateReponse,
         _iInvites = iInvites,
+        _iDuree = iDuree,
         super(firestoreUtilData);
 
   // "iRef" field.
@@ -80,6 +82,17 @@ class InvitationStruct extends FFFirebaseStruct {
 
   bool hasIInvites() => _iInvites != null;
 
+  // "iDuree" field.
+  DureeStruct? _iDuree;
+  DureeStruct get iDuree => _iDuree ?? DureeStruct();
+  set iDuree(DureeStruct? val) => _iDuree = val;
+
+  void updateIDuree(Function(DureeStruct) updateFn) {
+    updateFn(_iDuree ??= DureeStruct());
+  }
+
+  bool hasIDuree() => _iDuree != null;
+
   static InvitationStruct fromMap(Map<String, dynamic> data) =>
       InvitationStruct(
         iRef: data['iRef'] as String?,
@@ -92,6 +105,7 @@ class InvitationStruct extends FFFirebaseStruct {
           data['iInvites'],
           ContactStruct.fromMap,
         ),
+        iDuree: DureeStruct.maybeFromMap(data['iDuree']),
       );
 
   static InvitationStruct? maybeFromMap(dynamic data) => data is Map
@@ -106,6 +120,7 @@ class InvitationStruct extends FFFirebaseStruct {
         'IdateInvite': _idateInvite,
         'iDateReponse': _iDateReponse,
         'iInvites': _iInvites?.map((e) => e.toMap()).toList(),
+        'iDuree': _iDuree?.toMap(),
       }.withoutNulls;
 
   @override
@@ -138,6 +153,10 @@ class InvitationStruct extends FFFirebaseStruct {
           _iInvites,
           ParamType.DataStruct,
           isList: true,
+        ),
+        'iDuree': serializeParam(
+          _iDuree,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -179,6 +198,12 @@ class InvitationStruct extends FFFirebaseStruct {
           true,
           structBuilder: ContactStruct.fromSerializableMap,
         ),
+        iDuree: deserializeStructParam(
+          data['iDuree'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: DureeStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -194,12 +219,21 @@ class InvitationStruct extends FFFirebaseStruct {
         iDetail == other.iDetail &&
         idateInvite == other.idateInvite &&
         iDateReponse == other.iDateReponse &&
-        listEquality.equals(iInvites, other.iInvites);
+        listEquality.equals(iInvites, other.iInvites) &&
+        iDuree == other.iDuree;
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [iRef, iTitre, iType, iDetail, idateInvite, iDateReponse, iInvites]);
+  int get hashCode => const ListEquality().hash([
+        iRef,
+        iTitre,
+        iType,
+        iDetail,
+        idateInvite,
+        iDateReponse,
+        iInvites,
+        iDuree
+      ]);
 }
 
 InvitationStruct createInvitationStruct({
@@ -209,6 +243,7 @@ InvitationStruct createInvitationStruct({
   String? iDetail,
   DateTime? idateInvite,
   DateTime? iDateReponse,
+  DureeStruct? iDuree,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -221,6 +256,7 @@ InvitationStruct createInvitationStruct({
       iDetail: iDetail,
       idateInvite: idateInvite,
       iDateReponse: iDateReponse,
+      iDuree: iDuree ?? (clearUnsetFields ? DureeStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -275,6 +311,14 @@ Map<String, dynamic> getInvitationFirestoreData(
     return {};
   }
   final firestoreData = mapToFirestore(invitation.toMap());
+
+  // Handle nested data for "iDuree" field.
+  addDureeStructData(
+    firestoreData,
+    invitation.hasIDuree() ? invitation.iDuree : null,
+    'iDuree',
+    forFieldValue,
+  );
 
   // Add any Firestore field values
   invitation.firestoreUtilData.fieldValues
