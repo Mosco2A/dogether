@@ -16,8 +16,8 @@ class InvitationStruct extends FFFirebaseStruct {
     String? iDetail,
     DateTime? idateInvite,
     DateTime? iDateReponse,
-    List<ContactStruct>? iInvites,
     DureeStruct? iDuree,
+    PhoneContactStruct? iInvites,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _iRef = iRef,
         _iTitre = iTitre,
@@ -25,8 +25,8 @@ class InvitationStruct extends FFFirebaseStruct {
         _iDetail = iDetail,
         _idateInvite = idateInvite,
         _iDateReponse = iDateReponse,
-        _iInvites = iInvites,
         _iDuree = iDuree,
+        _iInvites = iInvites,
         super(firestoreUtilData);
 
   // "iRef" field.
@@ -71,17 +71,6 @@ class InvitationStruct extends FFFirebaseStruct {
 
   bool hasIDateReponse() => _iDateReponse != null;
 
-  // "iInvites" field.
-  List<ContactStruct>? _iInvites;
-  List<ContactStruct> get iInvites => _iInvites ?? const [];
-  set iInvites(List<ContactStruct>? val) => _iInvites = val;
-
-  void updateIInvites(Function(List<ContactStruct>) updateFn) {
-    updateFn(_iInvites ??= []);
-  }
-
-  bool hasIInvites() => _iInvites != null;
-
   // "iDuree" field.
   DureeStruct? _iDuree;
   DureeStruct get iDuree => _iDuree ?? DureeStruct();
@@ -93,6 +82,17 @@ class InvitationStruct extends FFFirebaseStruct {
 
   bool hasIDuree() => _iDuree != null;
 
+  // "iInvites" field.
+  PhoneContactStruct? _iInvites;
+  PhoneContactStruct get iInvites => _iInvites ?? PhoneContactStruct();
+  set iInvites(PhoneContactStruct? val) => _iInvites = val;
+
+  void updateIInvites(Function(PhoneContactStruct) updateFn) {
+    updateFn(_iInvites ??= PhoneContactStruct());
+  }
+
+  bool hasIInvites() => _iInvites != null;
+
   static InvitationStruct fromMap(Map<String, dynamic> data) =>
       InvitationStruct(
         iRef: data['iRef'] as String?,
@@ -101,11 +101,8 @@ class InvitationStruct extends FFFirebaseStruct {
         iDetail: data['iDetail'] as String?,
         idateInvite: data['IdateInvite'] as DateTime?,
         iDateReponse: data['iDateReponse'] as DateTime?,
-        iInvites: getStructList(
-          data['iInvites'],
-          ContactStruct.fromMap,
-        ),
         iDuree: DureeStruct.maybeFromMap(data['iDuree']),
+        iInvites: PhoneContactStruct.maybeFromMap(data['iInvites']),
       );
 
   static InvitationStruct? maybeFromMap(dynamic data) => data is Map
@@ -119,8 +116,8 @@ class InvitationStruct extends FFFirebaseStruct {
         'iDetail': _iDetail,
         'IdateInvite': _idateInvite,
         'iDateReponse': _iDateReponse,
-        'iInvites': _iInvites?.map((e) => e.toMap()).toList(),
         'iDuree': _iDuree?.toMap(),
+        'iInvites': _iInvites?.toMap(),
       }.withoutNulls;
 
   @override
@@ -149,13 +146,12 @@ class InvitationStruct extends FFFirebaseStruct {
           _iDateReponse,
           ParamType.DateTime,
         ),
-        'iInvites': serializeParam(
-          _iInvites,
-          ParamType.DataStruct,
-          isList: true,
-        ),
         'iDuree': serializeParam(
           _iDuree,
+          ParamType.DataStruct,
+        ),
+        'iInvites': serializeParam(
+          _iInvites,
           ParamType.DataStruct,
         ),
       }.withoutNulls;
@@ -192,17 +188,17 @@ class InvitationStruct extends FFFirebaseStruct {
           ParamType.DateTime,
           false,
         ),
-        iInvites: deserializeStructParam<ContactStruct>(
-          data['iInvites'],
-          ParamType.DataStruct,
-          true,
-          structBuilder: ContactStruct.fromSerializableMap,
-        ),
         iDuree: deserializeStructParam(
           data['iDuree'],
           ParamType.DataStruct,
           false,
           structBuilder: DureeStruct.fromSerializableMap,
+        ),
+        iInvites: deserializeStructParam(
+          data['iInvites'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: PhoneContactStruct.fromSerializableMap,
         ),
       );
 
@@ -211,7 +207,6 @@ class InvitationStruct extends FFFirebaseStruct {
 
   @override
   bool operator ==(Object other) {
-    const listEquality = ListEquality();
     return other is InvitationStruct &&
         iRef == other.iRef &&
         iTitre == other.iTitre &&
@@ -219,8 +214,8 @@ class InvitationStruct extends FFFirebaseStruct {
         iDetail == other.iDetail &&
         idateInvite == other.idateInvite &&
         iDateReponse == other.iDateReponse &&
-        listEquality.equals(iInvites, other.iInvites) &&
-        iDuree == other.iDuree;
+        iDuree == other.iDuree &&
+        iInvites == other.iInvites;
   }
 
   @override
@@ -231,8 +226,8 @@ class InvitationStruct extends FFFirebaseStruct {
         iDetail,
         idateInvite,
         iDateReponse,
-        iInvites,
-        iDuree
+        iDuree,
+        iInvites
       ]);
 }
 
@@ -244,6 +239,7 @@ InvitationStruct createInvitationStruct({
   DateTime? idateInvite,
   DateTime? iDateReponse,
   DureeStruct? iDuree,
+  PhoneContactStruct? iInvites,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -257,6 +253,7 @@ InvitationStruct createInvitationStruct({
       idateInvite: idateInvite,
       iDateReponse: iDateReponse,
       iDuree: iDuree ?? (clearUnsetFields ? DureeStruct() : null),
+      iInvites: iInvites ?? (clearUnsetFields ? PhoneContactStruct() : null),
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
@@ -317,6 +314,14 @@ Map<String, dynamic> getInvitationFirestoreData(
     firestoreData,
     invitation.hasIDuree() ? invitation.iDuree : null,
     'iDuree',
+    forFieldValue,
+  );
+
+  // Handle nested data for "iInvites" field.
+  addPhoneContactStructData(
+    firestoreData,
+    invitation.hasIInvites() ? invitation.iInvites : null,
+    'iInvites',
     forFieldValue,
   );
 

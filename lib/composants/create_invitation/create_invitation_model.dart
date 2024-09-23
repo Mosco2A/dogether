@@ -22,49 +22,49 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for Calendar widget.
-  DateTimeRange? calendarSelectedDay1;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode3;
-  TextEditingController? textController3;
-  final textFieldMask3 =
+  // State field(s) for DateInvit widget.
+  DateTimeRange? dateInvitSelectedDay;
+  // State field(s) for HeureDebut widget.
+  FocusNode? heureDebutFocusNode;
+  TextEditingController? heureDebutTextController;
+  final heureDebutMask =
       MaskTextInputFormatter(mask: '([01][0-9]|2[0-3]):[0-5][0-9]');
-  String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
-  // State field(s) for DropDown widget.
-  String? dropDownValue3;
-  FormFieldController<String>? dropDownValueController3;
+  String? Function(BuildContext, String?)? heureDebutTextControllerValidator;
+  // State field(s) for NumDuree widget.
+  String? numDureeValue;
+  FormFieldController<String>? numDureeValueController;
+  // State field(s) for TypeDuree widget.
+  String? typeDureeValue;
+  FormFieldController<String>? typeDureeValueController;
   // State field(s) for Checkbox widget.
   Map<MyContactsRecord, bool> checkboxValueMap = {};
   List<MyContactsRecord> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
-  // State field(s) for Calendar widget.
-  DateTimeRange? calendarSelectedDay2;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode4;
-  TextEditingController? textController4;
-  final textFieldMask4 =
+  // State field(s) for CalendLimit widget.
+  DateTimeRange? calendLimitSelectedDay;
+  // State field(s) for HeureFin widget.
+  FocusNode? heureFinFocusNode;
+  TextEditingController? heureFinTextController;
+  final heureFinMask =
       MaskTextInputFormatter(mask: '([01][0-9]|2[0-3]):[0-5][0-9]');
-  String? Function(BuildContext, String?)? textController4Validator;
+  String? Function(BuildContext, String?)? heureFinTextControllerValidator;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   InvitationsEmisesRecord? createdDocument;
 
   @override
   void initState(BuildContext context) {
-    calendarSelectedDay1 = DateTimeRange(
+    dateInvitSelectedDay = DateTimeRange(
       start: DateTime.now().startOfDay,
       end: DateTime.now().endOfDay,
     );
-    calendarSelectedDay2 = DateTimeRange(
+    calendLimitSelectedDay = DateTimeRange(
       start: DateTime.now().startOfDay,
       end: DateTime.now().endOfDay,
     );
@@ -78,10 +78,10 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
 
-    textFieldFocusNode3?.dispose();
-    textController3?.dispose();
+    heureDebutFocusNode?.dispose();
+    heureDebutTextController?.dispose();
 
-    textFieldFocusNode4?.dispose();
-    textController4?.dispose();
+    heureFinFocusNode?.dispose();
+    heureFinTextController?.dispose();
   }
 }

@@ -42,11 +42,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
 
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.heureDebutTextController ??= TextEditingController();
+    _model.heureDebutFocusNode ??= FocusNode();
 
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
+    _model.heureFinTextController ??= TextEditingController();
+    _model.heureFinFocusNode ??= FocusNode();
   }
 
   @override
@@ -186,11 +186,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           Padding(
                             padding: EdgeInsets.all(10.0),
                             child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController1 ??=
+                              controller: _model.dropDownValueController ??=
                                   FormFieldController<String>(null),
                               options: FFAppState().listTypeInvit,
                               onChanged: (val) => safeSetState(
-                                  () => _model.dropDownValue1 = val),
+                                  () => _model.dropDownValue = val),
                               width: 200.0,
                               height: 40.0,
                               textStyle: FlutterFlowTheme.of(context)
@@ -317,7 +317,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Container(
-                                  width: MediaQuery.sizeOf(context).width * 0.6,
+                                  width: MediaQuery.sizeOf(context).width * 0.8,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -338,7 +338,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       onChange:
                                           (DateTimeRange? newSelectedDate) {
                                         safeSetState(() =>
-                                            _model.calendarSelectedDay1 =
+                                            _model.dateInvitSelectedDay =
                                                 newSelectedDate);
                                       },
                                       titleStyle: FlutterFlowTheme.of(context)
@@ -429,10 +429,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: TextFormField(
-                                                    controller:
-                                                        _model.textController3,
+                                                    controller: _model
+                                                        .heureDebutTextController,
                                                     focusNode: _model
-                                                        .textFieldFocusNode3,
+                                                        .heureDebutFocusNode,
                                                     autofocus: false,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
@@ -521,10 +521,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 context)
                                                             .primaryText,
                                                     validator: _model
-                                                        .textController3Validator
+                                                        .heureDebutTextControllerValidator
                                                         .asValidator(context),
                                                     inputFormatters: [
-                                                      _model.textFieldMask3
+                                                      _model.heureDebutMask
                                                     ],
                                                   ),
                                                 ),
@@ -582,10 +582,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               FlutterFlowDropDown<
                                                                   String>(
                                                             controller: _model
-                                                                    .dropDownValueController2 ??=
+                                                                    .numDureeValueController ??=
                                                                 FormFieldController<
                                                                     String>(
-                                                              _model.dropDownValue2 ??=
+                                                              _model.numDureeValue ??=
                                                                   '1',
                                                             ),
                                                             options:
@@ -593,7 +593,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                     .CDuree,
                                                             onChanged: (val) =>
                                                                 safeSetState(() =>
-                                                                    _model.dropDownValue2 =
+                                                                    _model.numDureeValue =
                                                                         val),
                                                             width: 200.0,
                                                             height: 40.0,
@@ -651,7 +651,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               FlutterFlowDropDown<
                                                                   String>(
                                                             controller: _model
-                                                                    .dropDownValueController3 ??=
+                                                                    .typeDureeValueController ??=
                                                                 FormFieldController<
                                                                         String>(
                                                                     null),
@@ -661,7 +661,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                             ],
                                                             onChanged: (val) =>
                                                                 safeSetState(() =>
-                                                                    _model.dropDownValue3 =
+                                                                    _model.typeDureeValue =
                                                                         val),
                                                             width: 200.0,
                                                             height: 40.0,
@@ -1024,7 +1024,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               Align(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Container(
-                                  width: MediaQuery.sizeOf(context).width * 0.6,
+                                  width: MediaQuery.sizeOf(context).width * 0.8,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -1045,14 +1045,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       onChange:
                                           (DateTimeRange? newSelectedDate) {
                                         safeSetState(() =>
-                                            _model.calendarSelectedDay2 =
+                                            _model.calendLimitSelectedDay =
                                                 newSelectedDate);
                                       },
                                       titleStyle: FlutterFlowTheme.of(context)
-                                          .bodySmall
+                                          .bodyMedium
                                           .override(
                                             fontFamily: 'Inter',
-                                            fontSize: 10.0,
                                             letterSpacing: 0.0,
                                           ),
                                       dayOfWeekStyle:
@@ -1135,10 +1134,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: TextFormField(
-                                                    controller:
-                                                        _model.textController4,
+                                                    controller: _model
+                                                        .heureFinTextController,
                                                     focusNode: _model
-                                                        .textFieldFocusNode4,
+                                                        .heureFinFocusNode,
                                                     autofocus: false,
                                                     obscureText: false,
                                                     decoration: InputDecoration(
@@ -1227,10 +1226,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 context)
                                                             .primaryText,
                                                     validator: _model
-                                                        .textController4Validator
+                                                        .heureFinTextControllerValidator
                                                         .asValidator(context),
                                                     inputFormatters: [
-                                                      _model.textFieldMask4
+                                                      _model.heureFinMask
                                                     ],
                                                   ),
                                                 ),
@@ -1324,6 +1323,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               iRef: _model.createdDocument?.reference.id,
                               iTitre: _model.textController1.text,
                               iDetail: _model.textController2.text,
+                              iType: _model.typeDureeValue,
+                              idateInvite: _model.dateInvitSelectedDay?.end,
+                              iDateReponse: _model.calendLimitSelectedDay?.end,
                               clearUnsetFields: false,
                             ),
                           ));
