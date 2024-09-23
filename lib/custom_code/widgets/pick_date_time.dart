@@ -23,9 +23,8 @@ class PickDateTime extends StatelessWidget {
           onPressed: () async {
             final DateTime? dateTime = await showOmniDateTimePicker(
               context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2000), // Date minimum
-              lastDate: DateTime(2100), // Date maximum
+              type: OmniDateTimePickerType
+                  .dateAndTime, // Spécifie le type de picker
             );
 
             if (dateTime != null) {
@@ -40,9 +39,8 @@ class PickDateTime extends StatelessWidget {
             final List<DateTime>? dateTimeRange =
                 await showOmniDateTimeRangePicker(
               context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2000), // Date minimum
-              lastDate: DateTime(2100), // Date maximum
+              type: OmniDateTimePickerType
+                  .dateAndTime, // Spécifie le type pour la plage
             );
 
             if (dateTimeRange != null && dateTimeRange.isNotEmpty) {
