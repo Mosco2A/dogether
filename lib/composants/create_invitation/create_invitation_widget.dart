@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -322,67 +323,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        3.0, 0.0, 3.0, 0.0),
-                                    child: FlutterFlowCalendar(
-                                      color:
-                                          FlutterFlowTheme.of(context).warning,
-                                      iconColor: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      weekFormat: false,
-                                      weekStartsMonday: true,
-                                      twoRowHeader: true,
-                                      initialDate: getCurrentTimestamp,
-                                      rowHeight: 25.0,
-                                      onChange:
-                                          (DateTimeRange? newSelectedDate) {
-                                        safeSetState(() =>
-                                            _model.calendarSelectedDay1 =
-                                                newSelectedDate);
-                                      },
-                                      titleStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      dayOfWeekStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                letterSpacing: 0.0,
-                                              ),
-                                      dateStyle: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      selectedDateStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                      inactiveDateStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
-                                                fontFamily: 'Inter',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent1,
-                                                letterSpacing: 0.0,
-                                              ),
-                                      locale: FFLocalizations.of(context)
-                                          .languageCode,
+                                  child: Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.6,
+                                    height: 200.0,
+                                    child: custom_widgets.CustomCalendar(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.6,
+                                      height: 200.0,
                                     ),
                                   ),
                                 ),
@@ -1045,7 +993,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       onChange:
                                           (DateTimeRange? newSelectedDate) {
                                         safeSetState(() =>
-                                            _model.calendarSelectedDay2 =
+                                            _model.calendarSelectedDay =
                                                 newSelectedDate);
                                       },
                                       titleStyle: FlutterFlowTheme.of(context)
