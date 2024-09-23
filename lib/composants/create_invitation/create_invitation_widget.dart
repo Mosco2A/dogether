@@ -444,14 +444,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
                                                   1.0,
-                                              height: 300.0,
+                                              height: 50.0,
                                               child:
                                                   custom_widgets.PickDateTime(
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
                                                         1.0,
-                                                height: 300.0,
+                                                height: 50.0,
                                               ),
                                             ),
                                           ),

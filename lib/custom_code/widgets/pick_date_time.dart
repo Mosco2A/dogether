@@ -11,36 +11,51 @@ import 'package:flutter/material.dart';
 
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
-class PickDateTime extends StatelessWidget {
+class PickDateTime extends StatefulWidget {
   final double? width; // Optionnel : largeur
   final double? height; // Optionnel : hauteur
+  final ValueChanged<DateTime?> onDateTimeSelected; // Callback pour le résultat
 
-  const PickDateTime({Key? key, this.width, this.height}) : super(key: key);
+  const PickDateTime({
+    Key? key,
+    this.width,
+    this.height,
+    required this.onDateTimeSelected, // Requis
+  }) : super(key: key);
+
+  @override
+  _PickDateTimeState createState() => _PickDateTimeState();
+}
+
+class _PickDateTimeState extends State<PickDateTime> {
+  @override
+  void initState() {
+    super.initState();
+    // Afficher le sélecteur dès que le widget est construit
+    _showDateTimePicker();
+  }
+
+  Future<void> _showDateTimePicker() async {
+    final DateTime? dateTime = await showOmniDateTimePicker(
+      context: context,
+      type: OmniDateTimePickerType.dateAndTime,
+    );
+
+    // Appeler la fonction callback avec la date sélectionnée
+    widget.onDateTimeSelected(dateTime);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final DateTime? dateTime = await showOmniDateTimePicker(
-          context: context,
-          type: OmniDateTimePickerType.dateAndTime,
-        );
-
-        if (dateTime != null) {
-          debugPrint('DateTime sélectionnée : $dateTime');
-        }
-      },
-      child: Container(
-        width: width, // Utilisation du paramètre width
-        height: height, // Utilisation du paramètre height
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: const Text('Sélectionner une Date et Heure',
-              textAlign: TextAlign.center),
-        ),
+    return Container(
+      width: widget.width, // Utilisation du paramètre width
+      height: widget.height, // Utilisation du paramètre height
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(
+        child: const Text('Sélection en cours...', textAlign: TextAlign.center),
       ),
     );
   }
