@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importer Firestore
 import 'package:fast_contacts/fast_contacts.dart'; // Importer les contacts
 import 'package:permission_handler/permission_handler.dart'; // Gestion des permissions
+import 'dart:convert'; // Pour jsonDecode et jsonEncode
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
@@ -46,24 +47,35 @@ class _ContactsPageState extends State<ContactsPage> {
     }
   }
 
+  // Ajoute le contact à Firestore avec un identifiant aléatoire
   Future<void> _addContactToFirestore(String name, String phone) async {
-    await _firestore.collection('myContacts').doc(name).set({
+    String docId = _firestore.collection('myContacts').doc().id; // ID aléatoire
+    await _firestore.collection('myContacts').doc(docId).set({
       'name': name,
       'phone': phone,
     });
   }
 
-  Future<void> _removeContactFromFirestore(String name) async {
-    await _firestore.collection('myContacts').doc(name).delete();
+  // Supprime un contact de Firestore en utilisant son ID de document
+  Future<void> _removeContactFromFirestore(String docId) async {
+    await _firestore.collection('myContacts').doc(docId).delete();
   }
 
-  Future<bool> _isContactInFirestore(String name) async {
-    var doc = await _firestore.collection('myContacts').doc(name).get();
-    return doc.exists;
+  // Récupère l'ID du document correspondant au nom du contact
+  Future<String?> _getContactDocId(String name) async {
+    var querySnapshot = await _firestore
+        .collection('myContacts')
+        .where('name', isEqualTo: name)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs.first.id; // Retourne l'ID du document
+    }
+    return null; // Aucun document trouvé
   }
 
+  // Formate le numéro de téléphone selon les normes françaises
   String formatPhoneNumber(String phone) {
-    // Transformer le numéro de téléphone au format +33(7)82644001
     if (phone.startsWith('06')) {
       return '+33(6)' + phone.substring(2);
     } else if (phone.startsWith('07')) {
@@ -110,14 +122,15 @@ class _ContactsPageState extends State<ContactsPage> {
           String formattedPhone =
               formatPhoneNumber(phoneToSave); // Formater le numéro
 
-          return FutureBuilder<bool>(
-            future: _isContactInFirestore(contact['displayName']),
+          return FutureBuilder<String?>(
+            future: _getContactDocId(contact['displayName']),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               }
 
-              bool isInFirestore = snapshot.data ?? false;
+              String? docId = snapshot.data;
+              bool isInFirestore = docId != null;
 
               return ListTile(
                 title: Text(contact['displayName']),
@@ -127,7 +140,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     setState(() {
                       if (isInFirestore) {
                         // Si le contact est déjà dans Firestore, le supprimer
-                        _removeContactFromFirestore(contact['displayName']);
+                        _removeContactFromFirestore(docId!);
                       } else {
                         // Ajouter le contact s'il n'existe pas déjà
                         _addContactToFirestore(
@@ -156,6 +169,7 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 }
 
+// Fonction pour lister les contacts et naviguer vers la page de contacts
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
 
@@ -192,7 +206,7 @@ Future<void> listeContacts(BuildContext context) async {
   }
 }
 
-// Fonction pour vérifier et demander les permissions
+// Fonction pour vérifier et demander les permissions de contacts
 Future<PermissionStatus> _getContactPermission() async {
   // Vérifier si la permission a déjà été accordée
   var status = await Permission.contacts.status;
