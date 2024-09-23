@@ -343,83 +343,79 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       Align(
                                         alignment:
                                             const AlignmentDirectional(0.0, 0.0),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 2.0, 0.0, 0.0),
-                                          child: Container(
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.8,
-                                            decoration: BoxDecoration(
+                                        child: Container(
+                                          width:
+                                              MediaQuery.sizeOf(context).width *
+                                                  0.8,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsetsDirectional.fromSTEB(
+                                                    3.0, 0.0, 3.0, 0.0),
+                                            child: FlutterFlowCalendar(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(3.0, 0.0, 3.0, 0.0),
-                                              child: FlutterFlowCalendar(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .warning,
-                                                weekFormat: false,
-                                                weekStartsMonday: true,
-                                                initialDate:
-                                                    getCurrentTimestamp,
-                                                rowHeight: 25.0,
-                                                onChange: (DateTimeRange?
-                                                    newSelectedDate) {
-                                                  safeSetState(() => _model
-                                                          .dateInvitSelectedDay =
-                                                      newSelectedDate);
-                                                },
-                                                titleStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                dayOfWeekStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                dateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                selectedDateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          fontSize: 12.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                inactiveDateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodySmall
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .accent1,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
+                                                      .warning,
+                                              weekFormat: false,
+                                              weekStartsMonday: true,
+                                              initialDate: getCurrentTimestamp,
+                                              rowHeight: 25.0,
+                                              onChange: (DateTimeRange?
+                                                  newSelectedDate) {
+                                                safeSetState(() => _model
+                                                        .dateInvitSelectedDay =
+                                                    newSelectedDate);
+                                              },
+                                              titleStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              dayOfWeekStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              dateStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              selectedDateStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              inactiveDateStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodySmall
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .accent1,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
                                             ),
                                           ),
                                         ),
@@ -443,15 +439,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             child: SizedBox(
                                               width: MediaQuery.sizeOf(context)
                                                       .width *
-                                                  1.0,
-                                              height: 50.0,
+                                                  0.8,
+                                              height: 300.0,
                                               child:
-                                                  custom_widgets.PickDateTime(
+                                                  custom_widgets.DateTimePicker(
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        1.0,
-                                                height: 50.0,
+                                                        0.8,
+                                                height: 300.0,
                                               ),
                                             ),
                                           ),
