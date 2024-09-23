@@ -767,6 +767,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           Text(
                                                             listeviewCreateItem
                                                                 .phone,
+                                                            textAlign:
+                                                                TextAlign.end,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
