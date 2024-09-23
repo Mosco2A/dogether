@@ -12,43 +12,50 @@ import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class PickDateTime extends StatelessWidget {
-  const PickDateTime({Key? key}) : super(key: key);
+  final double? width; // Ajout du paramètre width
+  const PickDateTime({Key? key, this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center, // Centrer verticalement
       children: [
-        ElevatedButton(
-          onPressed: () async {
-            final DateTime? dateTime = await showOmniDateTimePicker(
-              context: context,
-              type: OmniDateTimePickerType
-                  .dateAndTime, // Spécifie le type de picker
-            );
+        Container(
+          width: width, // Utilisation du paramètre width
+          child: ElevatedButton(
+            onPressed: () async {
+              final DateTime? dateTime = await showOmniDateTimePicker(
+                context: context,
+                type: OmniDateTimePickerType
+                    .dateAndTime, // Spécifie le type de picker
+              );
 
-            if (dateTime != null) {
-              // Utilise la date sélectionnée ici
-              debugPrint('DateTime sélectionnée : $dateTime');
-            }
-          },
-          child: const Text('Sélectionner une Date et Heure'),
+              if (dateTime != null) {
+                // Utilise la date sélectionnée ici
+                debugPrint('DateTime sélectionnée : $dateTime');
+              }
+            },
+            child: const Text('Sélectionner une Date et Heure'),
+          ),
         ),
-        ElevatedButton(
-          onPressed: () async {
-            final List<DateTime>? dateTimeRange =
-                await showOmniDateTimeRangePicker(
-              context: context,
-              type: OmniDateTimePickerType
-                  .dateAndTime, // Spécifie le type pour la plage
-            );
+        Container(
+          width: width, // Utilisation du paramètre width
+          child: ElevatedButton(
+            onPressed: () async {
+              final List<DateTime>? dateTimeRange =
+                  await showOmniDateTimeRangePicker(
+                context: context,
+                type: OmniDateTimePickerType
+                    .dateAndTime, // Spécifie le type pour la plage
+              );
 
-            if (dateTimeRange != null && dateTimeRange.isNotEmpty) {
-              // Utilise la plage de dates ici
-              debugPrint('Plage de dates sélectionnée : $dateTimeRange');
-            }
-          },
-          child: const Text('Sélectionner une Plage de Dates'),
+              if (dateTimeRange != null && dateTimeRange.isNotEmpty) {
+                // Utilise la plage de dates ici
+                debugPrint('Plage de dates sélectionnée : $dateTimeRange');
+              }
+            },
+            child: const Text('Sélectionner une Plage de Dates'),
+          ),
         ),
       ],
     );
