@@ -367,7 +367,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 fontFamily: 'Inter',
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .error,
+                                                        .primaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                               ),
