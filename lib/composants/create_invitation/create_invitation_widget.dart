@@ -92,7 +92,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                 padding: EdgeInsets.all(2.0),
                 child: Container(
                   width: MediaQuery.sizeOf(context).width * 0.95,
-                  height: MediaQuery.sizeOf(context).height * 0.8,
+                  height: MediaQuery.sizeOf(context).height * 0.75,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
                     borderRadius: BorderRadius.circular(12.0),
