@@ -33,6 +33,7 @@ dependencies:
   collection: 1.18.0
   device_info_plus: 9.1.0
   device_info_plus_platform_interface: 7.0.0
+  dropdown_button2: 2.3.9
   easy_debounce: 2.0.1
   fast_contacts: ^4.0.0
   firebase_auth: 4.19.5

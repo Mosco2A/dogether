@@ -125,7 +125,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                       ),
                       Container(
                         width: MediaQuery.sizeOf(context).width * 0.95,
-                        height: MediaQuery.sizeOf(context).height * 0.3,
+                        height: MediaQuery.sizeOf(context).height * 0.1,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).accent2,
                         ),
@@ -150,7 +150,7 @@ class _CreerWidgetState extends State<CreerWidget> {
                                     Text(
                                       listeviewVarItem.displayName,
                                       style: FlutterFlowTheme.of(context)
-                                          .labelLarge
+                                          .labelSmall
                                           .override(
                                             fontFamily: 'Inter',
                                             letterSpacing: 0.0,

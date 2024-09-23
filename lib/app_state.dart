@@ -44,6 +44,10 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _vLigthDark = prefs.getBool('ff_vLigthDark') ?? _vLigthDark;
     });
+    _safeInit(() {
+      _listTypeInvit =
+          prefs.getStringList('ff_listTypeInvit') ?? _listTypeInvit;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -156,6 +160,41 @@ class FFAppState extends ChangeNotifier {
 
   void insertAtIndexInCheckboxList(int index, PhoneContactStruct value) {
     checkboxList.insert(index, value);
+  }
+
+  List<String> _listTypeInvit = ['Resto', 'Sport', 'Ciné', 'Barbecue', 'Repas'];
+  List<String> get listTypeInvit => _listTypeInvit;
+  set listTypeInvit(List<String> value) {
+    _listTypeInvit = value;
+    prefs.setStringList('ff_listTypeInvit', value);
+  }
+
+  void addToListTypeInvit(String value) {
+    listTypeInvit.add(value);
+    prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
+  }
+
+  void removeFromListTypeInvit(String value) {
+    listTypeInvit.remove(value);
+    prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
+  }
+
+  void removeAtIndexFromListTypeInvit(int index) {
+    listTypeInvit.removeAt(index);
+    prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
+  }
+
+  void updateListTypeInvitAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    listTypeInvit[index] = updateFn(_listTypeInvit[index]);
+    prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
+  }
+
+  void insertAtIndexInListTypeInvit(int index, String value) {
+    listTypeInvit.insert(index, value);
+    prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
   }
 }
 
