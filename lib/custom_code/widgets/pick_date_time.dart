@@ -12,32 +12,34 @@ import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class PickDateTime extends StatelessWidget {
-  final double? width; // Ajout du paramètre width
-  final double? height; // Ajout du paramètre height
+  final double? width; // Optionnel : largeur
+  final double? height; // Optionnel : hauteur
 
   const PickDateTime({Key? key, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width, // Utilisation du paramètre width
-      height: height, // Utilisation du paramètre height
-      child: Center(
-        // Centrer le contenu
-        child: ElevatedButton(
-          onPressed: () async {
-            final DateTime? dateTime = await showOmniDateTimePicker(
-              context: context,
-              type: OmniDateTimePickerType
-                  .dateAndTime, // Spécifie le type de picker
-            );
+    return GestureDetector(
+      onTap: () async {
+        final DateTime? dateTime = await showOmniDateTimePicker(
+          context: context,
+          type: OmniDateTimePickerType.dateAndTime,
+        );
 
-            if (dateTime != null) {
-              // Utilise la date sélectionnée ici
-              debugPrint('DateTime sélectionnée : $dateTime');
-            }
-          },
-          child: const Text('Sélectionner une Date et Heure'),
+        if (dateTime != null) {
+          debugPrint('DateTime sélectionnée : $dateTime');
+        }
+      },
+      child: Container(
+        width: width, // Utilisation du paramètre width
+        height: height, // Utilisation du paramètre height
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: const Text('Sélectionner une Date et Heure',
+              textAlign: TextAlign.center),
         ),
       ),
     );
