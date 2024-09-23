@@ -186,6 +186,22 @@ class PickerItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Définissez une couleur par défaut pour chaque type de picker
+    Color pickerColor;
+    switch (pickerType) {
+      case DateTimePickerType.datetime:
+        pickerColor = Colors.blue; // Exemple de couleur
+        break;
+      case DateTimePickerType.date:
+        pickerColor = Colors.green; // Exemple de couleur
+        break;
+      case DateTimePickerType.time:
+        pickerColor = Colors.orange; // Exemple de couleur
+        break;
+      default:
+        pickerColor = Colors.grey; // Couleur par défaut
+    }
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -216,7 +232,7 @@ class PickerItemWidget extends StatelessWidget {
           child: Row(
             children: [
               Material(
-                color: pickerType.color,
+                color: pickerColor, // Utilisez la couleur définie
                 borderRadius: BorderRadius.circular(8),
                 child: SizedBox(
                   height: 32,
