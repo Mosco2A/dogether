@@ -452,9 +452,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                             .width *
                                                         1.0,
                                                 height: 300.0,
-                                                initialDate:
-                                                    getCurrentTimestamp,
-                                                firstDate: getCurrentTimestamp,
                                               ),
                                             ),
                                           ),
