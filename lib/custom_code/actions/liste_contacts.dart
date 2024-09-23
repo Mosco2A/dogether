@@ -74,7 +74,8 @@ class _ContactsPageState extends State<ContactsPage> {
       return phone.replaceFirst('+337', '+33(7)');
     }
     // Retirer tous les espaces dans le numéro de téléphone
-    phone = phone.replaceAll(' ', '');
+    phone = phone.replaceAll(' ', '.');
+
     return phone; // Retourne le numéro formaté sans espaces
   }
 
