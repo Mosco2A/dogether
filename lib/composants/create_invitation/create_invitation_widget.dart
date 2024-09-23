@@ -805,13 +805,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 .name,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .labelLarge
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
@@ -821,13 +818,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 .phone,
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .labelLarge
+                                                                .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
