@@ -804,6 +804,48 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                 );
                               },
                             ),
+                            Builder(
+                              builder: (context) {
+                                final listeviewVar =
+                                    FFAppState().checkboxList.toList();
+
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listeviewVar.length,
+                                  itemBuilder: (context, listeviewVarIndex) {
+                                    final listeviewVarItem =
+                                        listeviewVar[listeviewVarIndex];
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          listeviewVarItem.displayName,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelSmall
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Text(
+                                          listeviewVarItem.phone,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelLarge
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -875,11 +917,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     letterSpacing: 0.0,
                                   ),
                               inactiveDateStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
+                                  .bodySmall
                                   .override(
                                     fontFamily: 'Inter',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                                    color: FlutterFlowTheme.of(context).accent1,
                                     letterSpacing: 0.0,
                                   ),
                               locale: FFLocalizations.of(context).languageCode,

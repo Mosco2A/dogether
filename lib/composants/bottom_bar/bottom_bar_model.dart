@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -156,6 +157,8 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        FFAppState().checkboxList = [];
+                        safeSetState(() {});
                         await showDialog(
                           context: context,
                           builder: (dialogContext) {
