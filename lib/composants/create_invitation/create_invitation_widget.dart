@@ -2,10 +2,12 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'create_invitation_model.dart';
@@ -355,7 +357,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             child: FlutterFlowCalendar(
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                                      .warning,
                                               weekFormat: false,
                                               weekStartsMonday: true,
                                               initialDate: getCurrentTimestamp,
@@ -395,7 +397,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .error,
+                                                                .primaryText,
                                                         fontSize: 12.0,
                                                         letterSpacing: 0.0,
                                                       ),
@@ -805,7 +807,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       FormFieldController<
                                                                           String>(
                                                                     _model.numDureeValue ??=
-                                                                        '0,5',
+                                                                        '1',
                                                                   ),
                                                                   options:
                                                                       FFAppConstants
@@ -823,8 +825,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         letterSpacing:
                                                                             0.0,
                                                                       ),
-                                                                  hintText:
-                                                                      '0,5',
+                                                                  hintText: '1',
                                                                   icon: Icon(
                                                                     Icons
                                                                         .keyboard_arrow_down_rounded,
@@ -971,6 +972,67 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(10.0),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final listeviewVar =
+                                                      FFAppState()
+                                                          .checkboxList
+                                                          .toList();
+
+                                                  return ListView.builder(
+                                                    padding: EdgeInsets.zero,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        listeviewVar.length,
+                                                    itemBuilder: (context,
+                                                        listeviewVarIndex) {
+                                                      final listeviewVarItem =
+                                                          listeviewVar[
+                                                              listeviewVarIndex];
+                                                      return Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .displayName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .phone,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                             StreamBuilder<
                                                 List<MyContactsRecord>>(
                                               stream: queryMyContactsRecord(),
@@ -1016,6 +1078,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
                                                         Builder(
                                                           builder: (context) {
@@ -1047,32 +1112,25 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       MainAxisAlignment
                                                                           .spaceBetween,
                                                                   children: [
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding: const EdgeInsetsDirectional.fromSTEB(
-                                                                              10.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Text(
-                                                                            listeviewCreateItem.name,
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Inter',
-                                                                                  letterSpacing: 0.0,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
+                                                                    Container(
+                                                                      width:
+                                                                          200.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            10.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
                                                                           listeviewCreateItem
-                                                                              .phone,
+                                                                              .name,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -1080,7 +1138,23 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 letterSpacing: 0.0,
                                                                               ),
                                                                         ),
-                                                                      ],
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      listeviewCreateItem
+                                                                          .phone,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .end,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Inter',
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                          ),
                                                                     ),
                                                                     Align(
                                                                       alignment:
@@ -1116,11 +1190,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             if (newValue!) {
                                                                               FFAppState().addToCheckboxList(PhoneContactStruct(
                                                                                 refPhoneContact: listeviewCreateItem.reference,
+                                                                                displayName: listeviewCreateItem.name,
+                                                                                phone: listeviewCreateItem.phone,
                                                                               ));
                                                                               safeSetState(() {});
                                                                             } else {
                                                                               FFAppState().removeFromCheckboxList(PhoneContactStruct(
                                                                                 refPhoneContact: listeviewCreateItem.reference,
+                                                                                displayName: listeviewCreateItem.name,
+                                                                                phone: listeviewCreateItem.phone,
                                                                               ));
                                                                               safeSetState(() {});
                                                                             }
@@ -1151,94 +1229,67 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 );
                                               },
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(10.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(10.0),
-                                                    child: Text(
-                                                      'Contacts sélectionnés',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  Builder(
-                                                    builder: (context) {
-                                                      final listeviewVar =
-                                                          FFAppState()
-                                                              .checkboxList
-                                                              .toList();
-
-                                                      return ListView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            listeviewVar.length,
-                                                        itemBuilder: (context,
-                                                            listeviewVarIndex) {
-                                                          final listeviewVarItem =
-                                                              listeviewVar[
-                                                                  listeviewVarIndex];
-                                                          return Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Text(
-                                                                listeviewVarItem
-                                                                    .displayName,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                              Text(
-                                                                listeviewVarItem
-                                                                    .phone,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelSmall
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 0.0),
+                              child: Container(
+                                width: MediaQuery.sizeOf(context).width * 0.95,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.65,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 10.0, 0.0, 10.0),
+                                        child: Text(
+                                          'Vous pouvez ajouter des contacts à la liste de vos contacts depuis votre répertoire.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderRadius: 8.0,
+                                      buttonSize: 60.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      icon: Icon(
+                                        Icons.person_add_alt,
+                                        color:
+                                            FlutterFlowTheme.of(context).info,
+                                        size: 40.0,
+                                      ),
+                                      onPressed: () async {
+                                        await actions.listeContacts(
+                                          context,
+                                        );
+                                      },
+                                    ),
+                                  ].divide(const SizedBox(width: 20.0)),
+                                ),
                               ),
                             ),
                           ].divide(const SizedBox(height: 16.0)),
@@ -1319,6 +1370,49 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   FFButtonWidget(
                     onPressed: () async {
                       var shouldSetState = false;
+                      if (_model.dateInvitSelectedDay!.end <
+                          getCurrentTimestamp) {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: const Text('ERREUR'),
+                              content: const Text(
+                                  'La date d\'invitation est inférieure à la date du jour'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        if (shouldSetState) safeSetState(() {});
+                        return;
+                      }
+                      if (!(FFAppState().checkboxList.isNotEmpty)) {
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: const Text('ERREUR'),
+                              content: const Text(
+                                  'Vous n\'avez sélectionné aucun contact'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: const Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        if (shouldSetState) safeSetState(() {});
+                        return;
+                      }
                       _model.outForm = true;
                       if (_model.formKey.currentState == null ||
                           !_model.formKey.currentState!.validate()) {
@@ -1349,6 +1443,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             iType: _model.typeValue,
                             idateInvite: _model.dateInvitSelectedDay?.end,
                             iDuree: _model.numDureeValue,
+                            emetteur:
+                                '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
+                            emetteurRef: currentUserReference,
                             fieldValues: {
                               'iListeInvites': getPhoneContactListFirestoreData(
                                 FFAppState().checkboxList,
@@ -1370,6 +1467,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     idateInvite:
                                         _model.dateInvitSelectedDay?.end,
                                     iDuree: _model.numDureeValue,
+                                    emetteur:
+                                        '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
+                                    emetteurRef: currentUserReference,
                                     fieldValues: {
                                       'iListeInvites':
                                           getPhoneContactListFirestoreData(

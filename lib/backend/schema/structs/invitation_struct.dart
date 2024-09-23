@@ -9,6 +9,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class InvitationStruct extends FFFirebaseStruct {
   InvitationStruct({
+    String? emetteur,
+    DocumentReference? emetteurRef,
     String? iRef,
     String? iTitre,
     String? iType,
@@ -17,7 +19,9 @@ class InvitationStruct extends FFFirebaseStruct {
     String? iDuree,
     List<PhoneContactStruct>? iListeInvites,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _iRef = iRef,
+  })  : _emetteur = emetteur,
+        _emetteurRef = emetteurRef,
+        _iRef = iRef,
         _iTitre = iTitre,
         _iType = iType,
         _iDetail = iDetail,
@@ -25,6 +29,20 @@ class InvitationStruct extends FFFirebaseStruct {
         _iDuree = iDuree,
         _iListeInvites = iListeInvites,
         super(firestoreUtilData);
+
+  // "Emetteur" field.
+  String? _emetteur;
+  String get emetteur => _emetteur ?? '';
+  set emetteur(String? val) => _emetteur = val;
+
+  bool hasEmetteur() => _emetteur != null;
+
+  // "EmetteurRef" field.
+  DocumentReference? _emetteurRef;
+  DocumentReference? get emetteurRef => _emetteurRef;
+  set emetteurRef(DocumentReference? val) => _emetteurRef = val;
+
+  bool hasEmetteurRef() => _emetteurRef != null;
 
   // "iRef" field.
   String? _iRef;
@@ -81,6 +99,8 @@ class InvitationStruct extends FFFirebaseStruct {
 
   static InvitationStruct fromMap(Map<String, dynamic> data) =>
       InvitationStruct(
+        emetteur: data['Emetteur'] as String?,
+        emetteurRef: data['EmetteurRef'] as DocumentReference?,
         iRef: data['iRef'] as String?,
         iTitre: data['iTitre'] as String?,
         iType: data['iType'] as String?,
@@ -98,6 +118,8 @@ class InvitationStruct extends FFFirebaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
+        'Emetteur': _emetteur,
+        'EmetteurRef': _emetteurRef,
         'iRef': _iRef,
         'iTitre': _iTitre,
         'iType': _iType,
@@ -109,6 +131,14 @@ class InvitationStruct extends FFFirebaseStruct {
 
   @override
   Map<String, dynamic> toSerializableMap() => {
+        'Emetteur': serializeParam(
+          _emetteur,
+          ParamType.String,
+        ),
+        'EmetteurRef': serializeParam(
+          _emetteurRef,
+          ParamType.DocumentReference,
+        ),
         'iRef': serializeParam(
           _iRef,
           ParamType.String,
@@ -142,6 +172,17 @@ class InvitationStruct extends FFFirebaseStruct {
 
   static InvitationStruct fromSerializableMap(Map<String, dynamic> data) =>
       InvitationStruct(
+        emetteur: deserializeParam(
+          data['Emetteur'],
+          ParamType.String,
+          false,
+        ),
+        emetteurRef: deserializeParam(
+          data['EmetteurRef'],
+          ParamType.DocumentReference,
+          false,
+          collectionNamePath: ['users'],
+        ),
         iRef: deserializeParam(
           data['iRef'],
           ParamType.String,
@@ -187,6 +228,8 @@ class InvitationStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is InvitationStruct &&
+        emetteur == other.emetteur &&
+        emetteurRef == other.emetteurRef &&
         iRef == other.iRef &&
         iTitre == other.iTitre &&
         iType == other.iType &&
@@ -197,11 +240,22 @@ class InvitationStruct extends FFFirebaseStruct {
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([iRef, iTitre, iType, iDetail, idateInvite, iDuree, iListeInvites]);
+  int get hashCode => const ListEquality().hash([
+        emetteur,
+        emetteurRef,
+        iRef,
+        iTitre,
+        iType,
+        iDetail,
+        idateInvite,
+        iDuree,
+        iListeInvites
+      ]);
 }
 
 InvitationStruct createInvitationStruct({
+  String? emetteur,
+  DocumentReference? emetteurRef,
   String? iRef,
   String? iTitre,
   String? iType,
@@ -214,6 +268,8 @@ InvitationStruct createInvitationStruct({
   bool delete = false,
 }) =>
     InvitationStruct(
+      emetteur: emetteur,
+      emetteurRef: emetteurRef,
       iRef: iRef,
       iTitre: iTitre,
       iType: iType,

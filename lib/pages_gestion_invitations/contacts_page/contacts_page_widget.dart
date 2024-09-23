@@ -72,11 +72,20 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              Icons.people_alt,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              size: 40.0,
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Accueil');
+                              },
+                              child: Icon(
+                                Icons.home_sharp,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                size: 30.0,
+                              ),
                             ),
                           ],
                         ),
@@ -126,58 +135,49 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                         children: [
                           Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 10.0),
-                            child: Text(
-                              'Dogether Contacts',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                          Builder(
-                            builder: (context) {
-                              final listeviewCP =
-                                  containerMyContactsRecordList.toList();
+                                0.0, 20.0, 0.0, 0.0),
+                            child: Builder(
+                              builder: (context) {
+                                final listeviewCP =
+                                    containerMyContactsRecordList.toList();
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listeviewCP.length,
-                                itemBuilder: (context, listeviewCPIndex) {
-                                  final listeviewCPItem =
-                                      listeviewCP[listeviewCPIndex];
-                                  return Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        listeviewCPItem.name,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      Text(
-                                        listeviewCPItem.phone,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listeviewCP.length,
+                                  itemBuilder: (context, listeviewCPIndex) {
+                                    final listeviewCPItem =
+                                        listeviewCP[listeviewCPIndex];
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          listeviewCPItem.name,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Text(
+                                          listeviewCPItem.phone,
+                                          style: FlutterFlowTheme.of(context)
+                                              .labelMedium
+                                              .override(
+                                                fontFamily: 'Inter',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),

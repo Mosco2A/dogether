@@ -80,10 +80,8 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                     Text(
                       'DoGether',
                       style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
+                          FlutterFlowTheme.of(context).headlineLarge.override(
                                 fontFamily: 'Readex Pro',
-                                color: Colors.white,
-                                fontSize: 22.0,
                                 letterSpacing: 0.0,
                               ),
                     ),

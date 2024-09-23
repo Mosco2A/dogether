@@ -2,7 +2,6 @@ import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'recues_model.dart';
 export 'recues_model.dart';
 
@@ -74,11 +73,20 @@ class _RecuesWidgetState extends State<RecuesWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            FaIcon(
-                              FontAwesomeIcons.envelopeOpenText,
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              size: 40.0,
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Accueil');
+                              },
+                              child: Icon(
+                                Icons.home_sharp,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                size: 30.0,
+                              ),
                             ),
                           ],
                         ),

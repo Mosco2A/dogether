@@ -113,11 +113,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ContactsPageWidget(),
         ),
         FFRoute(
-          name: 'Creer',
-          path: '/creer',
-          builder: (context, params) => const CreerWidget(),
-        ),
-        FFRoute(
           name: 'Profil',
           path: '/profil',
           builder: (context, params) => const ProfilWidget(),
