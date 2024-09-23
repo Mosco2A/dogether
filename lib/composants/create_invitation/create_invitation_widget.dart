@@ -1,16 +1,11 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'create_invitation_model.dart';
 export 'create_invitation_model.dart';
@@ -79,7 +74,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                     ),
                   ),
                   child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
+                    alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
                       'Créer une Invitation',
                       style:
@@ -91,7 +86,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Container(
                     width: MediaQuery.sizeOf(context).width * 0.95,
                     height: MediaQuery.sizeOf(context).height * 0.75,
@@ -104,14 +99,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 10.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 10.0),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: TextFormField(
                                 controller: _model.textController1,
                                 focusNode: _model.textFieldFocusNode1,
@@ -140,28 +135,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         fontWeight: FontWeight.normal,
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
@@ -171,7 +166,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 16.0, 16.0, 16.0),
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -187,7 +182,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: FlutterFlowDropDown<String>(
                                 controller: _model.dropDownValueController ??=
                                     FormFieldController<String>(null),
@@ -215,7 +210,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                 borderColor: Colors.transparent,
                                 borderWidth: 0.0,
                                 borderRadius: 8.0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
+                                margin: const EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 0.0),
                                 hidesUnderline: true,
                                 isOverButton: false,
@@ -224,7 +219,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: TextFormField(
                                 controller: _model.textController2,
                                 focusNode: _model.textFieldFocusNode2,
@@ -254,28 +249,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         fontWeight: FontWeight.normal,
                                       ),
                                   enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
+                                    borderSide: const BorderSide(
                                       color: Color(0x00000000),
                                       width: 1.0,
                                     ),
@@ -285,7 +280,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
+                                      const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 16.0, 16.0, 16.0),
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -306,7 +301,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Text(
                                     'Selectionner date, heure, durée de l\'Invitation',
@@ -320,7 +315,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Container(
                                     width:
                                         MediaQuery.sizeOf(context).width * 0.8,
@@ -329,7 +324,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           .secondaryBackground,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           3.0, 0.0, 3.0, 0.0),
                                       child: FlutterFlowCalendar(
                                         color: FlutterFlowTheme.of(context)
@@ -394,7 +389,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -408,7 +403,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 10.0),
                                                 child: Text(
@@ -423,16 +418,16 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
-                                                child: Container(
+                                                child: SizedBox(
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
                                                           0.2,
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: TextFormField(
                                                       controller: _model
@@ -468,7 +463,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -481,7 +476,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -550,7 +545,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Container(
+                                              SizedBox(
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
@@ -561,7 +556,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   children: [
                                                     Padding(
                                                       padding:
-                                                          EdgeInsetsDirectional
+                                                          const EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   10.0,
@@ -583,7 +578,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Row(
                                                         mainAxisSize:
@@ -648,7 +643,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               borderWidth: 0.0,
                                                               borderRadius: 8.0,
                                                               margin:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -680,7 +675,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   FormFieldController<
                                                                           String>(
                                                                       null),
-                                                              options: [
+                                                              options: const [
                                                                 'Heure(s)',
                                                                 'Jours(s)'
                                                               ],
@@ -718,7 +713,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               borderWidth: 0.0,
                                                               borderRadius: 8.0,
                                                               margin:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
@@ -753,7 +748,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Text(
                                     'Select Contacts',
@@ -862,7 +857,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                             ),
                                                             Align(
                                                               alignment:
-                                                                  AlignmentDirectional(
+                                                                  const AlignmentDirectional(
                                                                       0.0, 1.0),
                                                               child: Theme(
                                                                 data: ThemeData(
@@ -949,12 +944,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         },
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                              padding: const EdgeInsets.all(10.0),
                                               child: Text(
                                                 'Contacts sélectionnés',
                                                 style:
@@ -1036,7 +1031,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Text(
                                     'Sélectionner une date limite d\'invitation',
@@ -1049,7 +1044,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Container(
                                     width:
                                         MediaQuery.sizeOf(context).width * 0.8,
@@ -1058,7 +1053,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           .secondaryBackground,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           3.0, 0.0, 3.0, 0.0),
                                       child: FlutterFlowCalendar(
                                         color: FlutterFlowTheme.of(context)
@@ -1120,7 +1115,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       5.0, 0.0, 0.0, 0.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
@@ -1134,7 +1129,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 10.0),
                                                 child: Text(
@@ -1149,17 +1144,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment: AlignmentDirectional(
+                                                alignment: const AlignmentDirectional(
                                                     0.0, 0.0),
                                                 child: Container(
                                                   width:
                                                       MediaQuery.sizeOf(context)
                                                               .width *
                                                           0.2,
-                                                  decoration: BoxDecoration(),
+                                                  decoration: const BoxDecoration(),
                                                   child: Align(
                                                     alignment:
-                                                        AlignmentDirectional(
+                                                        const AlignmentDirectional(
                                                             0.0, 0.0),
                                                     child: TextFormField(
                                                       controller: _model
@@ -1195,7 +1190,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         enabledBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1208,7 +1203,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         focusedBorder:
                                                             OutlineInputBorder(
                                                           borderSide:
-                                                              BorderSide(
+                                                              const BorderSide(
                                                             color: Color(
                                                                 0x00000000),
                                                             width: 1.0,
@@ -1281,7 +1276,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -1297,7 +1292,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Padding(
-              padding: EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1310,9 +1305,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).error,
                       textStyle: FlutterFlowTheme.of(context)
                           .titleSmall
@@ -1323,7 +1318,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             fontWeight: FontWeight.w500,
                           ),
                       elevation: 0.0,
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         width: 1.0,
                       ),
                       borderRadius: BorderRadius.circular(8.0),
@@ -1372,7 +1367,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       context.pushNamed(
                         'Creer',
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: TransitionInfo(
+                          kTransitionInfoKey: const TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.leftToRight,
                           ),
@@ -1385,10 +1380,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+                          const EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
                       iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: Color(0xFF4B39EF),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: const Color(0xFF4B39EF),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Inter',
@@ -1400,7 +1395,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                ].divide(SizedBox(width: 8.0)),
+                ].divide(const SizedBox(width: 8.0)),
               ),
             ),
           ),

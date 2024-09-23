@@ -1,10 +1,7 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'emises_model.dart';
 export 'emises_model.dart';
 
@@ -49,7 +46,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +71,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                           context.pushNamed(
                             'Emises',
                             extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
+                              kTransitionInfoKey: const TransitionInfo(
                                 hasTransition: true,
                                 transitionType: PageTransitionType.rightToLeft,
                               ),
@@ -82,7 +79,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                           );
                         },
                         child: Container(
-                          constraints: BoxConstraints(
+                          constraints: const BoxConstraints(
                             minWidth: 60.0,
                           ),
                           decoration: BoxDecoration(
@@ -105,7 +102,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                     ],
                   ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -130,11 +127,11 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: BottomBarWidget(),
+                  child: const BottomBarWidget(),
                 ),
               ),
             ],
