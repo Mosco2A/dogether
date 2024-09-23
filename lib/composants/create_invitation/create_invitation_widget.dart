@@ -436,17 +436,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryBackground,
                                             ),
-                                            child: SizedBox(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.8,
+                                            child: const SizedBox(
+                                              width: 200.0,
                                               height: 300.0,
                                               child:
                                                   custom_widgets.DateTimePicker(
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        0.8,
+                                                width: 200.0,
                                                 height: 300.0,
                                               ),
                                             ),
