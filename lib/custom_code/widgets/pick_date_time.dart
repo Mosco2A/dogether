@@ -13,16 +13,19 @@ import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
 class PickDateTime extends StatelessWidget {
   final double? width; // Ajout du paramètre width
-  const PickDateTime({Key? key, this.width}) : super(key: key);
+  final double? height; // Ajout du paramètre height
+
+  const PickDateTime({Key? key, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center, // Centrer verticalement
-      children: [
-        Container(
-          width: width, // Utilisation du paramètre width
-          child: ElevatedButton(
+    return Container(
+      width: width, // Utilisation du paramètre width
+      height: height, // Utilisation du paramètre height
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Centrer verticalement
+        children: [
+          ElevatedButton(
             onPressed: () async {
               final DateTime? dateTime = await showOmniDateTimePicker(
                 context: context,
@@ -37,10 +40,7 @@ class PickDateTime extends StatelessWidget {
             },
             child: const Text('Sélectionner une Date et Heure'),
           ),
-        ),
-        Container(
-          width: width, // Utilisation du paramètre width
-          child: ElevatedButton(
+          ElevatedButton(
             onPressed: () async {
               final List<DateTime>? dateTimeRange =
                   await showOmniDateTimeRangePicker(
@@ -56,8 +56,8 @@ class PickDateTime extends StatelessWidget {
             },
             child: const Text('Sélectionner une Plage de Dates'),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
