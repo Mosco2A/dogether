@@ -802,17 +802,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 .dureeValueController ??=
                                                             FormFieldController<
                                                                 String>(null),
-                                                        options: FFAppState()
-                                                            .listTypeInvit,
-                                                        onChanged: (val) async {
-                                                          safeSetState(() =>
-                                                              _model.dureeValue =
-                                                                  val);
-                                                          FFAppState()
-                                                                  .vTypeAutre =
-                                                              true;
-                                                          safeSetState(() {});
-                                                        },
+                                                        options: FFAppConstants
+                                                            .CDuree,
+                                                        onChanged: (val) =>
+                                                            safeSetState(() =>
+                                                                _model.dureeValue =
+                                                                    val),
                                                         width: 120.0,
                                                         height: 40.0,
                                                         textStyle:
