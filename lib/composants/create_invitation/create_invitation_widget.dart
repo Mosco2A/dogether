@@ -895,7 +895,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0.0, 10.0, 0.0, 10.0),
                                         child: Text(
-                                          'Select Contacts',
+                                          'Selectionnez vos invités',
                                           style: FlutterFlowTheme.of(context)
                                               .labelLarge
                                               .override(
@@ -908,67 +908,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Padding(
-                                              padding: EdgeInsets.all(10.0),
-                                              child: Builder(
-                                                builder: (context) {
-                                                  final listeviewVar =
-                                                      FFAppState()
-                                                          .checkboxList
-                                                          .toList();
-
-                                                  return ListView.builder(
-                                                    padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    itemCount:
-                                                        listeviewVar.length,
-                                                    itemBuilder: (context,
-                                                        listeviewVarIndex) {
-                                                      final listeviewVarItem =
-                                                          listeviewVar[
-                                                              listeviewVarIndex];
-                                                      return Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            listeviewVarItem
-                                                                .displayName,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                          Text(
-                                                            listeviewVarItem
-                                                                .phone,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            ),
                                             StreamBuilder<
                                                 List<MyContactsRecord>>(
                                               stream: queryMyContactsRecord(),
@@ -1164,6 +1103,82 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   ),
                                                 );
                                               },
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Invités sélectionnés:',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final listeviewVar =
+                                                      FFAppState()
+                                                          .checkboxList
+                                                          .toList();
+
+                                                  return ListView.builder(
+                                                    padding: EdgeInsets.zero,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        listeviewVar.length,
+                                                    itemBuilder: (context,
+                                                        listeviewVarIndex) {
+                                                      final listeviewVarItem =
+                                                          listeviewVar[
+                                                              listeviewVarIndex];
+                                                      return Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .displayName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .phone,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                             ),
                                           ],
                                         ),
