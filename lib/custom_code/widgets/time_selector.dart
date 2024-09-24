@@ -11,6 +11,11 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 class TimeSelector extends StatefulWidget {
+  final double width;
+  final double height;
+
+  TimeSelector({this.width = 300.0, this.height = 100.0});
+
   @override
   _TimeSelectorState createState() => _TimeSelectorState();
 }
@@ -20,22 +25,26 @@ class _TimeSelectorState extends State<TimeSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Slider(
-          value: _selectedHours,
-          min: 3,
-          max: 96,
-          divisions: 93, // De 3 à 96 heures
-          label: "${_selectedHours.toStringAsFixed(0)} heures",
-          onChanged: (value) {
-            setState(() {
-              _selectedHours = value < 24 ? value : value.round().toDouble();
-            });
-          },
-        ),
-        Text("Heures sélectionnées: ${_selectedHours.toStringAsFixed(0)}"),
-      ],
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      child: Column(
+        children: [
+          Slider(
+            value: _selectedHours,
+            min: 3,
+            max: 96,
+            divisions: 93,
+            label: "${_selectedHours.toStringAsFixed(0)} heures",
+            onChanged: (value) {
+              setState(() {
+                _selectedHours = value < 24 ? value : value.round().toDouble();
+              });
+            },
+          ),
+          Text("Heures sélectionnées: ${_selectedHours.toStringAsFixed(0)}"),
+        ],
+      ),
     );
   }
 }
