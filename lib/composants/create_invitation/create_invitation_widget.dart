@@ -850,6 +850,30 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         isMultiSelect: false,
                                                       ),
                                                     ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  10.0),
+                                                      child: Text(
+                                                        'heures',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ],
@@ -1354,8 +1378,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       if (/* NOT RECOMMENDED */ _model
                               .typeAutreTextController.text ==
                           'true') {
-                        if (!(_model.typeAutreTextController.text != null &&
-                            _model.typeAutreTextController.text != '')) {
+                        if (_model.typeAutreTextController.text != null &&
+                            _model.typeAutreTextController.text != '') {
+                          FFAppState().vType =
+                              _model.typeAutreTextController.text;
+                          safeSetState(() {});
+                        } else {
                           await showDialog(
                             context: context,
                             builder: (alertDialogContext) {
@@ -1376,7 +1404,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           if (_shouldSetState) safeSetState(() {});
                           return;
                         }
+                      } else {
+                        FFAppState().vType =
+                            _model.typeAutreTextController.text;
+                        safeSetState(() {});
                       }
+
                       _model.outForm = true;
                       if (_model.formKey.currentState == null ||
                           !_model.formKey.currentState!.validate()) {
@@ -1392,7 +1425,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           eInvitation: createInvitationStruct(
                             iRef:
                                 '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
-                            iTitre: _model.typeAutreTextController.text,
+                            iTitre: _model.titreTextController.text,
                             iDetail: _model.detailTextController.text,
                             iType: _model.typeListValue,
                             idateInvite: _model.datePicked,
@@ -1415,7 +1448,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   eInvitation: createInvitationStruct(
                                     iRef:
                                         '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
-                                    iTitre: _model.typeAutreTextController.text,
+                                    iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
                                     iType: _model.typeListValue,
                                     idateInvite: _model.datePicked,

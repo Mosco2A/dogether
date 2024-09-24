@@ -215,6 +215,12 @@ class FFAppState extends ChangeNotifier {
   set vTypeAutre(bool value) {
     _vTypeAutre = value;
   }
+
+  String _vType = '';
+  String get vType => _vType;
+  set vType(String value) {
+    _vType = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
