@@ -1,1 +1,1 @@
-export 'date_time_picker.dart' show DateTimePicker;
+export 'time_selector.dart' show TimeSelector;

@@ -155,6 +155,8 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         FFAppState().checkboxList = [];
+                        FFAppState().VHeureSelect = false;
+                        FFAppState().vTypeAutre = false;
                         safeSetState(() {});
                         await showDialog(
                           context: context,

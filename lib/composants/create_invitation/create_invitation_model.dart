@@ -1,5 +1,4 @@
 import '/backend/backend.dart';
-import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'create_invitation_widget.dart' show CreateInvitationWidget;
@@ -13,7 +12,14 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   FocusNode? titreFocusNode;
   TextEditingController? titreTextController;
   String? Function(BuildContext, String?)? titreTextControllerValidator;
-  String? _titreTextControllerValidator(BuildContext context, String? val) {
+  // State field(s) for TypeList widget.
+  String? typeListValue;
+  FormFieldController<String>? typeListValueController;
+  // State field(s) for TypeAutre widget.
+  FocusNode? typeAutreFocusNode;
+  TextEditingController? typeAutreTextController;
+  String? Function(BuildContext, String?)? typeAutreTextControllerValidator;
+  String? _typeAutreTextControllerValidator(BuildContext context, String? val) {
     if (val == null || val.isEmpty) {
       return 'Merci de saisir un titre';
     }
@@ -28,9 +34,6 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
     return null;
   }
 
-  // State field(s) for Type widget.
-  String? typeValue;
-  FormFieldController<String>? typeValueController;
   // State field(s) for Detail widget.
   FocusNode? detailFocusNode;
   TextEditingController? detailTextController;
@@ -50,56 +53,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
     return null;
   }
 
-  // State field(s) for DateInvit widget.
-  DateTimeRange? dateInvitSelectedDay;
-  // State field(s) for HH widget.
-  FocusNode? hhFocusNode;
-  TextEditingController? hhTextController;
-  String? Function(BuildContext, String?)? hhTextControllerValidator;
-  String? _hhTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Saisir une heure entre 00 et 23';
-    }
-
-    if (val.length < 2) {
-      return 'Saisir une heure entre 00 et 23';
-    }
-    if (val.length > 2) {
-      return 'Saisir une heure entre 00 et 23';
-    }
-    if (!RegExp('(0[0-9]|1[0-9]|2[0-3])').hasMatch(val)) {
-      return 'Saisir une heure entre 00 et 23';
-    }
-    return null;
-  }
-
-  // State field(s) for MM widget.
-  FocusNode? mmFocusNode;
-  TextEditingController? mmTextController;
-  String? Function(BuildContext, String?)? mmTextControllerValidator;
-  String? _mmTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Saisir des minutes entre 00 et 59';
-    }
-
-    if (val.length < 2) {
-      return 'Saisir des minutes entre 00 et 59';
-    }
-    if (val.length > 2) {
-      return 'Saisir des minutes entre 00 et 59';
-    }
-    if (!RegExp('([0-5][0-9])').hasMatch(val)) {
-      return 'Saisir des minutes entre 00 et 59';
-    }
-    return null;
-  }
-
-  // State field(s) for NumDuree widget.
-  String? numDureeValue;
-  FormFieldController<String>? numDureeValueController;
-  // State field(s) for JouH widget.
-  String? jouHValue;
-  FormFieldController<String>? jouHValueController;
+  DateTime? datePicked1;
+  DateTime? datePicked2;
   // State field(s) for Checkbox widget.
   Map<MyContactsRecord, bool> checkboxValueMap = {};
   List<MyContactsRecord> get checkboxCheckedItems =>
@@ -112,14 +67,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
 
   @override
   void initState(BuildContext context) {
-    titreTextControllerValidator = _titreTextControllerValidator;
+    typeAutreTextControllerValidator = _typeAutreTextControllerValidator;
     detailTextControllerValidator = _detailTextControllerValidator;
-    dateInvitSelectedDay = DateTimeRange(
-      start: DateTime.now().startOfDay,
-      end: DateTime.now().endOfDay,
-    );
-    hhTextControllerValidator = _hhTextControllerValidator;
-    mmTextControllerValidator = _mmTextControllerValidator;
   }
 
   @override
@@ -127,13 +76,10 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
     titreFocusNode?.dispose();
     titreTextController?.dispose();
 
+    typeAutreFocusNode?.dispose();
+    typeAutreTextController?.dispose();
+
     detailFocusNode?.dispose();
     detailTextController?.dispose();
-
-    hhFocusNode?.dispose();
-    hhTextController?.dispose();
-
-    mmFocusNode?.dispose();
-    mmTextController?.dispose();
   }
 }

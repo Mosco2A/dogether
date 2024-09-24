@@ -161,7 +161,14 @@ class FFAppState extends ChangeNotifier {
     checkboxList.insert(index, value);
   }
 
-  List<String> _listTypeInvit = ['Resto', 'Sport', 'Ciné', 'Barbecue', 'Repas'];
+  List<String> _listTypeInvit = [
+    'Resto',
+    'Sport',
+    'Ciné',
+    'Barbecue',
+    'Repas',
+    'Autre'
+  ];
   List<String> get listTypeInvit => _listTypeInvit;
   set listTypeInvit(List<String> value) {
     _listTypeInvit = value;
@@ -194,6 +201,18 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInListTypeInvit(int index, String value) {
     listTypeInvit.insert(index, value);
     prefs.setStringList('ff_listTypeInvit', _listTypeInvit);
+  }
+
+  bool _VHeureSelect = false;
+  bool get VHeureSelect => _VHeureSelect;
+  set VHeureSelect(bool value) {
+    _VHeureSelect = value;
+  }
+
+  bool _vTypeAutre = false;
+  bool get vTypeAutre => _vTypeAutre;
+  set vTypeAutre(bool value) {
+    _vTypeAutre = value;
   }
 }
 
