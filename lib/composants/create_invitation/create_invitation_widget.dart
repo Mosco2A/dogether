@@ -1427,7 +1427,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                 '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
                             iTitre: _model.titreTextController.text,
                             iDetail: _model.detailTextController.text,
-                            iType: _model.typeListValue,
+                            iType: FFAppState().vType,
                             idateInvite: _model.datePicked,
                             iDuree: _model.dureeValue,
                             emetteur:
@@ -1450,7 +1450,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
                                     iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
-                                    iType: _model.typeListValue,
+                                    iType: FFAppState().vType,
                                     idateInvite: _model.datePicked,
                                     iDuree: _model.dureeValue,
                                     emetteur:
