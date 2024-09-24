@@ -491,7 +491,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
-                                                  0.8,
+                                                  0.95,
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
@@ -795,14 +795,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           FlutterFlowDropDown<
                                                               String>(
                                                         controller: _model
-                                                                .dropDownValueController ??=
+                                                                .dureeValueController ??=
                                                             FormFieldController<
                                                                 String>(null),
-                                                        options: const <String>[],
-                                                        onChanged: (val) =>
-                                                            safeSetState(() =>
-                                                                _model.dropDownValue =
-                                                                    val),
+                                                        options: FFAppState()
+                                                            .listTypeInvit,
+                                                        onChanged: (val) async {
+                                                          safeSetState(() =>
+                                                              _model.dureeValue =
+                                                                  val);
+                                                          FFAppState()
+                                                                  .vTypeAutre =
+                                                              true;
+                                                          safeSetState(() {});
+                                                        },
                                                         width: 120.0,
                                                         height: 40.0,
                                                         textStyle:
@@ -1390,7 +1396,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             iDetail: _model.detailTextController.text,
                             iType: _model.typeListValue,
                             idateInvite: _model.datePicked,
-                            iDuree: _model.dropDownValue,
+                            iDuree: _model.dureeValue,
                             emetteur:
                                 '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
                             emetteurRef: currentUserReference,
@@ -1413,7 +1419,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     iDetail: _model.detailTextController.text,
                                     iType: _model.typeListValue,
                                     idateInvite: _model.datePicked,
-                                    iDuree: _model.dropDownValue,
+                                    iDuree: _model.dureeValue,
                                     emetteur:
                                         '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
                                     emetteurRef: currentUserReference,

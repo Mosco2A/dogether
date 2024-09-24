@@ -54,9 +54,9 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   }
 
   DateTime? datePicked;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for Duree widget.
+  String? dureeValue;
+  FormFieldController<String>? dureeValueController;
   // State field(s) for Checkbox widget.
   Map<MyContactsRecord, bool> checkboxValueMap = {};
   List<MyContactsRecord> get checkboxCheckedItems =>
