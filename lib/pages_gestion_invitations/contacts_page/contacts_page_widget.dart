@@ -137,7 +137,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 20.0, 0.0, 0.0),
+                                0.0, 20.0, 0.0, 20.0),
                             child: Builder(
                               builder: (context) {
                                 final listeviewCP =
