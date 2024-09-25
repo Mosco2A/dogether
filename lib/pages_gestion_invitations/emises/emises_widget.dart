@@ -115,10 +115,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                   StreamBuilder<List<InvitationsEmisesRecord>>(
                     stream: queryInvitationsEmisesRecord(
                       queryBuilder: (invitationsEmisesRecord) =>
-                          invitationsEmisesRecord.where(
-                        'eInvitation.IdateInvite',
-                        isGreaterThan: getCurrentTimestamp,
-                      ),
+                          invitationsEmisesRecord
+                              .where(
+                                'eInvitation.IdateInvite',
+                                isGreaterThan: getCurrentTimestamp,
+                              )
+                              .orderBy('eInvitation.IdateInvite',
+                                  descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
