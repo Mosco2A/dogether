@@ -260,7 +260,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 ),
                                                 Text(
                                                   '${dateTimeFormat(
-                                                    "dd mmm",
+                                                    "d MMM",
                                                     listeEmiseItem.eInvitation
                                                         .idateInvite,
                                                     locale: FFLocalizations.of(
