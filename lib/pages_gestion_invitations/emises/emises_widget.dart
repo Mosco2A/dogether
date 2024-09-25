@@ -259,7 +259,14 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       ),
                                                 ),
                                                 Text(
-                                                  '${listeEmiseItem.eInvitation.idateInvite?.toString()} à 20H30',
+                                                  '${dateTimeFormat(
+                                                    "dd mmm",
+                                                    listeEmiseItem.eInvitation
+                                                        .idateInvite,
+                                                    locale: FFLocalizations.of(
+                                                            context)
+                                                        .languageCode,
+                                                  )} à 20H30',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
