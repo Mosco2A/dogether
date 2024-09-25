@@ -217,6 +217,10 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .bodyLarge
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -238,6 +242,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                       ),
                                                 ),
@@ -256,7 +261,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
                                                 ),
                                                 Text(
@@ -273,7 +284,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Inter',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                       ),
                                                 ),
                                               ],
@@ -293,7 +310,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       AlignmentDirectional(
                                                           -1.0, -1.0),
                                                   child: Text(
-                                                    'Invités:\n',
+                                                    'Invités:',
                                                     textAlign: TextAlign.start,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -301,6 +318,9 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           letterSpacing: 0.0,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
                                                         ),
                                                   ),
                                                 ),
