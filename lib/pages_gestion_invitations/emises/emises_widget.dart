@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -303,27 +304,42 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         ),
                                                   ),
                                                 ),
-                                                ListView(
-                                                  padding: EdgeInsets.zero,
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  children: [
-                                                    Text(
-                                                      listeEmiseItem
-                                                          .eInvitation
-                                                          .iListeInvites
-                                                          .first
-                                                          .displayName,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
-                                                    ),
-                                                  ],
+                                                Builder(
+                                                  builder: (context) {
+                                                    final listeInvites =
+                                                        listeEmiseItem
+                                                            .eInvitation
+                                                            .iListeInvites
+                                                            .toList();
+
+                                                    return ListView.builder(
+                                                      padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          listeInvites.length,
+                                                      itemBuilder: (context,
+                                                          listeInvitesIndex) {
+                                                        final listeInvitesItem =
+                                                            listeInvites[
+                                                                listeInvitesIndex];
+                                                        return Text(
+                                                          listeInvitesItem
+                                                              .displayName,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
                                                 ),
                                               ],
                                             ),
