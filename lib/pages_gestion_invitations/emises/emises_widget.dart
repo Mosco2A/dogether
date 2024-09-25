@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
+import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -185,7 +186,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   listeEmiseItem
@@ -203,6 +205,60 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
+                                                ),
+                                                Builder(
+                                                  builder: (context) => InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (dialogContext) {
+                                                          return Dialog(
+                                                            elevation: 0,
+                                                            insetPadding:
+                                                                EdgeInsets.zero,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            alignment: AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () =>
+                                                                  FocusScope.of(
+                                                                          dialogContext)
+                                                                      .unfocus(),
+                                                              child:
+                                                                  CreateInvitationWidget(
+                                                                selectedInvitation:
+                                                                    listeEmiseItem,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons
+                                                          .mode_edit_outline_outlined,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      size: 30.0,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -242,7 +298,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        fontSize: 14.0,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -266,7 +322,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          fontSize: 14.0,
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,

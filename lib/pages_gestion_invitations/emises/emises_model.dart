@@ -1,6 +1,7 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
+import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';

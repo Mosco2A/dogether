@@ -18,7 +18,12 @@ import 'create_invitation_model.dart';
 export 'create_invitation_model.dart';
 
 class CreateInvitationWidget extends StatefulWidget {
-  const CreateInvitationWidget({super.key});
+  const CreateInvitationWidget({
+    super.key,
+    this.selectedInvitation,
+  });
+
+  final InvitationsEmisesRecord? selectedInvitation;
 
   @override
   State<CreateInvitationWidget> createState() => _CreateInvitationWidgetState();
@@ -38,7 +43,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
     super.initState();
     _model = createModel(context, () => CreateInvitationModel());
 
-    _model.titreTextController ??= TextEditingController();
+    _model.titreTextController ??= TextEditingController(
+        text: widget!.selectedInvitation != null
+            ? widget!.selectedInvitation?.eInvitation?.iTitre
+            : '\"\"');
     _model.titreFocusNode ??= FocusNode();
 
     _model.typeAutreTextController ??= TextEditingController();
