@@ -299,6 +299,12 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 ),
                                               ],
                                             ),
+                                            Divider(
+                                              thickness: 2.0,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                            ),
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
