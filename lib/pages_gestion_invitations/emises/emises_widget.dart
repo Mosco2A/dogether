@@ -311,8 +311,10 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                   children: [
                                                     Text(
                                                       listeEmiseItem
-                                                          .hasEInvitation()
-                                                          .toString(),
+                                                          .eInvitation
+                                                          .iListeInvites
+                                                          .first
+                                                          .displayName,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
