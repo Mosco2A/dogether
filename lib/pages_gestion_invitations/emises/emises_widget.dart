@@ -391,7 +391,9 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                     size: 24.0,
                                                                   ),
                                                                 if (!listeInvitesItem
-                                                                    .reponse)
+                                                                        .reponse &&
+                                                                    listeInvitesItem
+                                                                        .hasReponse())
                                                                   Icon(
                                                                     Icons
                                                                         .cancel,
