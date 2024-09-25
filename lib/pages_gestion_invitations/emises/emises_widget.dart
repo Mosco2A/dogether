@@ -176,29 +176,6 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                             padding: EdgeInsets.all(5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  listeEmiseItem
-                                                      .eInvitation.iTitre,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.all(5.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Text(
                                                   'De: ',
@@ -219,6 +196,29 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .override(
                                                         fontFamily: 'Inter',
                                                         letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(5.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  listeEmiseItem
+                                                      .eInvitation.iTitre,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyLarge
+                                                      .override(
+                                                        fontFamily: 'Inter',
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                 ),
                                               ],
@@ -260,7 +260,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 ),
                                                 Text(
                                                   '${dateTimeFormat(
-                                                    "d MMM",
+                                                    "d MMMM",
                                                     listeEmiseItem.eInvitation
                                                         .idateInvite,
                                                     locale: FFLocalizations.of(
