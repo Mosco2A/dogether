@@ -152,7 +152,12 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                 containerInvitationsEmisesRecordList.toList();
 
                             return ListView.builder(
-                              padding: EdgeInsets.zero,
+                              padding: EdgeInsets.fromLTRB(
+                                0,
+                                0,
+                                0,
+                                10.0,
+                              ),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: listeEmise.length,
