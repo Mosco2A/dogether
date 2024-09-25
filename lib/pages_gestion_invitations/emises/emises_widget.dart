@@ -158,7 +158,6 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                 0,
                                 10.0,
                               ),
-                              shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: listeEmise.length,
                               itemBuilder: (context, listeEmiseIndex) {
