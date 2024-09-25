@@ -199,6 +199,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         .override(
                                                           fontFamily: 'Inter',
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
                                                         ),
                                                   ),
                                                 ],
@@ -264,6 +266,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -288,6 +291,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -364,7 +368,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 ),
                                               ],
                                             ),
-                                          ].divide(SizedBox(height: 5.0)),
+                                          ].divide(SizedBox(height: 10.0)),
                                         ),
                                       ),
                                     ),
