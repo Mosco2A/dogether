@@ -120,8 +120,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                 'eInvitation.IdateInvite',
                                 isGreaterThan: getCurrentTimestamp,
                               )
-                              .orderBy('eInvitation.IdateInvite',
-                                  descending: true),
+                              .orderBy('eInvitation.IdateInvite'),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
