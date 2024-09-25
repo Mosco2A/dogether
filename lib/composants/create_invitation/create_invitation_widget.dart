@@ -12,6 +12,8 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'create_invitation_model.dart';
@@ -43,16 +45,36 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
     super.initState();
     _model = createModel(context, () => CreateInvitationModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget!.selectedInvitation != null) {
+        FFAppState().vTimeInvit =
+            widget!.selectedInvitation?.eInvitation?.idateInvite;
+        FFAppState().checkboxList = widget!
+            .selectedInvitation!.eInvitation.iListeInvites
+            .toList()
+            .cast<PhoneContactStruct>();
+        FFAppState().vRefInvit = widget!.selectedInvitation?.reference;
+        safeSetState(() {});
+      }
+    });
+
     _model.titreTextController ??= TextEditingController(
         text: widget!.selectedInvitation != null
             ? widget!.selectedInvitation?.eInvitation?.iTitre
             : '\"\"');
     _model.titreFocusNode ??= FocusNode();
 
-    _model.typeAutreTextController ??= TextEditingController();
+    _model.typeAutreTextController ??= TextEditingController(
+        text: widget!.selectedInvitation != null
+            ? widget!.selectedInvitation?.eInvitation?.iType
+            : '\"\"');
     _model.typeAutreFocusNode ??= FocusNode();
 
-    _model.detailTextController ??= TextEditingController();
+    _model.detailTextController ??= TextEditingController(
+        text: widget!.selectedInvitation != null
+            ? widget!.selectedInvitation?.eInvitation?.iDetail
+            : '\"\"');
     _model.detailFocusNode ??= FocusNode();
   }
 
@@ -230,7 +252,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             controller: _model
                                                     .typeListValueController ??=
                                                 FormFieldController<String>(
-                                                    null),
+                                              _model.typeListValue ??=
+                                                  widget!.selectedInvitation !=
+                                                          null
+                                                      ? widget!
+                                                          .selectedInvitation
+                                                          ?.eInvitation
+                                                          ?.iDetail
+                                                      : '\"\"',
+                                            ),
                                             options: FFAppState().listTypeInvit,
                                             onChanged: (val) async {
                                               safeSetState(() =>
@@ -667,6 +697,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       }
                                                       FFAppState()
                                                           .VHeureSelect = true;
+                                                      FFAppState().vTimeInvit =
+                                                          _model.datePicked;
                                                       safeSetState(() {});
                                                     },
                                                     text:
@@ -746,13 +778,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       padding:
                                                           EdgeInsets.all(10.0),
                                                       child: Text(
-                                                        dateTimeFormat(
-                                                          "d/M H:mm",
-                                                          _model.datePicked,
-                                                          locale:
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
+                                                        valueOrDefault<String>(
+                                                          widget!.selectedInvitation !=
+                                                                  null
+                                                              ? widget!
+                                                                  .selectedInvitation
+                                                                  ?.eInvitation
+                                                                  ?.iDuree
+                                                              : '\"\"',
+                                                          '\"\"',
                                                         ),
                                                         textAlign:
                                                             TextAlign.center,
@@ -1181,6 +1215,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       0.0,
                                                                 ),
                                                           ),
+                                                          FaIcon(
+                                                            FontAwesomeIcons
+                                                                .trashAlt,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            size: 12.0,
+                                                          ),
                                                         ],
                                                       );
                                                     },
@@ -1441,56 +1483,77 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       }
                       _shouldSetState = true;
                       if (_model.outForm!) {
-                        var invitationsEmisesRecordReference =
-                            InvitationsEmisesRecord.collection.doc();
-                        await invitationsEmisesRecordReference
-                            .set(createInvitationsEmisesRecordData(
-                          eInvitation: createInvitationStruct(
-                            iRef:
-                                '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
-                            iTitre: _model.titreTextController.text,
-                            iDetail: _model.detailTextController.text,
-                            iType: FFAppState().vType,
-                            idateInvite: _model.datePicked,
-                            iDuree: _model.dureeValue,
-                            emetteur:
-                                '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
-                            emetteurRef: currentUserReference,
-                            fieldValues: {
-                              'iListeInvites': getPhoneContactListFirestoreData(
-                                FFAppState().checkboxList,
-                              ),
-                            },
-                            clearUnsetFields: false,
-                            create: true,
-                          ),
-                        ));
-                        _model.createdDocument =
-                            InvitationsEmisesRecord.getDocumentFromData(
-                                createInvitationsEmisesRecordData(
-                                  eInvitation: createInvitationStruct(
-                                    iRef:
-                                        '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
+                        if (widget!.selectedInvitation != null) {
+                          await FFAppState()
+                              .vRefInvit!
+                              .update(createInvitationsEmisesRecordData(
+                                eInvitation: updateInvitationStruct(
+                                  InvitationStruct(
+                                    emetteur: currentUserDisplayName,
+                                    emetteurRef: currentUserReference,
+                                    iType: _model.typeListValue,
                                     iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
-                                    iType: FFAppState().vType,
-                                    idateInvite: _model.datePicked,
+                                    idateInvite: FFAppState().vTimeInvit,
                                     iDuree: _model.dureeValue,
-                                    emetteur:
-                                        '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
-                                    emetteurRef: currentUserReference,
-                                    fieldValues: {
-                                      'iListeInvites':
-                                          getPhoneContactListFirestoreData(
-                                        FFAppState().checkboxList,
-                                      ),
-                                    },
-                                    clearUnsetFields: false,
-                                    create: true,
+                                    iListeInvites: FFAppState().checkboxList,
                                   ),
+                                  clearUnsetFields: false,
                                 ),
-                                invitationsEmisesRecordReference);
-                        _shouldSetState = true;
+                              ));
+                        } else {
+                          var invitationsEmisesRecordReference =
+                              InvitationsEmisesRecord.collection.doc();
+                          await invitationsEmisesRecordReference
+                              .set(createInvitationsEmisesRecordData(
+                            eInvitation: createInvitationStruct(
+                              iRef:
+                                  '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
+                              iTitre: _model.titreTextController.text,
+                              iDetail: _model.detailTextController.text,
+                              iType: FFAppState().vType,
+                              idateInvite: _model.datePicked,
+                              iDuree: _model.dureeValue,
+                              emetteur:
+                                  '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
+                              emetteurRef: currentUserReference,
+                              fieldValues: {
+                                'iListeInvites':
+                                    getPhoneContactListFirestoreData(
+                                  FFAppState().checkboxList,
+                                ),
+                              },
+                              clearUnsetFields: false,
+                              create: true,
+                            ),
+                          ));
+                          _model.createdDocument =
+                              InvitationsEmisesRecord.getDocumentFromData(
+                                  createInvitationsEmisesRecordData(
+                                    eInvitation: createInvitationStruct(
+                                      iRef:
+                                          '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
+                                      iTitre: _model.titreTextController.text,
+                                      iDetail: _model.detailTextController.text,
+                                      iType: FFAppState().vType,
+                                      idateInvite: _model.datePicked,
+                                      iDuree: _model.dureeValue,
+                                      emetteur:
+                                          '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
+                                      emetteurRef: currentUserReference,
+                                      fieldValues: {
+                                        'iListeInvites':
+                                            getPhoneContactListFirestoreData(
+                                          FFAppState().checkboxList,
+                                        ),
+                                      },
+                                      clearUnsetFields: false,
+                                      create: true,
+                                    ),
+                                  ),
+                                  invitationsEmisesRecordReference);
+                          _shouldSetState = true;
+                        }
                       } else {
                         if (_shouldSetState) safeSetState(() {});
                         return;
@@ -1500,7 +1563,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
 
                       if (_shouldSetState) safeSetState(() {});
                     },
-                    text: 'Créer',
+                    text: widget!.selectedInvitation != null
+                        ? 'Créer'
+                        : 'Modifier',
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
@@ -1516,6 +1581,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                 fontWeight: FontWeight.w500,
                               ),
                       elevation: 2.0,
+                      borderSide: BorderSide(
+                        color: widget!.selectedInvitation != null
+                            ? Color(0xFF1D08FD)
+                            : FlutterFlowTheme.of(context).success,
+                      ),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),

@@ -221,6 +221,18 @@ class FFAppState extends ChangeNotifier {
   set vType(String value) {
     _vType = value;
   }
+
+  DateTime? _vTimeInvit;
+  DateTime? get vTimeInvit => _vTimeInvit;
+  set vTimeInvit(DateTime? value) {
+    _vTimeInvit = value;
+  }
+
+  DocumentReference? _vRefInvit;
+  DocumentReference? get vRefInvit => _vRefInvit;
+  set vRefInvit(DocumentReference? value) {
+    _vRefInvit = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
