@@ -776,7 +776,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
@@ -793,7 +793,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           widget!.selectedInvitation !=
                                                                   null
                                                               ? dateTimeFormat(
-                                                                  "EEEE D MMM à HH:mm",
+                                                                  "EEEE  d MMM à HH:mm",
                                                                   FFAppState()
                                                                       .vTimeInvit,
                                                                   locale: FFLocalizations.of(
@@ -808,7 +808,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
@@ -957,7 +957,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
@@ -985,7 +985,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
@@ -998,7 +998,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       ' Heure(s)',
                                                       style: FlutterFlowTheme
                                                               .of(context)
-                                                          .bodyMedium
+                                                          .labelMedium
                                                           .override(
                                                             fontFamily: 'Inter',
                                                             letterSpacing: 0.0,
