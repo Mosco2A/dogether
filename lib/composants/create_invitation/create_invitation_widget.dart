@@ -252,7 +252,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             controller: _model
                                                     .typeListValueController ??=
                                                 FormFieldController<String>(
-                                                    null),
+                                              _model.typeListValue ??=
+                                                  widget!.selectedInvitation !=
+                                                          null
+                                                      ? widget!
+                                                          .selectedInvitation
+                                                          ?.eInvitation
+                                                          ?.iType
+                                                      : '\"\"',
+                                            ),
                                             options: FFAppState().listTypeInvit,
                                             onChanged: (val) async {
                                               safeSetState(() =>
