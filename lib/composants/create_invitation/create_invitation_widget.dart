@@ -1190,47 +1190,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             safeSetState(() =>
                                                                                 _model.checkboxValueMap[listeviewCreateItem] = newValue!);
                                                                             if (newValue!) {
-                                                                              FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                displayName: listeviewCreateItem.name,
-                                                                                phone: listeviewCreateItem.phone,
-                                                                                refPhoneContact: listeviewCreateItem.reference,
-                                                                              ));
-                                                                              safeSetState(() {});
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
                                                                                   isEqualTo: listeviewCreateItem.phone,
                                                                                 ),
                                                                               );
-                                                                              await showDialog(
-                                                                                context: context,
-                                                                                builder: (alertDialogContext) {
-                                                                                  return AlertDialog(
-                                                                                    title: const Text('ICI'),
-                                                                                    actions: [
-                                                                                      TextButton(
-                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                        child: const Text('Ok'),
-                                                                                      ),
-                                                                                    ],
-                                                                                  );
-                                                                                },
-                                                                              );
                                                                               if (_model.phoneExist! > 0) {
-                                                                                FFAppState().updateCheckboxListAtIndex(
-                                                                                  listeviewCreateIndex,
-                                                                                  (_) => PhoneContactStruct(
-                                                                                    contactExistInBase: true,
-                                                                                  ),
-                                                                                );
+                                                                                FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                                  displayName: listeviewCreateItem.name,
+                                                                                  phone: listeviewCreateItem.phone,
+                                                                                  refPhoneContact: listeviewCreateItem.reference,
+                                                                                  reponse: true,
+                                                                                ));
                                                                                 safeSetState(() {});
                                                                               } else {
-                                                                                FFAppState().updateCheckboxListAtIndex(
-                                                                                  listeviewCreateIndex,
-                                                                                  (_) => PhoneContactStruct(
-                                                                                    contactExistInBase: false,
-                                                                                  ),
-                                                                                );
+                                                                                FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                                  displayName: listeviewCreateItem.name,
+                                                                                  phone: listeviewCreateItem.phone,
+                                                                                  refPhoneContact: listeviewCreateItem.reference,
+                                                                                  reponse: false,
+                                                                                ));
                                                                                 safeSetState(() {});
                                                                               }
 
