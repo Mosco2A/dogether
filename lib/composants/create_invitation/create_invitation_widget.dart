@@ -55,6 +55,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
             .toList()
             .cast<PhoneContactStruct>();
         FFAppState().vRefInvit = widget!.selectedInvitation?.reference;
+        FFAppState().vType = widget!.selectedInvitation!.eInvitation.iType;
         safeSetState(() {});
       }
     });
@@ -255,10 +256,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               _model.typeListValue ??=
                                                   widget!.selectedInvitation !=
                                                           null
-                                                      ? widget!
-                                                          .selectedInvitation
-                                                          ?.eInvitation
-                                                          ?.iType
+                                                      ? FFAppState().vType
                                                       : '\"\"',
                                             ),
                                             options: FFAppState().listTypeInvit,
