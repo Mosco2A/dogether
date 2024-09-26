@@ -296,7 +296,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             isMultiSelect: false,
                                           ),
                                         ),
-                                        if (FFAppState().vTypeAutre)
+                                        if (FFAppState().vTypeAutre ||
+                                            (widget!.selectedInvitation !=
+                                                null))
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
