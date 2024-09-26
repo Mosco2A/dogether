@@ -52,6 +52,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
             .cast<PhoneContactStruct>();
         FFAppState().vRefInvit = widget.selectedInvitation?.reference;
         FFAppState().vType = widget.selectedInvitation!.eInvitation.iType;
+        FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
         safeSetState(() {});
       }
     });
