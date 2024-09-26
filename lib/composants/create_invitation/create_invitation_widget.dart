@@ -1190,6 +1190,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             safeSetState(() =>
                                                                                 _model.checkboxValueMap[listeviewCreateItem] = newValue!);
                                                                             if (newValue!) {
+                                                                              FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                                phone: listeviewCreateItem.phone,
+                                                                                displayName: listeviewCreateItem.name,
+                                                                                refPhoneContact: listeviewCreateItem.reference,
+                                                                              ));
+                                                                              safeSetState(() {});
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
