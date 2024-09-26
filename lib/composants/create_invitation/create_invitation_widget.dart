@@ -1211,7 +1211,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 );
                                                                                 safeSetState(() {});
                                                                               } else {
-                                                                                FFAppState().addToCheckboxList(FFAppState().checkboxList.first);
+                                                                                FFAppState().updateCheckboxListAtIndex(
+                                                                                  listeviewCreateIndex,
+                                                                                  (_) => PhoneContactStruct(
+                                                                                    contactExistInBase: false,
+                                                                                  ),
+                                                                                );
                                                                                 safeSetState(() {});
                                                                               }
 
