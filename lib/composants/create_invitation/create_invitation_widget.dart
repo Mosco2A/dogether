@@ -1202,6 +1202,23 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                   isEqualTo: listeviewCreateItem.phone,
                                                                                 ),
                                                                               );
+                                                                              if (_model.phoneExist! > 0) {
+                                                                                FFAppState().updateCheckboxListAtIndex(
+                                                                                  listeviewCreateIndex,
+                                                                                  (_) => PhoneContactStruct(
+                                                                                    contactExistInBase: true,
+                                                                                  ),
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                              } else {
+                                                                                FFAppState().updateCheckboxListAtIndex(
+                                                                                  listeviewCreateIndex,
+                                                                                  (_) => PhoneContactStruct(
+                                                                                    contactExistInBase: false,
+                                                                                  ),
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                              }
 
                                                                               safeSetState(() {});
                                                                             } else {
