@@ -1190,14 +1190,26 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             safeSetState(() =>
                                                                                 _model.checkboxValueMap[listeviewCreateItem] = newValue!);
                                                                             if (newValue!) {
-                                                                              FFAppState().insertAtIndexInCheckboxList(
-                                                                                  listeviewCreateIndex,
-                                                                                  PhoneContactStruct(
-                                                                                    displayName: listeviewCreateItem.name,
-                                                                                    phone: listeviewCreateItem.phone,
-                                                                                    refPhoneContact: listeviewCreateItem.reference,
-                                                                                  ));
+                                                                              FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                                displayName: listeviewCreateItem.name,
+                                                                                phone: listeviewCreateItem.phone,
+                                                                                refPhoneContact: listeviewCreateItem.reference,
+                                                                              ));
                                                                               safeSetState(() {});
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: const Text('ICI'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                        child: const Text('Ok'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
