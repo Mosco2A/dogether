@@ -1,13 +1,9 @@
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'emises_model.dart';
 export 'emises_model.dart';
 
@@ -52,7 +48,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +65,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                             ),
                       ),
                       Container(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           minWidth: 60.0,
                         ),
                         decoration: BoxDecoration(
@@ -100,7 +96,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                     ],
                   ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -153,7 +149,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                 containerInvitationsEmisesRecordList.toList();
 
                             return ListView.builder(
-                              padding: EdgeInsets.fromLTRB(
+                              padding: const EdgeInsets.fromLTRB(
                                 0,
                                 0,
                                 0,
@@ -166,7 +162,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                 final listeEmiseItem =
                                     listeEmise[listeEmiseIndex];
                                 return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -176,13 +172,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                       shape: BoxShape.rectangle,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 10.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: EdgeInsets.all(5.0),
+                                            padding: const EdgeInsets.all(5.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
@@ -228,7 +224,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                             backgroundColor:
                                                                 Colors
                                                                     .transparent,
-                                                            alignment: AlignmentDirectional(
+                                                            alignment: const AlignmentDirectional(
                                                                     0.0, 0.0)
                                                                 .resolve(
                                                                     Directionality.of(
@@ -284,7 +280,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         1.0, 0.0, 0.0, 0.0),
                                                 child: Text(
@@ -341,7 +337,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 0.0, 10.0, 0.0),
                                                 child: Row(
@@ -353,7 +349,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               -1.0, -1.0),
                                                       child: Text(
                                                         'Invités:',
@@ -388,7 +384,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
+                                                padding: const EdgeInsetsDirectional
                                                     .fromSTEB(
                                                         0.0, 10.0, 0.0, 10.0),
                                                 child: Builder(
@@ -469,7 +465,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                   ),
                                                               ],
                                                             ),
-                                                          ].divide(SizedBox(
+                                                          ].divide(const SizedBox(
                                                               width: 10.0)),
                                                         );
                                                       },
@@ -479,7 +475,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                               ),
                                             ],
                                           ),
-                                        ].divide(SizedBox(height: 10.0)),
+                                        ].divide(const SizedBox(height: 10.0)),
                                       ),
                                     ),
                                   ),
@@ -494,11 +490,11 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: wrapWithModel(
                   model: _model.bottomBarModel,
                   updateCallback: () => safeSetState(() {}),
-                  child: BottomBarWidget(),
+                  child: const BottomBarWidget(),
                 ),
               ),
             ],

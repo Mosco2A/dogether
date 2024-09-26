@@ -4,12 +4,8 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'verify_s_m_s_model.dart';
 export 'verify_s_m_s_model.dart';
@@ -54,8 +50,8 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
             curve: Curves.easeInOut,
             delay: 300.0.ms,
             duration: 400.0.ms,
-            begin: Offset(0.0, 20.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 20.0),
+            end: const Offset(0.0, 0.0),
           ),
         ],
       ),
@@ -86,7 +82,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +98,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                     ],
                   ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -114,10 +110,10 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Align(
-                alignment: AlignmentDirectional(0.0, -1.0),
+                alignment: const AlignmentDirectional(0.0, -1.0),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(24.0, 16.0, 24.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -134,7 +130,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                               ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 10.0, 0.0, 10.0),
                           child: Text(
                             'Merci de saisir le code reçu par SMS.',
@@ -148,15 +144,15 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 20.0, 0.0, 16.0),
-                          child: Container(
+                          child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.phoneNumberTextController,
                               focusNode: _model.phoneNumberFocusNode,
                               autofocus: true,
-                              autofillHints: [AutofillHints.email],
+                              autofillHints: const [AutofillHints.email],
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Code SMS',
@@ -164,34 +160,34 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                     .labelLarge
                                     .override(
                                       fontFamily: 'Plus Jakarta Sans',
-                                      color: Color(0xFF57636C),
+                                      color: const Color(0xFF57636C),
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                                 enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFE0E3E7),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFF4B39EF),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
                                   ),
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Color(0xFFFF5963),
                                     width: 2.0,
                                   ),
@@ -199,20 +195,20 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                contentPadding: EdgeInsets.all(24.0),
+                                contentPadding: const EdgeInsets.all(24.0),
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
                                     fontFamily: 'Plus Jakarta Sans',
-                                    color: Color(0xFF101213),
+                                    color: const Color(0xFF101213),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                               maxLength: 6,
                               keyboardType: TextInputType.number,
-                              cursorColor: Color(0xFF4B39EF),
+                              cursorColor: const Color(0xFF4B39EF),
                               validator: _model
                                   .phoneNumberTextControllerValidator
                                   .asValidator(context),
@@ -220,18 +216,18 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 16.0),
                             child: FFButtonWidget(
                               onPressed: () async {
                                 GoRouter.of(context).prepareAuthEvent();
                                 final smsCodeVal =
                                     _model.phoneNumberTextController.text;
-                                if (smsCodeVal == null || smsCodeVal.isEmpty) {
+                                if (smsCodeVal.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content:
                                           Text('Enter SMS verification code.'),
                                     ),
@@ -256,7 +252,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                             .secondary,
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
+                                    duration: const Duration(milliseconds: 4000),
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).secondary,
                                   ),
@@ -268,8 +264,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                   firstName: FFAppState().vFirstName,
                                   myID: FFAppState().vMyID,
                                 ));
-                                if (FFAppState().vUidToClean != null &&
-                                    FFAppState().vUidToClean != '') {
+                                if (FFAppState().vUidToClean != '') {
                                   await UserToCleanRecord.collection
                                       .doc()
                                       .set(createUserToCleanRecordData(
@@ -284,7 +279,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                               .primaryText,
                                         ),
                                       ),
-                                      duration: Duration(milliseconds: 4000),
+                                      duration: const Duration(milliseconds: 4000),
                                       backgroundColor:
                                           FlutterFlowTheme.of(context)
                                               .secondary,
@@ -302,11 +297,11 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                               options: FFButtonOptions(
                                 width: 230.0,
                                 height: 52.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 0.0),
-                                color: Color(0xFF4B39EF),
+                                color: const Color(0xFF4B39EF),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -317,7 +312,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                       fontWeight: FontWeight.w500,
                                     ),
                                 elevation: 3.0,
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                   color: Colors.transparent,
                                   width: 1.0,
                                 ),

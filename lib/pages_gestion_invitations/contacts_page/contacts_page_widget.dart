@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'contacts_page_model.dart';
 export 'contacts_page_model.dart';
 
@@ -51,7 +49,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                 backgroundColor: FlutterFlowTheme.of(context).primary,
                 automaticallyImplyLeading: true,
                 title: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +62,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                             ),
                       ),
                       Container(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           minWidth: 60.0,
                         ),
                         decoration: BoxDecoration(
@@ -95,7 +93,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                     ],
                   ),
                 ),
-                actions: [],
+                actions: const [],
                 centerTitle: false,
                 elevation: 2.0,
               )
@@ -133,7 +131,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                     ),
                     child: Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
                       child: Builder(
                         builder: (context) {
                           final listeviewCP =
@@ -153,7 +151,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 5.0, 0.0, 5.0),
                                     child: Text(
                                       listeviewCPItem.name,
@@ -166,7 +164,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 5.0, 0.0, 5.0),
                                     child: Text(
                                       listeviewCPItem.phone,
@@ -200,7 +198,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                   children: [
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
                       child: Text(
                         'Ajoutez des contacts depuis votre répertoire.',
                         textAlign: TextAlign.center,
@@ -211,7 +209,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           await actions.listeContacts(
@@ -222,18 +220,18 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                         options: FFButtonOptions(
                           width: 120.0,
                           height: 30.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
-                          color: Color(0xFF4B39EF),
+                          color: const Color(0xFF4B39EF),
                           textStyle:
                               FlutterFlowTheme.of(context).titleMedium.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
                           elevation: 3.0,
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             color: Colors.transparent,
                             width: 1.0,
                           ),
@@ -247,7 +245,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
               wrapWithModel(
                 model: _model.bottomBarModel,
                 updateCallback: () => safeSetState(() {}),
-                child: BottomBarWidget(),
+                child: const BottomBarWidget(),
               ),
             ],
           ),
