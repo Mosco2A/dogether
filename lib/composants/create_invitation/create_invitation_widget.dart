@@ -793,7 +793,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           widget!.selectedInvitation !=
                                                                   null
                                                               ? dateTimeFormat(
-                                                                  "d MMM",
+                                                                  "d MMM, HH:mm",
                                                                   widget!
                                                                       .selectedInvitation
                                                                       ?.eInvitation
