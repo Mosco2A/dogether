@@ -1196,6 +1196,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 refPhoneContact: listeviewCreateItem.reference,
                                                                               ));
                                                                               safeSetState(() {});
+                                                                              _model.phoneExist = await queryUsersRecordCount(
+                                                                                queryBuilder: (usersRecord) => usersRecord.where(
+                                                                                  'phone_number',
+                                                                                  isEqualTo: listeviewCreateItem.phone,
+                                                                                ),
+                                                                              );
                                                                               await showDialog(
                                                                                 context: context,
                                                                                 builder: (alertDialogContext) {
@@ -1209,12 +1215,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                     ],
                                                                                   );
                                                                                 },
-                                                                              );
-                                                                              _model.phoneExist = await queryUsersRecordCount(
-                                                                                queryBuilder: (usersRecord) => usersRecord.where(
-                                                                                  'phone_number',
-                                                                                  isEqualTo: listeviewCreateItem.phone,
-                                                                                ),
                                                                               );
                                                                               if (_model.phoneExist! > 0) {
                                                                                 FFAppState().updateCheckboxListAtIndex(
