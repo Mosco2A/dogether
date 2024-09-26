@@ -11,6 +11,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'create_invitation_widget.dart' show CreateInvitationWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -76,6 +77,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   List<MyContactsRecord> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
+  // Stores action output result for [Firestore Query - Query a collection] action in Checkbox widget.
+  int? phoneExist;
   // Stores action output result for [Validate Form] action in Button widget.
   bool? outForm;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.

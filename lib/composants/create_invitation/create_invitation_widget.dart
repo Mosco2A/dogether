@@ -10,6 +10,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -1198,6 +1199,31 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 phone: listeviewCreateItem.phone,
                                                                               ));
                                                                               safeSetState(() {});
+                                                                              _model.phoneExist = await queryUsersRecordCount(
+                                                                                queryBuilder: (usersRecord) => usersRecord.where(
+                                                                                  'phone_number',
+                                                                                  isEqualTo: listeviewCreateItem.phone,
+                                                                                ),
+                                                                              );
+                                                                              if (_model.phoneExist! > 0) {
+                                                                                FFAppState().updateCheckboxListAtIndex(
+                                                                                  listeviewCreateIndex,
+                                                                                  (_) => PhoneContactStruct(
+                                                                                    contactExistInBase: true,
+                                                                                  ),
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                              } else {
+                                                                                FFAppState().updateCheckboxListAtIndex(
+                                                                                  listeviewCreateIndex,
+                                                                                  (_) => PhoneContactStruct(
+                                                                                    contactExistInBase: false,
+                                                                                  ),
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                              }
+
+                                                                              safeSetState(() {});
                                                                             } else {
                                                                               FFAppState().removeFromCheckboxList(PhoneContactStruct(
                                                                                 refPhoneContact: listeviewCreateItem.reference,
@@ -1269,48 +1295,65 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       final listeviewVarItem =
                                                           listeviewVar[
                                                               listeviewVarIndex];
-                                                      return Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            listeviewVarItem
-                                                                .displayName,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                          Text(
-                                                            listeviewVarItem
-                                                                .phone,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .labelSmall
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                          FaIcon(
-                                                            FontAwesomeIcons
-                                                                .trashAlt,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            size: 12.0,
-                                                          ),
-                                                        ],
+                                                      return SingleChildScrollView(
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .workspace_premium_outlined,
+                                                              color: listeviewVarItem
+                                                                      .contactExistInBase
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .warning
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .accent4,
+                                                              size: 24.0,
+                                                            ),
+                                                            Text(
+                                                              listeviewVarItem
+                                                                  .displayName,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                            Text(
+                                                              listeviewVarItem
+                                                                  .phone,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .labelMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Inter',
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                            FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .trashAlt,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error,
+                                                              size: 15.0,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       );
                                                     },
                                                   );
