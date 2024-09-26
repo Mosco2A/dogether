@@ -1196,6 +1196,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 refPhoneContact: listeviewCreateItem.reference,
                                                                               ));
                                                                               safeSetState(() {});
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: const Text('ICI'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                        child: const Text('Ok'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
