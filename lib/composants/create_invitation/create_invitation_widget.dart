@@ -793,11 +793,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           widget!.selectedInvitation !=
                                                                   null
                                                               ? dateTimeFormat(
-                                                                  "d MMM, HH:mm",
-                                                                  widget!
-                                                                      .selectedInvitation
-                                                                      ?.eInvitation
-                                                                      ?.idateInvite,
+                                                                  "EEEE D MMM à HH:mm",
+                                                                  FFAppState()
+                                                                      .vTimeInvit,
                                                                   locale: FFLocalizations.of(
                                                                           context)
                                                                       .languageCode,
@@ -863,10 +861,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 String>(null),
                                                         options: FFAppConstants
                                                             .CDuree,
-                                                        onChanged: (val) =>
-                                                            safeSetState(() =>
-                                                                _model.dureeValue =
-                                                                    val),
+                                                        onChanged: (val) async {
+                                                          safeSetState(() =>
+                                                              _model.dureeValue =
+                                                                  val);
+                                                          FFAppState().vDuree =
+                                                              _model
+                                                                  .dureeValue!;
+                                                          safeSetState(() {});
+                                                        },
                                                         width: 120.0,
                                                         height: 40.0,
                                                         textStyle:

@@ -233,6 +233,12 @@ class FFAppState extends ChangeNotifier {
   set vRefInvit(DocumentReference? value) {
     _vRefInvit = value;
   }
+
+  String _vDuree = '';
+  String get vDuree => _vDuree;
+  set vDuree(String value) {
+    _vDuree = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
