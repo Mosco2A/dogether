@@ -782,7 +782,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               ? widget!
                                                                   .selectedInvitation
                                                                   ?.eInvitation
-                                                                  ?.iDuree
+                                                                  ?.idateInvite
+                                                                  ?.toString()
                                                               : '\"\"',
                                                           '\"\"',
                                                         ),
