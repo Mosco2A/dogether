@@ -1202,6 +1202,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                   isEqualTo: listeviewCreateItem.phone,
                                                                                 ),
                                                                               );
+                                                                              await showDialog(
+                                                                                context: context,
+                                                                                builder: (alertDialogContext) {
+                                                                                  return AlertDialog(
+                                                                                    title: const Text('ICI'),
+                                                                                    actions: [
+                                                                                      TextButton(
+                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                        child: const Text('Ok'),
+                                                                                      ),
+                                                                                    ],
+                                                                                  );
+                                                                                },
+                                                                              );
                                                                               if (_model.phoneExist! > 0) {
                                                                                 FFAppState().updateCheckboxListAtIndex(
                                                                                   listeviewCreateIndex,
