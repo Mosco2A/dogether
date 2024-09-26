@@ -906,19 +906,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       padding:
                                                           const EdgeInsets.all(10.0),
                                                       child: Text(
-                                                        valueOrDefault<String>(
-                                                          widget.selectedInvitation !=
-                                                                  null
-                                                              ? dateTimeFormat(
-                                                                  "EEEE  d MMM à HH:mm",
-                                                                  FFAppState()
-                                                                      .vTimeInvit,
-                                                                  locale: FFLocalizations.of(
-                                                                          context)
-                                                                      .languageCode,
-                                                                )
-                                                              : ' ',
-                                                          '\"\"',
+                                                        dateTimeFormat(
+                                                          "EEEE  d MMM à HH:mm",
+                                                          FFAppState()
+                                                              .vTimeInvit,
+                                                          locale:
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .languageCode,
                                                         ),
                                                         textAlign:
                                                             TextAlign.center,
@@ -968,14 +963,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       padding:
                                                           const EdgeInsets.all(10.0),
                                                       child: Text(
-                                                        valueOrDefault<String>(
-                                                          widget.selectedInvitation !=
-                                                                  null
-                                                              ? FFAppState()
-                                                                  .vDuree
-                                                              : ' ',
-                                                          '\"\"',
-                                                        ),
+                                                        FFAppState().vDuree,
                                                         textAlign:
                                                             TextAlign.center,
                                                         style:
