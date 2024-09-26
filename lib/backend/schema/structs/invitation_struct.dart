@@ -19,6 +19,7 @@ class InvitationStruct extends FFFirebaseStruct {
     String? iDuree,
     List<PhoneContactStruct>? iListeInvites,
     String? iRef,
+    bool? iEnvoye,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _emetteur = emetteur,
         _emetteurRef = emetteurRef,
@@ -29,6 +30,7 @@ class InvitationStruct extends FFFirebaseStruct {
         _iDuree = iDuree,
         _iListeInvites = iListeInvites,
         _iRef = iRef,
+        _iEnvoye = iEnvoye,
         super(firestoreUtilData);
 
   // "Emetteur" field.
@@ -98,6 +100,13 @@ class InvitationStruct extends FFFirebaseStruct {
 
   bool hasIRef() => _iRef != null;
 
+  // "iEnvoye" field.
+  bool? _iEnvoye;
+  bool get iEnvoye => _iEnvoye ?? false;
+  set iEnvoye(bool? val) => _iEnvoye = val;
+
+  bool hasIEnvoye() => _iEnvoye != null;
+
   static InvitationStruct fromMap(Map<String, dynamic> data) =>
       InvitationStruct(
         emetteur: data['Emetteur'] as String?,
@@ -112,6 +121,7 @@ class InvitationStruct extends FFFirebaseStruct {
           PhoneContactStruct.fromMap,
         ),
         iRef: data['iRef'] as String?,
+        iEnvoye: data['iEnvoye'] as bool?,
       );
 
   static InvitationStruct? maybeFromMap(dynamic data) => data is Map
@@ -128,6 +138,7 @@ class InvitationStruct extends FFFirebaseStruct {
         'iDuree': _iDuree,
         'iListeInvites': _iListeInvites?.map((e) => e.toMap()).toList(),
         'iRef': _iRef,
+        'iEnvoye': _iEnvoye,
       }.withoutNulls;
 
   @override
@@ -168,6 +179,10 @@ class InvitationStruct extends FFFirebaseStruct {
         'iRef': serializeParam(
           _iRef,
           ParamType.String,
+        ),
+        'iEnvoye': serializeParam(
+          _iEnvoye,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -220,6 +235,11 @@ class InvitationStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        iEnvoye: deserializeParam(
+          data['iEnvoye'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -237,7 +257,8 @@ class InvitationStruct extends FFFirebaseStruct {
         idateInvite == other.idateInvite &&
         iDuree == other.iDuree &&
         listEquality.equals(iListeInvites, other.iListeInvites) &&
-        iRef == other.iRef;
+        iRef == other.iRef &&
+        iEnvoye == other.iEnvoye;
   }
 
   @override
@@ -250,7 +271,8 @@ class InvitationStruct extends FFFirebaseStruct {
         idateInvite,
         iDuree,
         iListeInvites,
-        iRef
+        iRef,
+        iEnvoye
       ]);
 }
 
@@ -263,6 +285,7 @@ InvitationStruct createInvitationStruct({
   DateTime? idateInvite,
   String? iDuree,
   String? iRef,
+  bool? iEnvoye,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -277,6 +300,7 @@ InvitationStruct createInvitationStruct({
       idateInvite: idateInvite,
       iDuree: iDuree,
       iRef: iRef,
+      iEnvoye: iEnvoye,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

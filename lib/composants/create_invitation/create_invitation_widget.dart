@@ -761,68 +761,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: Text(
-                                                        'Date/heure choisie : ',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsets.all(10.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          widget!.selectedInvitation !=
-                                                                  null
-                                                              ? dateTimeFormat(
-                                                                  "EEEE  d MMM à HH:mm",
-                                                                  FFAppState()
-                                                                      .vTimeInvit,
-                                                                  locale: FFLocalizations.of(
-                                                                          context)
-                                                                      .languageCode,
-                                                                )
-                                                              : '\"\"',
-                                                          '\"\"',
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
@@ -952,6 +890,68 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   0.0,
                                                                   10.0),
                                                       child: Text(
+                                                        'Date/heure choisie : ',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.all(10.0),
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          widget!.selectedInvitation !=
+                                                                  null
+                                                              ? dateTimeFormat(
+                                                                  "EEEE  d MMM à HH:mm",
+                                                                  FFAppState()
+                                                                      .vTimeInvit,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                )
+                                                              : '\"\"',
+                                                          '\"\"',
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  10.0),
+                                                      child: Text(
                                                         'Durée choisie : ',
                                                         textAlign:
                                                             TextAlign.center,
@@ -974,10 +974,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         valueOrDefault<String>(
                                                           widget!.selectedInvitation !=
                                                                   null
-                                                              ? widget!
-                                                                  .selectedInvitation
-                                                                  ?.eInvitation
-                                                                  ?.iDuree
+                                                              ? FFAppState()
+                                                                  .vDuree
                                                               : '\"\"',
                                                           '\"\"',
                                                         ),
