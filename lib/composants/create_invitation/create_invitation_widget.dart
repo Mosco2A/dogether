@@ -741,6 +741,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
+                                                                fontSize: 14.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
@@ -840,7 +841,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
@@ -927,7 +928,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .labelLarge
+                                                                .labelMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Inter',
