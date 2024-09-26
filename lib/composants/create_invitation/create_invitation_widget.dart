@@ -550,8 +550,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       final _datePickedDate =
                                                           await showDatePicker(
                                                         context: context,
-                                                        initialDate:
-                                                            getCurrentTimestamp,
+                                                        initialDate: ((widget!
+                                                                        .selectedInvitation !=
+                                                                    null
+                                                                ? widget!
+                                                                    .selectedInvitation
+                                                                    ?.eInvitation
+                                                                    ?.idateInvite
+                                                                : getCurrentTimestamp) ??
+                                                            DateTime.now()),
                                                         firstDate:
                                                             (getCurrentTimestamp ??
                                                                 DateTime(1900)),
@@ -618,9 +625,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         _datePickedTime =
                                                             await showTimePicker(
                                                           context: context,
-                                                          initialTime: TimeOfDay
-                                                              .fromDateTime(
-                                                                  getCurrentTimestamp),
+                                                          initialTime: TimeOfDay.fromDateTime(((widget!
+                                                                          .selectedInvitation !=
+                                                                      null
+                                                                  ? widget!
+                                                                      .selectedInvitation
+                                                                      ?.eInvitation
+                                                                      ?.idateInvite
+                                                                  : getCurrentTimestamp) ??
+                                                              DateTime.now())),
                                                           builder:
                                                               (context, child) {
                                                             return wrapInMaterialTimePickerTheme(
