@@ -1206,6 +1206,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 builder: (alertDialogContext) {
                                                                                   return AlertDialog(
                                                                                     title: const Text('ICI'),
+                                                                                    content: Text(_model.phoneExist!.toString()),
                                                                                     actions: [
                                                                                       TextButton(
                                                                                         onPressed: () => Navigator.pop(alertDialogContext),
