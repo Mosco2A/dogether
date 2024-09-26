@@ -1188,12 +1188,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             safeSetState(() =>
                                                                                 _model.checkboxValueMap[listeviewCreateItem] = newValue!);
                                                                             if (newValue!) {
-                                                                              FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                refPhoneContact: listeviewCreateItem.reference,
-                                                                                displayName: listeviewCreateItem.name,
-                                                                                phone: listeviewCreateItem.phone,
-                                                                              ));
-                                                                              safeSetState(() {});
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
@@ -1205,6 +1199,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                   listeviewCreateIndex,
                                                                                   (_) => PhoneContactStruct(
                                                                                     contactExistInBase: true,
+                                                                                    displayName: listeviewCreateItem.name,
+                                                                                    phone: listeviewCreateItem.phone,
                                                                                   ),
                                                                                 );
                                                                                 safeSetState(() {});
@@ -1213,6 +1209,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                   listeviewCreateIndex,
                                                                                   (_) => PhoneContactStruct(
                                                                                     contactExistInBase: false,
+                                                                                    displayName: listeviewCreateItem.name,
+                                                                                    phone: listeviewCreateItem.phone,
                                                                                   ),
                                                                                 );
                                                                                 safeSetState(() {});
