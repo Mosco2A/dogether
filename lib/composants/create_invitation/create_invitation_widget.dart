@@ -67,9 +67,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
     _model.titreFocusNode ??= FocusNode();
 
     _model.typeAutreTextController ??= TextEditingController(
-        text: widget!.selectedInvitation != null
-            ? widget!.selectedInvitation?.eInvitation?.iType
-            : '\"\"');
+        text: widget!.selectedInvitation?.eInvitation?.iType);
     _model.typeAutreFocusNode ??= FocusNode();
 
     _model.detailTextController ??= TextEditingController(
