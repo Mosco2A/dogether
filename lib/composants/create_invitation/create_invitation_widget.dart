@@ -1468,8 +1468,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           return;
                         }
                       } else {
-                        FFAppState().vType =
-                            _model.typeAutreTextController.text;
+                        FFAppState().vType = _model.typeListValue!;
                         safeSetState(() {});
                       }
 
