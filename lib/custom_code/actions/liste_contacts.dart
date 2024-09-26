@@ -81,13 +81,9 @@ class _ContactsPageState extends State<ContactsPage> {
 
     // Appliquer les règles de formatage des numéros français
     if (phone.startsWith('06')) {
-      return '+33(6)' + phone.substring(2);
+      return '+336' + phone.substring(2);
     } else if (phone.startsWith('07')) {
-      return '+33(7)' + phone.substring(2);
-    } else if (phone.startsWith('+336')) {
-      return phone.replaceFirst('+336', '+33(6)');
-    } else if (phone.startsWith('+337')) {
-      return phone.replaceFirst('+337', '+33(7)');
+      return '+337' + phone.substring(2);
     }
 
     return phone; // Retourne le numéro sans espaces et formaté

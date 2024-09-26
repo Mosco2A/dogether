@@ -921,7 +921,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                           context)
                                                                       .languageCode,
                                                                 )
-                                                              : '\"\"',
+                                                              : ' ',
                                                           '\"\"',
                                                         ),
                                                         textAlign:
@@ -977,7 +977,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   null
                                                               ? FFAppState()
                                                                   .vDuree
-                                                              : '\"\"',
+                                                              : ' ',
                                                           '\"\"',
                                                         ),
                                                         textAlign:
