@@ -792,11 +792,16 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         valueOrDefault<String>(
                                                           widget!.selectedInvitation !=
                                                                   null
-                                                              ? widget!
-                                                                  .selectedInvitation
-                                                                  ?.eInvitation
-                                                                  ?.idateInvite
-                                                                  ?.toString()
+                                                              ? dateTimeFormat(
+                                                                  "d MMM",
+                                                                  widget!
+                                                                      .selectedInvitation
+                                                                      ?.eInvitation
+                                                                      ?.idateInvite,
+                                                                  locale: FFLocalizations.of(
+                                                                          context)
+                                                                      .languageCode,
+                                                                )
                                                               : '\"\"',
                                                           '\"\"',
                                                         ),
