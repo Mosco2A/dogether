@@ -24,8 +24,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
       return 'Merci de saisir un titre';
     }
 
-    if (val.length < 5) {
-      return '5 caractères minimum';
+    if (val.length < 4) {
+      return '4 caractères minimum';
     }
     if (val.length > 30) {
       return '20 caractère maximum';
