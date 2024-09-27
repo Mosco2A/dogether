@@ -1288,7 +1288,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               MainAxisSize.max,
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
-                                                                  .spaceBetween,
+                                                                  .start,
                                                           children: [
                                                             Icon(
                                                               Icons
