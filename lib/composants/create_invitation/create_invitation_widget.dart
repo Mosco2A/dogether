@@ -1370,7 +1370,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
-                                                                          5.0,
+                                                                          3.0,
                                                                           0.0),
                                                                       child:
                                                                           Text(
@@ -1556,26 +1556,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   FFButtonWidget(
                     onPressed: () async {
                       var shouldSetState = false;
-                      if (_model.datePicked! < getCurrentTimestamp) {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: const Text('ERREUR'),
-                              content: const Text(
-                                  'La date d\'invitation est inférieure à la date du jour'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: const Text('Ok'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        if (shouldSetState) safeSetState(() {});
-                        return;
+                      if (!(widget.selectedInvitation != null)) {
+                        if (_model.datePicked! < getCurrentTimestamp) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: const Text('ERREUR'),
+                                content: const Text(
+                                    'La date d\'invitation est inférieure à la date du jour'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: const Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          if (shouldSetState) safeSetState(() {});
+                          return;
+                        }
                       }
                       if (!(FFAppState().checkboxList.isNotEmpty)) {
                         await showDialog(
