@@ -1578,6 +1578,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           if (shouldSetState) safeSetState(() {});
                           return;
                         }
+                        if (!(_model.typeListValue != null &&
+                            _model.typeListValue != '')) {
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: const Text('ERREUR'),
+                                content: const Text(
+                                    'Vous n\'avez sélectionné aucun Type d\'invitation'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: const Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          if (shouldSetState) safeSetState(() {});
+                          return;
+                        }
                       }
                       if (!(FFAppState().checkboxList.isNotEmpty)) {
                         await showDialog(
@@ -1587,28 +1609,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               title: const Text('ERREUR'),
                               content: const Text(
                                   'Vous n\'avez sélectionné aucun contact'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: const Text('Ok'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        if (shouldSetState) safeSetState(() {});
-                        return;
-                      }
-                      if (!(_model.typeListValue != null &&
-                          _model.typeListValue != '')) {
-                        await showDialog(
-                          context: context,
-                          builder: (alertDialogContext) {
-                            return AlertDialog(
-                              title: const Text('ERREUR'),
-                              content: const Text(
-                                  'Vous n\'avez sélectionné aucun Type d\'invitation'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
