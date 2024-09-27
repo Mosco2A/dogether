@@ -54,7 +54,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         FFAppState().vType = widget.selectedInvitation!.eInvitation.iType;
         FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
         FFAppState().vContactRef = widget.selectedInvitation!.eInvitation.iRef;
-        FFAppState().vTypeAutre = true;
+        FFAppState().vTypeAutre = false;
         safeSetState(() {});
       }
     });
@@ -297,9 +297,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             isMultiSelect: false,
                                           ),
                                         ),
-                                        if (FFAppState().vTypeAutre ||
-                                            (widget.selectedInvitation !=
-                                                null))
+                                        if (FFAppState().vTypeAutre)
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -410,6 +408,38 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               validator: _model
                                                   .typeAutreTextControllerValidator
                                                   .asValidator(context),
+                                            ),
+                                          ),
+                                        if (!(widget.selectedInvitation !=
+                                            null))
+                                          Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.4,
+                                            height: 40.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              shape: BoxShape.rectangle,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 10.0, 0.0, 10.0),
+                                              child: Text(
+                                                'Type : ${FFAppState().vType}',
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Inter',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
                                           ),
                                       ],
