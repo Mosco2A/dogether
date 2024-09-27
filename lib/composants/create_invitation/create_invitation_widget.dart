@@ -1328,13 +1328,31 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         0.0,
                                                                   ),
                                                             ),
-                                                            FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .trashAlt,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .error,
-                                                              size: 15.0,
+                                                            InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                FFAppState()
+                                                                    .removeFromCheckboxList(
+                                                                        listeviewVarItem);
+                                                                safeSetState(
+                                                                    () {});
+                                                              },
+                                                              child: FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .trashAlt,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                                size: 15.0,
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
