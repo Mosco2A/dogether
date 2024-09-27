@@ -238,6 +238,12 @@ class FFAppState extends ChangeNotifier {
   set vDuree(String value) {
     _vDuree = value;
   }
+
+  String _vContactRef = '';
+  String get vContactRef => _vContactRef;
+  set vContactRef(String value) {
+    _vContactRef = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

@@ -53,6 +53,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         FFAppState().vRefInvit = widget.selectedInvitation?.reference;
         FFAppState().vType = widget.selectedInvitation!.eInvitation.iType;
         FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
+        FFAppState().vContactRef = widget.selectedInvitation!.eInvitation.iRef;
         safeSetState(() {});
       }
     });
@@ -1667,9 +1668,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           await FFAppState()
                               .vRefInvit!
                               .update(createInvitationsEmisesRecordData(
+                                eInvitation:
+                                    createInvitationStruct(delete: true),
+                              ));
+
+                          await FFAppState()
+                              .vRefInvit!
+                              .update(createInvitationsEmisesRecordData(
                                 eInvitation: updateInvitationStruct(
                                   InvitationStruct(
-                                    emetteur: currentUserDisplayName,
+                                    emetteur:
+                                        '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
                                     emetteurRef: currentUserReference,
                                     iType: _model.typeListValue,
                                     iTitre: _model.titreTextController.text,
