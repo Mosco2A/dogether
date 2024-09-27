@@ -1021,7 +1021,16 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           children: [
                                             StreamBuilder<
                                                 List<MyContactsRecord>>(
-                                              stream: queryMyContactsRecord(),
+                                              stream: queryMyContactsRecord(
+                                                queryBuilder: (myContactsRecord) =>
+                                                    myContactsRecord.whereNotIn(
+                                                        'name',
+                                                        FFAppState()
+                                                            .checkboxList
+                                                            .map((e) =>
+                                                                e.displayName)
+                                                            .toList()),
+                                              ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
                                                 if (!snapshot.hasData) {
@@ -1168,11 +1177,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         ),
                                                                         child:
                                                                             Checkbox(
-                                                                          value: _model.checkboxValueMap[listeviewFromDBItem] ??= FFAppState()
-                                                                              .checkboxList
-                                                                              .contains(PhoneContactStruct(
-                                                                                displayName: listeviewFromDBItem.name,
-                                                                              )),
+                                                                          value: _model.checkboxValueMap[listeviewFromDBItem] ??=
+                                                                              false,
                                                                           onChanged:
                                                                               (newValue) async {
                                                                             safeSetState(() =>
