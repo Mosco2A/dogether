@@ -870,122 +870,123 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: Text(
-                                                        'Date/heure choisie : ',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(10.0),
-                                                      child: Text(
-                                                        dateTimeFormat(
-                                                          "EEEE  d MMM à HH:mm",
-                                                          FFAppState()
-                                                              .vTimeInvit,
-                                                          locale:
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .languageCode,
+                                                if (FFAppState().vTimeInvit !=
+                                                    null)
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: Text(
+                                                          'Date/heure: ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                         ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  10.0,
-                                                                  0.0,
-                                                                  10.0),
-                                                      child: Text(
-                                                        'Durée choisie : ',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(10.0),
-                                                      child: Text(
-                                                        FFAppState().vDuree,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .labelMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ' Heure(s)',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .labelMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(
+                                                            10.0),
+                                                        child: Text(
+                                                          dateTimeFormat(
+                                                            "EEEE  d MMM à HH:mm",
+                                                            FFAppState()
+                                                                .vTimeInvit,
+                                                            locale: FFLocalizations
+                                                                    .of(context)
+                                                                .languageCode,
                                                           ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                if (FFAppState().vDuree != '')
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    10.0,
+                                                                    0.0,
+                                                                    10.0),
+                                                        child: Text(
+                                                          'Durée: ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.all(
+                                                            10.0),
+                                                        child: Text(
+                                                          FFAppState().vDuree,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Inter',
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' Heure(s)',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
                                               ],
                                             ),
                                           ),
@@ -1069,7 +1070,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       children: [
                                                         Builder(
                                                           builder: (context) {
-                                                            final listeviewCreate =
+                                                            final listeviewFromDB =
                                                                 containerMyContactsRecordList
                                                                     .toList();
 
@@ -1083,13 +1084,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               scrollDirection:
                                                                   Axis.vertical,
                                                               itemCount:
-                                                                  listeviewCreate
+                                                                  listeviewFromDB
                                                                       .length,
                                                               itemBuilder: (context,
-                                                                  listeviewCreateIndex) {
-                                                                final listeviewCreateItem =
-                                                                    listeviewCreate[
-                                                                        listeviewCreateIndex];
+                                                                  listeviewFromDBIndex) {
+                                                                final listeviewFromDBItem =
+                                                                    listeviewFromDB[
+                                                                        listeviewFromDBIndex];
                                                                 return Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
@@ -1115,7 +1116,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             0.0),
                                                                         child:
                                                                             Text(
-                                                                          listeviewCreateItem
+                                                                          listeviewFromDBItem
                                                                               .name,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
@@ -1127,7 +1128,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       ),
                                                                     ),
                                                                     Text(
-                                                                      listeviewCreateItem
+                                                                      listeviewFromDBItem
                                                                           .phone,
                                                                       textAlign:
                                                                           TextAlign
@@ -1167,32 +1168,35 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         ),
                                                                         child:
                                                                             Checkbox(
-                                                                          value: _model.checkboxValueMap[listeviewCreateItem] ??=
-                                                                              false,
+                                                                          value: _model.checkboxValueMap[listeviewFromDBItem] ??= FFAppState()
+                                                                              .checkboxList
+                                                                              .contains(PhoneContactStruct(
+                                                                                displayName: listeviewFromDBItem.name,
+                                                                              )),
                                                                           onChanged:
                                                                               (newValue) async {
                                                                             safeSetState(() =>
-                                                                                _model.checkboxValueMap[listeviewCreateItem] = newValue!);
+                                                                                _model.checkboxValueMap[listeviewFromDBItem] = newValue!);
                                                                             if (newValue!) {
                                                                               _model.phoneExist = await queryUsersRecordCount(
                                                                                 queryBuilder: (usersRecord) => usersRecord.where(
                                                                                   'phone_number',
-                                                                                  isEqualTo: listeviewCreateItem.phone,
+                                                                                  isEqualTo: listeviewFromDBItem.phone,
                                                                                 ),
                                                                               );
                                                                               if (_model.phoneExist! > 0) {
                                                                                 FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                  displayName: listeviewCreateItem.name,
-                                                                                  phone: listeviewCreateItem.phone,
-                                                                                  refPhoneContact: listeviewCreateItem.reference,
+                                                                                  displayName: listeviewFromDBItem.name,
+                                                                                  phone: listeviewFromDBItem.phone,
+                                                                                  refPhoneContact: listeviewFromDBItem.reference,
                                                                                   reponse: true,
                                                                                 ));
                                                                                 safeSetState(() {});
                                                                               } else {
                                                                                 FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                  displayName: listeviewCreateItem.name,
-                                                                                  phone: listeviewCreateItem.phone,
-                                                                                  refPhoneContact: listeviewCreateItem.reference,
+                                                                                  displayName: listeviewFromDBItem.name,
+                                                                                  phone: listeviewFromDBItem.phone,
+                                                                                  refPhoneContact: listeviewFromDBItem.reference,
                                                                                   reponse: false,
                                                                                 ));
                                                                                 safeSetState(() {});
@@ -1201,9 +1205,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                               safeSetState(() {});
                                                                             } else {
                                                                               FFAppState().removeFromCheckboxList(PhoneContactStruct(
-                                                                                refPhoneContact: listeviewCreateItem.reference,
-                                                                                displayName: listeviewCreateItem.name,
-                                                                                phone: listeviewCreateItem.phone,
+                                                                                refPhoneContact: listeviewFromDBItem.reference,
+                                                                                displayName: listeviewFromDBItem.name,
+                                                                                phone: listeviewFromDBItem.phone,
                                                                               ));
                                                                               safeSetState(() {});
                                                                             }
@@ -1282,12 +1286,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                           children: [
                                                             Icon(
                                                               Icons
-                                                                  .workspace_premium_outlined,
+                                                                  .workspace_premium_sharp,
                                                               color: listeviewVarItem
                                                                       .contactExistInBase
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .warning
+                                                                  ? const Color(
+                                                                      0xFFFFD700)
                                                                   : FlutterFlowTheme.of(
                                                                           context)
                                                                       .accent4,
