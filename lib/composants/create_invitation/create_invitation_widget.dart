@@ -1676,7 +1676,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     emetteur:
                                         '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
                                     emetteurRef: currentUserReference,
-                                    iType: _model.typeListValue,
+                                    iType: _model.typeAutreTextController.text,
                                     iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
                                     idateInvite: FFAppState().vTimeInvit,
