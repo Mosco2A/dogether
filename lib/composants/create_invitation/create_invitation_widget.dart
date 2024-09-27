@@ -54,6 +54,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         FFAppState().vType = widget.selectedInvitation!.eInvitation.iType;
         FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
         FFAppState().vContactRef = widget.selectedInvitation!.eInvitation.iRef;
+        FFAppState().vTypeAutre = true;
         safeSetState(() {});
       }
     });
@@ -258,6 +259,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               if (_model.typeListValue ==
                                                   'Autre') {
                                                 FFAppState().vTypeAutre = true;
+                                                FFAppState().vType =
+                                                    _model.typeListValue!;
                                                 safeSetState(() {});
                                               }
                                             },
