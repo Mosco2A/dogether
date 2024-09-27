@@ -1280,83 +1280,79 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       final listeviewVarItem =
                                                           listeviewVar[
                                                               listeviewVarIndex];
-                                                      return SingleChildScrollView(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Icon(
-                                                              Icons
-                                                                  .workspace_premium_sharp,
-                                                              color: listeviewVarItem
-                                                                      .contactExistInBase
-                                                                  ? const Color(
-                                                                      0xFFFFD700)
-                                                                  : FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .accent4,
-                                                              size: 24.0,
-                                                            ),
-                                                            Text(
-                                                              listeviewVarItem
-                                                                  .displayName,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Inter',
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                  ),
-                                                            ),
-                                                            Text(
-                                                              listeviewVarItem
-                                                                  .phone,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .labelMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Inter',
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                  ),
-                                                            ),
-                                                            InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                FFAppState()
-                                                                    .removeFromCheckboxList(
-                                                                        listeviewVarItem);
-                                                                FFAppState()
-                                                                    .update(
-                                                                        () {});
-                                                              },
-                                                              child: FaIcon(
-                                                                FontAwesomeIcons
-                                                                    .trashAlt,
-                                                                color: FlutterFlowTheme.of(
+                                                      return Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Icon(
+                                                            Icons
+                                                                .workspace_premium_sharp,
+                                                            color: listeviewVarItem
+                                                                    .contactExistInBase
+                                                                ? const Color(
+                                                                    0xFFFFD700)
+                                                                : FlutterFlowTheme.of(
                                                                         context)
-                                                                    .error,
-                                                                size: 15.0,
-                                                              ),
+                                                                    .accent4,
+                                                            size: 24.0,
+                                                          ),
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .displayName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            listeviewVarItem
+                                                                .phone,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              FFAppState()
+                                                                  .removeFromCheckboxList(
+                                                                      listeviewVarItem);
+                                                              FFAppState()
+                                                                  .update(
+                                                                      () {});
+                                                            },
+                                                            child: FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .trashAlt,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error,
+                                                              size: 15.0,
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       );
                                                     },
                                                   );
