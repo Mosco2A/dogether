@@ -1342,8 +1342,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 FFAppState()
                                                                     .removeFromCheckboxList(
                                                                         listeviewVarItem);
-                                                                safeSetState(
-                                                                    () {});
+                                                                _model
+                                                                    .updatePage(
+                                                                        () {});
                                                               },
                                                               child: FaIcon(
                                                                 FontAwesomeIcons
