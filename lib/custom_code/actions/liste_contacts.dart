@@ -48,12 +48,28 @@ class _ContactsPageState extends State<ContactsPage> {
     }
   }
 
-  // Ajoute le contact à Firestore avec un identifiant aléatoire
+  // Vérifier si un numéro de téléphone existe dans la collection users
+  Future<bool> _isPhoneNumberValidated(String phoneNumber) async {
+    var querySnapshot = await _firestore
+        .collection('users')
+        .where('phoneNumber', isEqualTo: phoneNumber)
+        .get();
+
+    return querySnapshot
+        .docs.isNotEmpty; // Retourne true si un utilisateur est trouvé
+  }
+
+  // Ajoute le contact à Firestore avec un identifiant aléatoire et vérifie s'il est un utilisateur validé
   Future<void> _addContactToFirestore(String name, String phone) async {
     String docId = _firestore.collection('myContacts').doc().id; // ID aléatoire
+
+    // Vérifier si le numéro de téléphone est validé (existe dans la collection users)
+    bool isValidated = await _isPhoneNumberValidated(phone);
+
     await _firestore.collection('myContacts').doc(docId).set({
       'name': name,
       'phone': phone,
+      'validatedUser': isValidated, // Ajouter true ou false selon le résultat
     });
   }
 
@@ -151,6 +167,20 @@ class _ContactsPageState extends State<ContactsPage> {
                     backgroundColor: isInFirestore ? Colors.red : Colors.blue,
                   ),
                   child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
+                ),
+                // Afficher si le contact est un utilisateur validé
+                leading: FutureBuilder<bool>(
+                  future: _isPhoneNumberValidated(formattedPhone),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                    bool isValidatedUser = snapshot.data ?? false;
+                    return Icon(
+                      isValidatedUser ? Icons.check_circle : Icons.error,
+                      color: isValidatedUser ? Colors.green : Colors.grey,
+                    );
+                  },
                 ),
               );
             },

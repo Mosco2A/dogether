@@ -112,12 +112,9 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                   StreamBuilder<List<InvitationsEmisesRecord>>(
                     stream: queryInvitationsEmisesRecord(
                       queryBuilder: (invitationsEmisesRecord) =>
-                          invitationsEmisesRecord
-                              .where(
-                                'eInvitation.IdateInvite',
-                                isGreaterThan: getCurrentTimestamp,
-                              )
-                              .orderBy('eInvitation.IdateInvite'),
+                          invitationsEmisesRecord.orderBy(
+                              'eInvitation.IdateInvite',
+                              descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -166,8 +163,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color: listeEmiseItem
+                                                  .eInvitation.idateInvite! <
+                                              getCurrentTimestamp
+                                          ? FlutterFlowTheme.of(context)
+                                              .tertiary
+                                          : FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                       borderRadius: BorderRadius.circular(8.0),
                                       shape: BoxShape.rectangle,
                                     ),
@@ -197,64 +199,133 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
+                                                        fontSize: 18.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
                                                 ),
-                                                Builder(
-                                                  builder: (context) => InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (dialogContext) {
-                                                          return Dialog(
-                                                            elevation: 0,
-                                                            insetPadding:
-                                                                EdgeInsets.zero,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            alignment: const AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () =>
-                                                                  FocusScope.of(
-                                                                          dialogContext)
-                                                                      .unfocus(),
-                                                              child:
-                                                                  CreateInvitationWidget(
-                                                                selectedInvitation:
-                                                                    listeEmiseItem,
-                                                              ),
-                                                            ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Builder(
+                                                      builder: (context) =>
+                                                          InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (dialogContext) {
+                                                              return Dialog(
+                                                                elevation: 0,
+                                                                insetPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                alignment: const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0)
+                                                                    .resolve(
+                                                                        Directionality.of(
+                                                                            context)),
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () =>
+                                                                      FocusScope.of(
+                                                                              dialogContext)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      CreateInvitationWidget(
+                                                                    selectedInvitation:
+                                                                        listeEmiseItem,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
                                                           );
                                                         },
-                                                      );
-                                                    },
-                                                    child: Icon(
-                                                      Icons
-                                                          .mode_edit_outline_outlined,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      size: 30.0,
+                                                        child: Icon(
+                                                          Icons
+                                                              .mode_edit_outline_outlined,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 30.0,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
+                                                    Builder(
+                                                      builder: (context) =>
+                                                          InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (dialogContext) {
+                                                              return Dialog(
+                                                                elevation: 0,
+                                                                insetPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                alignment: const AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0)
+                                                                    .resolve(
+                                                                        Directionality.of(
+                                                                            context)),
+                                                                child:
+                                                                    GestureDetector(
+                                                                  onTap: () =>
+                                                                      FocusScope.of(
+                                                                              dialogContext)
+                                                                          .unfocus(),
+                                                                  child:
+                                                                      CreateInvitationWidget(
+                                                                    selectedInvitation:
+                                                                        listeEmiseItem,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Icon(
+                                                          Icons
+                                                              .control_point_duplicate,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 30.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ].divide(
+                                                      const SizedBox(width: 10.0)),
                                                 ),
                                               ],
                                             ),

@@ -95,10 +95,11 @@ class _AccueilWidgetState extends State<AccueilWidget> {
                         onTap: () async {
                           context.pushNamed('Profil');
                         },
-                        child: const Icon(
+                        child: Icon(
                           Icons.person,
-                          color: Colors.white,
-                          size: 40.0,
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          size: 30.0,
                         ),
                       ),
                     ),

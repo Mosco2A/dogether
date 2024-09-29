@@ -80,10 +80,11 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const FaIcon(
+                          FaIcon(
                             FontAwesomeIcons.envelopeOpenText,
-                            color: Colors.white,
-                            size: 40.0,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            size: 37.0,
                           ),
                           Text(
                             'Recues',
@@ -92,7 +93,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                 ),
                           ),
@@ -127,9 +128,10 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.outgoing_mail,
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             size: 40.0,
                           ),
                           Text(
@@ -139,7 +141,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                 ),
                           ),
@@ -183,9 +185,10 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.add_task,
-                              color: Colors.white,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                               size: 40.0,
                             ),
                             Text(
@@ -195,7 +198,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                                   .override(
                                     fontFamily: 'Inter',
                                     color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
+                                        .secondaryText,
                                     letterSpacing: 0.0,
                                   ),
                             ),
@@ -223,9 +226,10 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.people_alt,
-                            color: Colors.white,
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                             size: 40.0,
                           ),
                           Text(
@@ -235,7 +239,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                                 .override(
                                   fontFamily: 'Inter',
                                   color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
+                                      .secondaryText,
                                   letterSpacing: 0.0,
                                 ),
                           ),

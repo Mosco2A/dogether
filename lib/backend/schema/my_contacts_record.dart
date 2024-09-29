@@ -25,9 +25,15 @@ class MyContactsRecord extends FirestoreRecord {
   String get phone => _phone ?? '';
   bool hasPhone() => _phone != null;
 
+  // "validatedUser" field.
+  bool? _validatedUser;
+  bool get validatedUser => _validatedUser ?? false;
+  bool hasValidatedUser() => _validatedUser != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _phone = snapshotData['phone'] as String?;
+    _validatedUser = snapshotData['validatedUser'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -67,11 +73,13 @@ class MyContactsRecord extends FirestoreRecord {
 Map<String, dynamic> createMyContactsRecordData({
   String? name,
   String? phone,
+  bool? validatedUser,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'name': name,
       'phone': phone,
+      'validatedUser': validatedUser,
     }.withoutNulls,
   );
 
@@ -83,12 +91,14 @@ class MyContactsRecordDocumentEquality implements Equality<MyContactsRecord> {
 
   @override
   bool equals(MyContactsRecord? e1, MyContactsRecord? e2) {
-    return e1?.name == e2?.name && e1?.phone == e2?.phone;
+    return e1?.name == e2?.name &&
+        e1?.phone == e2?.phone &&
+        e1?.validatedUser == e2?.validatedUser;
   }
 
   @override
   int hash(MyContactsRecord? e) =>
-      const ListEquality().hash([e?.name, e?.phone]);
+      const ListEquality().hash([e?.name, e?.phone, e?.validatedUser]);
 
   @override
   bool isValidKey(Object? o) => o is MyContactsRecord;

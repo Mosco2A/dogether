@@ -244,6 +244,18 @@ class FFAppState extends ChangeNotifier {
   set vContactRef(String value) {
     _vContactRef = value;
   }
+
+  String _creerOuModif = '';
+  String get creerOuModif => _creerOuModif;
+  set creerOuModif(String value) {
+    _creerOuModif = value;
+  }
+
+  bool _vExistInBase = false;
+  bool get vExistInBase => _vExistInBase;
+  set vExistInBase(bool value) {
+    _vExistInBase = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {

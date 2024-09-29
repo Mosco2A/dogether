@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -55,6 +56,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
         FFAppState().vContactRef = widget.selectedInvitation!.eInvitation.iRef;
         FFAppState().vTypeAutre = false;
+        FFAppState().creerOuModif = 'Modification';
+        safeSetState(() {});
+      } else {
+        FFAppState().creerOuModif = 'Création';
         safeSetState(() {});
       }
     });
@@ -63,8 +68,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         text: widget.selectedInvitation?.eInvitation.iTitre);
     _model.titreFocusNode ??= FocusNode();
 
-    _model.typeAutreTextController ??=
-        TextEditingController(text: FFAppState().vType);
+    _model.typeAutreTextController ??= TextEditingController();
     _model.typeAutreFocusNode ??= FocusNode();
 
     _model.detailTextController ??= TextEditingController(
@@ -104,7 +108,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   child: Align(
                     alignment: const AlignmentDirectional(0.0, 0.0),
                     child: Text(
-                      'Créer une Invitation',
+                      '${FFAppState().creerOuModif} d\'une invitation',
                       style:
                           FlutterFlowTheme.of(context).headlineSmall.override(
                                 fontFamily: 'Readex Pro',
@@ -250,7 +254,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   widget.selectedInvitation !=
                                                           null
                                                       ? FFAppState().vType
-                                                      : '\"\"',
+                                                      : ' ',
                                             ),
                                             options: FFAppState().listTypeInvit,
                                             onChanged: (val) async {
@@ -259,6 +263,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               if (_model.typeListValue ==
                                                   'Autre') {
                                                 FFAppState().vTypeAutre = true;
+                                                FFAppState().vType =
+                                                    _model.typeListValue!;
+                                                safeSetState(() {});
+                                              } else {
+                                                FFAppState().vTypeAutre = false;
                                                 FFAppState().vType =
                                                     _model.typeListValue!;
                                                 safeSetState(() {});
@@ -297,9 +306,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                             isMultiSelect: false,
                                           ),
                                         ),
-                                        if (FFAppState().vTypeAutre &&
-                                            !(widget.selectedInvitation !=
-                                                null))
+                                        if (FFAppState().vTypeAutre)
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -318,6 +325,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   .typeAutreTextController,
                                               focusNode:
                                                   _model.typeAutreFocusNode,
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                '_model.typeAutreTextController',
+                                                const Duration(milliseconds: 2000),
+                                                () async {
+                                                  FFAppState().vType = _model
+                                                      .typeAutreTextController
+                                                      .text;
+                                                  safeSetState(() {});
+                                                },
+                                              ),
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -412,7 +430,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   .asValidator(context),
                                             ),
                                           ),
-                                        if (widget.selectedInvitation != null)
+                                        if ((widget.selectedInvitation !=
+                                                null) &&
+                                            !FFAppState().vTypeAutre)
                                           Container(
                                             width: MediaQuery.sizeOf(context)
                                                     .width *
@@ -1541,18 +1561,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             builder: (alertDialogContext) {
                               return AlertDialog(
                                 title: const Text('ANNULATION'),
-                                content: const Text(
-                                    'Voulez-vous annuler la création de cette invitation?'),
+                                content: Text(
+                                    'Voulez-vous annuler la ${FFAppState().creerOuModif} de cette invitation ?'),
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(
                                         alertDialogContext, false),
-                                    child: const Text('Continuer la création'),
+                                    child: Text(
+                                        'Continuer la ${FFAppState().creerOuModif}'),
                                   ),
                                   TextButton(
                                     onPressed: () =>
                                         Navigator.pop(alertDialogContext, true),
-                                    child: const Text('Annuler la création'),
+                                    child: Text(
+                                        'Annuler la ${FFAppState().creerOuModif}'),
                                   ),
                                 ],
                               );
@@ -1685,11 +1707,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           if (shouldSetState) safeSetState(() {});
                           return;
                         }
-                      } else {
-                        FFAppState().vType = _model.typeListValue!;
-                        safeSetState(() {});
                       }
-
                       _model.outForm = true;
                       if (_model.formKey.currentState == null ||
                           !_model.formKey.currentState!.validate()) {
@@ -1707,7 +1725,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                     emetteur:
                                         '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
                                     emetteurRef: currentUserReference,
-                                    iType: _model.typeAutreTextController.text,
+                                    iType: FFAppState().vType,
                                     iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
                                     idateInvite: FFAppState().vTimeInvit,
@@ -1770,6 +1788,8 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   invitationsEmisesRecordReference);
                           shouldSetState = true;
                         }
+
+                        await queryUsersRecordOnce();
                       } else {
                         await showDialog(
                           context: context,
@@ -1794,9 +1814,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
 
                       if (shouldSetState) safeSetState(() {});
                     },
-                    text: widget.selectedInvitation != null
-                        ? 'Créer'
-                        : 'Modifier',
+                    text: FFAppState().creerOuModif,
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
