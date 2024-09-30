@@ -13,10 +13,12 @@ import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 import 'package:fast_contacts/fast_contacts.dart'; // Import contacts
 import 'package:permission_handler/permission_handler.dart'; // Permission handling
 import 'dart:convert'; // For jsonDecode and jsonEncode
+import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class ContactsPage extends StatefulWidget {
   final String contactsJson;
@@ -59,14 +61,28 @@ class _ContactsPageState extends State<ContactsPage> {
         .docs.isNotEmpty; // Retourne true si un utilisateur est trouvé
   }
 
-  // Ajoute le contact à Firestore avec un identifiant aléatoire et vérifie s'il est un utilisateur validé
+  // Ajoute le contact à Firestore dans la sous-collection myContacts de l'utilisateur courant
   Future<void> _addContactToFirestore(String name, String phone) async {
-    String docId = _firestore.collection('myContacts').doc().id; // ID aléatoire
+    String? userId =
+        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
+    if (userId == null) return; // Si pas d'utilisateur, ne rien faire
+
+    String docId = _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc()
+        .id; // ID aléatoire
 
     // Vérifier si le numéro de téléphone est validé (existe dans la collection users)
     bool isValidated = await _isPhoneNumberValidated(phone);
 
-    await _firestore.collection('myContacts').doc(docId).set({
+    await _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc(docId)
+        .set({
       'name': name,
       'phone': phone,
       'validatedUser': isValidated, // Ajouter true ou false selon le résultat
@@ -75,12 +91,27 @@ class _ContactsPageState extends State<ContactsPage> {
 
   // Supprime un contact de Firestore en utilisant son ID de document
   Future<void> _removeContactFromFirestore(String docId) async {
-    await _firestore.collection('myContacts').doc(docId).delete();
+    String? userId =
+        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
+    if (userId == null) return; // Si pas d'utilisateur, ne rien faire
+
+    await _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc(docId)
+        .delete();
   }
 
   // Récupère l'ID du document correspondant au nom du contact
   Future<String?> _getContactDocId(String name) async {
+    String? userId =
+        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
+    if (userId == null) return null; // Si pas d'utilisateur, ne rien faire
+
     var querySnapshot = await _firestore
+        .collection('users')
+        .doc(userId)
         .collection('myContacts')
         .where('name', isEqualTo: name)
         .get();
