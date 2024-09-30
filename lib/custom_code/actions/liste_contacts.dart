@@ -15,7 +15,7 @@ import 'package:permission_handler/permission_handler.dart'; // Gestion des perm
 import 'dart:convert'; // Pour jsonDecode et jsonEncode
 
 // Déclaration de la variable globale
-List<Map<String, String>> maListeDeContacts = [];
+List<Map<String, dynamic>> maListeDeContacts = []; // Utilisation de dynamic
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class ContactsPage extends StatefulWidget {
@@ -44,7 +44,8 @@ class _ContactsPageState extends State<ContactsPage> {
     if (contactsJson != null) {
       try {
         List<dynamic> loadedContacts = jsonDecode(contactsJson);
-        maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+        maListeDeContacts = List<Map<String, dynamic>>.from(
+            loadedContacts); // Mise à jour en dynamic
         _contactsList =
             List.from(loadedContacts); // Copier la liste de contacts
         // Trier les contacts par ordre alphabétique
