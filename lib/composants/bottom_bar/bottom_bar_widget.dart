@@ -1,8 +1,11 @@
+import '/backend/schema/structs/index.dart';
 import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'bottom_bar_model.dart';
 export 'bottom_bar_model.dart';
 
@@ -38,7 +41,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: const AlignmentDirectional(0.0, 1.0),
+      alignment: AlignmentDirectional(0.0, 1.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -46,9 +49,9 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
           Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
             height: MediaQuery.sizeOf(context).height * 0.1,
-            decoration: const BoxDecoration(),
+            decoration: BoxDecoration(),
             child: Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +65,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       context.pushNamed(
                         'Recues',
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.rightToLeft,
                           ),
@@ -70,7 +73,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       );
                     },
                     child: Container(
-                      constraints: const BoxConstraints(
+                      constraints: BoxConstraints(
                         minWidth: 60.0,
                       ),
                       decoration: BoxDecoration(
@@ -110,7 +113,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       context.pushNamed(
                         'Emises',
                         extra: <String, dynamic>{
-                          kTransitionInfoKey: const TransitionInfo(
+                          kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
                             transitionType: PageTransitionType.rightToLeft,
                           ),
@@ -118,7 +121,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       );
                     },
                     child: Container(
-                      constraints: const BoxConstraints(
+                      constraints: BoxConstraints(
                         minWidth: 60.0,
                       ),
                       decoration: BoxDecoration(
@@ -167,15 +170,15 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                               elevation: 0,
                               insetPadding: EdgeInsets.zero,
                               backgroundColor: Colors.transparent,
-                              alignment: const AlignmentDirectional(0.0, 0.0)
+                              alignment: AlignmentDirectional(0.0, 0.0)
                                   .resolve(Directionality.of(context)),
-                              child: const CreateInvitationWidget(),
+                              child: CreateInvitationWidget(),
                             );
                           },
                         );
                       },
                       child: Container(
-                        constraints: const BoxConstraints(
+                        constraints: BoxConstraints(
                           minWidth: 60.0,
                         ),
                         decoration: BoxDecoration(
@@ -216,7 +219,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                       context.pushNamed('ContactsPage');
                     },
                     child: Container(
-                      constraints: const BoxConstraints(
+                      constraints: BoxConstraints(
                         minWidth: 60.0,
                       ),
                       decoration: BoxDecoration(
