@@ -27,6 +27,9 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  String _searchText = ''; // Texte de recherche
+  List<dynamic> _contactsList = [];
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +45,12 @@ class _ContactsPageState extends State<ContactsPage> {
       try {
         List<dynamic> loadedContacts = jsonDecode(contactsJson);
         maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+        _contactsList =
+            List.from(loadedContacts); // Copier la liste de contacts
+        // Trier les contacts par ordre alphabétique
+        _contactsList.sort((a, b) => (a['displayName'] as String)
+            .toLowerCase()
+            .compareTo((b['displayName'] as String).toLowerCase()));
       } catch (e) {
         print('Erreur lors du chargement des contacts : $e');
       }
@@ -107,85 +116,114 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> contactsList = jsonDecode(widget.contactsJson);
+    // Appliquer la recherche aux contacts
+    List<dynamic> filteredContacts = _contactsList.where((contact) {
+      return contact['displayName']
+              .toLowerCase()
+              .contains(_searchText.toLowerCase()) ||
+          (contact['phones'] as List<dynamic>)
+              .any((phone) => phone.toString().contains(_searchText));
+    }).toList();
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Liste des Contacts'),
       ),
-      body: ListView.builder(
-        itemCount: contactsList.length,
-        itemBuilder: (context, index) {
-          var contact = contactsList[index];
-          List<String> validPhones = (contact['phones'] as List<dynamic>)
-              .where((phone) =>
-                  phone.startsWith('+337') ||
-                  phone.startsWith('+336') ||
-                  phone.startsWith('06') ||
-                  phone.startsWith('07'))
-              .map((phone) => phone.toString()) // Convertir en String
-              .toList();
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Rechercher un contact...',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchText = value; // Mettre à jour la recherche
+                });
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredContacts.length,
+              itemBuilder: (context, index) {
+                var contact = filteredContacts[index];
+                List<String> validPhones = (contact['phones'] as List<dynamic>)
+                    .where((phone) =>
+                        phone.startsWith('+337') ||
+                        phone.startsWith('+336') ||
+                        phone.startsWith('06') ||
+                        phone.startsWith('07'))
+                    .map((phone) => phone.toString()) // Convertir en String
+                    .toList();
 
-          // Ne pas afficher le contact s'il n'a pas de numéro valide
-          if (validPhones.isEmpty) {
-            return SizedBox.shrink(); // Ne rien afficher
-          }
+                // Ne pas afficher le contact s'il n'a pas de numéro valide
+                if (validPhones.isEmpty) {
+                  return SizedBox.shrink(); // Ne rien afficher
+                }
 
-          String phoneToSave =
-              validPhones.first; // Prendre le premier numéro valide
-          String formattedPhone =
-              formatPhoneNumber(phoneToSave); // Formater le numéro
+                String phoneToSave =
+                    validPhones.first; // Prendre le premier numéro valide
+                String formattedPhone =
+                    formatPhoneNumber(phoneToSave); // Formater le numéro
 
-          return FutureBuilder<String?>(
-            future: _getContactDocId(contact['displayName']),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-
-              String? docId = snapshot.data;
-              bool isInFirestore = docId != null;
-
-              return ListTile(
-                title: Text(contact['displayName']),
-                subtitle: Text('Phone: $formattedPhone'),
-                trailing: ElevatedButton(
-                  onPressed: () async {
-                    setState(() {
-                      if (isInFirestore) {
-                        // Si le contact est déjà dans Firestore, le supprimer
-                        _removeContactFromFirestore(docId!);
-                      } else {
-                        // Ajouter le contact s'il n'existe pas déjà
-                        _addContactToFirestore(
-                            contact['displayName'], formattedPhone);
-                      }
-                      loadContacts(); // Recharge les contacts après modification
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isInFirestore ? Colors.red : Colors.blue,
-                  ),
-                  child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
-                ),
-                // Afficher si le contact est un utilisateur validé
-                leading: FutureBuilder<bool>(
-                  future: _isPhoneNumberValidated(formattedPhone),
+                return FutureBuilder<String?>(
+                  future: _getContactDocId(contact['displayName']),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
                     }
-                    bool isValidatedUser = snapshot.data ?? false;
-                    return Icon(
-                      isValidatedUser ? Icons.check_circle : Icons.error,
-                      color: isValidatedUser ? Colors.green : Colors.grey,
+
+                    String? docId = snapshot.data;
+                    bool isInFirestore = docId != null;
+
+                    return ListTile(
+                      title: Text(contact['displayName']),
+                      subtitle: Text('Phone: $formattedPhone'),
+                      trailing: ElevatedButton(
+                        onPressed: () async {
+                          setState(() {
+                            if (isInFirestore) {
+                              // Si le contact est déjà dans Firestore, le supprimer
+                              _removeContactFromFirestore(docId!);
+                            } else {
+                              // Ajouter le contact s'il n'existe pas déjà
+                              _addContactToFirestore(
+                                  contact['displayName'], formattedPhone);
+                            }
+                            loadContacts(); // Recharge les contacts après modification
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              isInFirestore ? Colors.red : Colors.blue,
+                        ),
+                        child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
+                      ),
+                      // Afficher si le contact est un utilisateur validé
+                      leading: FutureBuilder<bool>(
+                        future: _isPhoneNumberValidated(formattedPhone),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+                          bool isValidatedUser = snapshot.data ?? false;
+                          return Icon(
+                            isValidatedUser ? Icons.check_circle : Icons.error,
+                            color: isValidatedUser ? Colors.green : Colors.grey,
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
