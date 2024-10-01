@@ -35,7 +35,7 @@ dependencies:
   device_info_plus_platform_interface: 7.0.0
   dropdown_button2: 2.3.9
   easy_debounce: 2.0.1
-  fast_contacts: ^4.0.0
+  fast_contacts: ^3.1.4
   firebase_auth: 4.19.5
   firebase_auth_platform_interface: 7.2.6
   firebase_auth_web: 5.11.5
