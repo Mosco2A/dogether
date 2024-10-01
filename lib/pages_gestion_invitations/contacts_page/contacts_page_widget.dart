@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -107,99 +106,66 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              AuthUserStreamWidget(
-                builder: (context) => StreamBuilder<List<UsersRecord>>(
-                  stream: queryUsersRecord(
-                    queryBuilder: (usersRecord) => usersRecord.where(
-                      'uid',
-                      isEqualTo: valueOrDefault(currentUserDocument?.myID, ''),
-                    ),
-                    singleRecord: true,
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    List<UsersRecord> containerUsersRecordList = snapshot.data!;
-                    final containerUsersRecord =
-                        containerUsersRecordList.isNotEmpty
-                            ? containerUsersRecordList.first
-                            : null;
+              Container(
+                width: MediaQuery.sizeOf(context).width * 0.95,
+                height: MediaQuery.sizeOf(context).height * 0.6,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                  child: AuthUserStreamWidget(
+                    builder: (context) => Builder(
+                      builder: (context) {
+                        final listeviewCP =
+                            (currentUserDocument?.myContacts?.toList() ?? [])
+                                .toList();
 
-                    return Container(
-                      width: MediaQuery.sizeOf(context).width * 0.95,
-                      height: MediaQuery.sizeOf(context).height * 0.6,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 20.0, 0.0, 20.0),
-                        child: Builder(
-                          builder: (context) {
-                            final listeviewCP =
-                                containerUsersRecord?.myContacts?.toList() ??
-                                    [];
-
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listeviewCP.length,
-                              itemBuilder: (context, listeviewCPIndex) {
-                                final listeviewCPItem =
-                                    listeviewCP[listeviewCPIndex];
-                                return Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 5.0),
-                                      child: Text(
-                                        listeviewCPItem.name,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 5.0, 0.0, 5.0),
-                                      child: Text(
-                                        listeviewCPItem.phone,
-                                        style: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listeviewCP.length,
+                          itemBuilder: (context, listeviewCPIndex) {
+                            final listeviewCPItem =
+                                listeviewCP[listeviewCPIndex];
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 5.0, 0.0, 5.0),
+                                  child: Text(
+                                    listeviewCPItem.name,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 5.0, 0.0, 5.0),
+                                  child: Text(
+                                    listeviewCPItem.phone,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ],
                             );
                           },
-                        ),
-                      ),
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
                 ),
               ),
               Container(
