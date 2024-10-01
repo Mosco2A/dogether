@@ -1081,17 +1081,9 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            StreamBuilder<
-                                                List<MyContactsRecord>>(
-                                              stream: queryMyContactsRecord(
-                                                queryBuilder: (myContactsRecord) =>
-                                                    myContactsRecord.whereNotIn(
-                                                        'name',
-                                                        FFAppState()
-                                                            .checkboxList
-                                                            .map((e) =>
-                                                                e.displayName)
-                                                            .toList()),
+                                            StreamBuilder<List<UsersRecord>>(
+                                              stream: queryUsersRecord(
+                                                singleRecord: true,
                                               ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -1113,9 +1105,19 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     ),
                                                   );
                                                 }
-                                                List<MyContactsRecord>
-                                                    containerMyContactsRecordList =
+                                                List<UsersRecord>
+                                                    containerUsersRecordList =
                                                     snapshot.data!;
+                                                // Return an empty Container when the item does not exist.
+                                                if (snapshot.data!.isEmpty) {
+                                                  return Container();
+                                                }
+                                                final containerUsersRecord =
+                                                    containerUsersRecordList
+                                                            .isNotEmpty
+                                                        ? containerUsersRecordList
+                                                            .first
+                                                        : null;
 
                                                 return Container(
                                                   width:
@@ -1142,8 +1144,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         Builder(
                                                           builder: (context) {
                                                             final listeviewFromDB =
-                                                                containerMyContactsRecordList
-                                                                    .toList();
+                                                                containerUsersRecord
+                                                                        ?.myContacts
+                                                                        ?.toList() ??
+                                                                    [];
 
                                                             return ListView
                                                                 .builder(
@@ -1256,7 +1260,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 FFAppState().addToCheckboxList(PhoneContactStruct(
                                                                                   displayName: listeviewFromDBItem.name,
                                                                                   phone: listeviewFromDBItem.phone,
-                                                                                  refPhoneContact: listeviewFromDBItem.reference,
                                                                                   reponse: true,
                                                                                 ));
                                                                                 safeSetState(() {});
@@ -1264,7 +1267,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 FFAppState().addToCheckboxList(PhoneContactStruct(
                                                                                   displayName: listeviewFromDBItem.name,
                                                                                   phone: listeviewFromDBItem.phone,
-                                                                                  refPhoneContact: listeviewFromDBItem.reference,
                                                                                   reponse: false,
                                                                                 ));
                                                                                 safeSetState(() {});
@@ -1273,7 +1275,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                               safeSetState(() {});
                                                                             } else {
                                                                               FFAppState().removeFromCheckboxList(PhoneContactStruct(
-                                                                                refPhoneContact: listeviewFromDBItem.reference,
                                                                                 displayName: listeviewFromDBItem.name,
                                                                                 phone: listeviewFromDBItem.phone,
                                                                               ));

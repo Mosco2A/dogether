@@ -14,6 +14,7 @@ import 'package:fast_contacts/fast_contacts.dart'; // Import contacts
 import 'package:permission_handler/permission_handler.dart'; // Permission handling
 import 'dart:convert'; // For jsonDecode and jsonEncode
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:http/http.dart' as http; // Import http for Elasticsearch
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
@@ -29,6 +30,9 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  List<dynamic> searchResults = [];
+  TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -37,7 +41,6 @@ class _ContactsPageState extends State<ContactsPage> {
 
   void loadContacts() async {
     final String? contactsJson = widget.contactsJson;
-    // Vider la liste avant de charger
     maListeDeContacts.clear();
 
     if (contactsJson != null) {
@@ -50,31 +53,26 @@ class _ContactsPageState extends State<ContactsPage> {
     }
   }
 
-  // Vérifier si un numéro de téléphone existe dans la collection users
   Future<bool> _isPhoneNumberValidated(String phoneNumber) async {
     var querySnapshot = await _firestore
         .collection('users')
         .where('phoneNumber', isEqualTo: phoneNumber)
         .get();
 
-    return querySnapshot
-        .docs.isNotEmpty; // Retourne true si un utilisateur est trouvé
+    return querySnapshot.docs.isNotEmpty;
   }
 
-  // Ajoute le contact à Firestore dans la sous-collection myContacts de l'utilisateur courant
   Future<void> _addContactToFirestore(String name, String phone) async {
-    String? userId =
-        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
-    if (userId == null) return; // Si pas d'utilisateur, ne rien faire
+    String? userId = _auth.currentUser?.uid;
+    if (userId == null) return;
 
     String docId = _firestore
         .collection('users')
         .doc(userId)
         .collection('myContacts')
         .doc()
-        .id; // ID aléatoire
+        .id;
 
-    // Vérifier si le numéro de téléphone est validé (existe dans la collection users)
     bool isValidated = await _isPhoneNumberValidated(phone);
 
     await _firestore
@@ -85,15 +83,13 @@ class _ContactsPageState extends State<ContactsPage> {
         .set({
       'name': name,
       'phone': phone,
-      'validatedUser': isValidated, // Ajouter true ou false selon le résultat
+      'validatedUser': isValidated,
     });
   }
 
-  // Supprime un contact de Firestore en utilisant son ID de document
   Future<void> _removeContactFromFirestore(String docId) async {
-    String? userId =
-        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
-    if (userId == null) return; // Si pas d'utilisateur, ne rien faire
+    String? userId = _auth.currentUser?.uid;
+    if (userId == null) return;
 
     await _firestore
         .collection('users')
@@ -103,11 +99,9 @@ class _ContactsPageState extends State<ContactsPage> {
         .delete();
   }
 
-  // Récupère l'ID du document correspondant au nom du contact
   Future<String?> _getContactDocId(String name) async {
-    String? userId =
-        _auth.currentUser?.uid; // Récupérer l'ID de l'utilisateur courant
-    if (userId == null) return null; // Si pas d'utilisateur, ne rien faire
+    String? userId = _auth.currentUser?.uid;
+    if (userId == null) return null;
 
     var querySnapshot = await _firestore
         .collection('users')
@@ -117,30 +111,53 @@ class _ContactsPageState extends State<ContactsPage> {
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      return querySnapshot.docs.first.id; // Retourne l'ID du document
+      return querySnapshot.docs.first.id;
     }
-    return null; // Aucun document trouvé
+    return null;
   }
 
   String formatPhoneNumber(String phone) {
-    // Supprimer tous les espaces avant tout traitement
     phone = phone.replaceAll(' ', '');
 
-    // Appliquer les règles de formatage des numéros français
     if (phone.startsWith('06')) {
       return '+336' + phone.substring(2);
     } else if (phone.startsWith('07')) {
       return '+337' + phone.substring(2);
     }
 
-    return phone; // Retourne le numéro sans espaces et formaté
+    return phone;
+  }
+
+  Future<void> _searchContacts(String query) async {
+    final url =
+        'http://localhost:9200/your_index/_search'; // Change with Elasticsearch URL
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {"Content-Type": "application/json"},
+      body: json.encode({
+        "query": {
+          "match": {
+            "your_field": query, // Adjust the field to search in
+          },
+        },
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      setState(() {
+        searchResults = data['hits']['hits'];
+      });
+    } else {
+      print('Error: ${response.statusCode}');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Charger la liste des contacts au format JSON
-    List<dynamic> contactsList = jsonDecode(widget.contactsJson);
-    // Trier la liste des contacts par ordre alphabétique
+    List<dynamic> contactsList = searchResults.isNotEmpty
+        ? searchResults
+        : jsonDecode(widget.contactsJson);
     contactsList.sort((a, b) => a['displayName'].compareTo(b['displayName']));
 
     return Scaffold(
@@ -149,92 +166,109 @@ class _ContactsPageState extends State<ContactsPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-              // Fonctionnalité de recherche à ajouter ici
-            },
+            onPressed: () {},
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: contactsList.length,
-        itemBuilder: (context, index) {
-          var contact = contactsList[index];
-          List<String> validPhones = (contact['phones'] as List<dynamic>)
-              .where((phone) =>
-                  phone.startsWith('+337') ||
-                  phone.startsWith('+336') ||
-                  phone.startsWith('06') ||
-                  phone.startsWith('07'))
-              .map((phone) => phone.toString()) // Convertir en String
-              .toList();
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                labelText: 'Search Contacts',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                if (value.isNotEmpty) {
+                  _searchContacts(value);
+                } else {
+                  setState(() {
+                    searchResults.clear();
+                  });
+                }
+              },
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: contactsList.length,
+              itemBuilder: (context, index) {
+                var contact = contactsList[index];
+                List<String> validPhones = (contact['phones'] as List<dynamic>)
+                    .where((phone) =>
+                        phone.startsWith('+337') ||
+                        phone.startsWith('+336') ||
+                        phone.startsWith('06') ||
+                        phone.startsWith('07'))
+                    .map((phone) => phone.toString())
+                    .toList();
 
-          // Ne pas afficher le contact s'il n'a pas de numéro valide
-          if (validPhones.isEmpty) {
-            return SizedBox.shrink(); // Ne rien afficher
-          }
+                if (validPhones.isEmpty) {
+                  return SizedBox.shrink();
+                }
 
-          String phoneToSave =
-              validPhones.first; // Prendre le premier numéro valide
-          String formattedPhone =
-              formatPhoneNumber(phoneToSave); // Formater le numéro
+                String phoneToSave = validPhones.first;
+                String formattedPhone = formatPhoneNumber(phoneToSave);
 
-          return FutureBuilder<String?>(
-            // Attendre l'ID du document
-            future: _getContactDocId(contact['displayName']),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-
-              String? docId = snapshot.data;
-              bool isInFirestore = docId != null;
-
-              return ListTile(
-                title: Text(contact['displayName']),
-                subtitle: Text('Phone: $formattedPhone'),
-                trailing: ElevatedButton(
-                  onPressed: () async {
-                    if (isInFirestore) {
-                      // Si le contact est déjà dans Firestore, le supprimer
-                      await _removeContactFromFirestore(docId!);
-                    } else {
-                      // Ajouter le contact s'il n'existe pas déjà
-                      await _addContactToFirestore(
-                          contact['displayName'], formattedPhone);
-                    }
-
-                    // Attendre la fin de l'opération avant de recharger et mettre à jour l'état
-                    setState(() {
-                      loadContacts(); // Recharge les contacts après modification
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isInFirestore ? Colors.red : Colors.blue,
-                  ),
-                  child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
-                ),
-                // Afficher si le contact est un utilisateur validé
-                leading: FutureBuilder<bool>(
-                  future: _isPhoneNumberValidated(formattedPhone),
+                return FutureBuilder<String?>(
+                  future: _getContactDocId(contact['displayName']),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
                     }
-                    bool isValidatedUser = snapshot.data ?? false;
-                    return Icon(
-                      isValidatedUser ? Icons.check_circle : Icons.error,
-                      color: isValidatedUser ? Colors.green : Colors.grey,
+
+                    String? docId = snapshot.data;
+                    bool isInFirestore = docId != null;
+
+                    return ListTile(
+                      title: Text(contact['displayName']),
+                      subtitle: Text('Phone: $formattedPhone'),
+                      trailing: ElevatedButton(
+                        onPressed: () async {
+                          if (isInFirestore) {
+                            await _removeContactFromFirestore(docId!);
+                          } else {
+                            await _addContactToFirestore(
+                                contact['displayName'], formattedPhone);
+                          }
+
+                          setState(() {
+                            loadContacts();
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              isInFirestore ? Colors.red : Colors.blue,
+                        ),
+                        child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
+                      ),
+                      leading: FutureBuilder<bool>(
+                        future: _isPhoneNumberValidated(formattedPhone),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+                          bool isValidatedUser = snapshot.data ?? false;
+                          return Icon(
+                            isValidatedUser ? Icons.check_circle : Icons.error,
+                            color: isValidatedUser ? Colors.green : Colors.grey,
+                          );
+                        },
+                      ),
                     );
                   },
-                ),
-              );
-            },
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pop(); // Retour à la page précédente
+          Navigator.of(context).pop();
         },
         child: Icon(Icons.check),
       ),
@@ -242,33 +276,27 @@ class _ContactsPageState extends State<ContactsPage> {
   }
 }
 
-// Fonction pour lister les contacts et naviguer vers la page de contacts
 Future<void> listeContacts(BuildContext context) async {
   List<Map<String, dynamic>> contactsList = [];
 
-  // Vérifier et demander les permissions
   PermissionStatus permissionStatus = await _getContactPermission();
   if (permissionStatus != PermissionStatus.granted) {
-    // Si les permissions ne sont toujours pas accordées, quitter
     return;
   }
 
   try {
-    // Récupérer les contacts après que les permissions aient été accordées
     List<Contact> contacts = await FastContacts.getAllContacts();
     for (var contact in contacts) {
-      // Extraire uniquement les numéros de téléphone
       List<String> phoneNumbers = contact.phones.map((e) => e.number).toList();
 
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': phoneNumbers, // Remplacer par une liste de chaînes
+        'phones': phoneNumbers,
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
 
     String contactsJson = jsonEncode(contactsList);
-    // Naviguer vers la page cible en passant le JSON
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => ContactsPage(contactsJson: contactsJson),
@@ -279,17 +307,13 @@ Future<void> listeContacts(BuildContext context) async {
   }
 }
 
-// Fonction pour vérifier et demander les permissions de contacts
 Future<PermissionStatus> _getContactPermission() async {
-  // Vérifier si la permission a déjà été accordée
   var status = await Permission.contacts.status;
 
   if (status.isDenied || status.isPermanentlyDenied) {
-    // Demander à l'utilisateur s'il a refusé ou refusé de façon permanente
     PermissionStatus newStatus = await Permission.contacts.request();
 
     if (newStatus.isPermanentlyDenied) {
-      // Si refus permanent, ouvrir les paramètres pour l'autoriser manuellement
       await openAppSettings();
     }
     return newStatus;

@@ -10,22 +10,29 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ContactStruct extends FFFirebaseStruct {
   ContactStruct({
+    String? name,
     String? cRef,
     String? cPrenom,
     String? cNom,
     String? cPhone,
     bool? cExiste,
     bool? ouiNon,
-    String? name,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _cRef = cRef,
+  })  : _name = name,
+        _cRef = cRef,
         _cPrenom = cPrenom,
         _cNom = cNom,
         _cPhone = cPhone,
         _cExiste = cExiste,
         _ouiNon = ouiNon,
-        _name = name,
         super(firestoreUtilData);
+
+  // "Name" field.
+  String? _name;
+  String get name => _name ?? '';
+  set name(String? val) => _name = val;
+
+  bool hasName() => _name != null;
 
   // "cRef" field.
   String? _cRef;
@@ -69,38 +76,35 @@ class ContactStruct extends FFFirebaseStruct {
 
   bool hasOuiNon() => _ouiNon != null;
 
-  // "Name" field.
-  String? _name;
-  String get name => _name ?? '';
-  set name(String? val) => _name = val;
-
-  bool hasName() => _name != null;
-
   static ContactStruct fromMap(Map<String, dynamic> data) => ContactStruct(
+        name: data['Name'] as String?,
         cRef: data['cRef'] as String?,
         cPrenom: data['cPrenom'] as String?,
         cNom: data['cNom'] as String?,
         cPhone: data['cPhone'] as String?,
         cExiste: data['cExiste'] as bool?,
         ouiNon: data['ouiNon'] as bool?,
-        name: data['Name'] as String?,
       );
 
   static ContactStruct? maybeFromMap(dynamic data) =>
       data is Map ? ContactStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
+        'Name': _name,
         'cRef': _cRef,
         'cPrenom': _cPrenom,
         'cNom': _cNom,
         'cPhone': _cPhone,
         'cExiste': _cExiste,
         'ouiNon': _ouiNon,
-        'Name': _name,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
+        'Name': serializeParam(
+          _name,
+          ParamType.String,
+        ),
         'cRef': serializeParam(
           _cRef,
           ParamType.String,
@@ -125,14 +129,15 @@ class ContactStruct extends FFFirebaseStruct {
           _ouiNon,
           ParamType.bool,
         ),
-        'Name': serializeParam(
-          _name,
-          ParamType.String,
-        ),
       }.withoutNulls;
 
   static ContactStruct fromSerializableMap(Map<String, dynamic> data) =>
       ContactStruct(
+        name: deserializeParam(
+          data['Name'],
+          ParamType.String,
+          false,
+        ),
         cRef: deserializeParam(
           data['cRef'],
           ParamType.String,
@@ -163,11 +168,6 @@ class ContactStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
-        name: deserializeParam(
-          data['Name'],
-          ParamType.String,
-          false,
-        ),
       );
 
   @override
@@ -176,41 +176,41 @@ class ContactStruct extends FFFirebaseStruct {
   @override
   bool operator ==(Object other) {
     return other is ContactStruct &&
+        name == other.name &&
         cRef == other.cRef &&
         cPrenom == other.cPrenom &&
         cNom == other.cNom &&
         cPhone == other.cPhone &&
         cExiste == other.cExiste &&
-        ouiNon == other.ouiNon &&
-        name == other.name;
+        ouiNon == other.ouiNon;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([cRef, cPrenom, cNom, cPhone, cExiste, ouiNon, name]);
+      .hash([name, cRef, cPrenom, cNom, cPhone, cExiste, ouiNon]);
 }
 
 ContactStruct createContactStruct({
+  String? name,
   String? cRef,
   String? cPrenom,
   String? cNom,
   String? cPhone,
   bool? cExiste,
   bool? ouiNon,
-  String? name,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
   bool delete = false,
 }) =>
     ContactStruct(
+      name: name,
       cRef: cRef,
       cPrenom: cPrenom,
       cNom: cNom,
       cPhone: cPhone,
       cExiste: cExiste,
       ouiNon: ouiNon,
-      name: name,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

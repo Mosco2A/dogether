@@ -1,4 +1,6 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -105,8 +107,14 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              StreamBuilder<List<MyContactsRecord>>(
-                stream: queryMyContactsRecord(),
+              StreamBuilder<List<UsersRecord>>(
+                stream: queryUsersRecord(
+                  queryBuilder: (usersRecord) => usersRecord.where(
+                    'myID',
+                    isEqualTo: currentUserUid,
+                  ),
+                  singleRecord: true,
+                ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -122,8 +130,11 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                       ),
                     );
                   }
-                  List<MyContactsRecord> containerMyContactsRecordList =
-                      snapshot.data!;
+                  List<UsersRecord> containerUsersRecordList = snapshot.data!;
+                  final containerUsersRecord =
+                      containerUsersRecordList.isNotEmpty
+                          ? containerUsersRecordList.first
+                          : null;
 
                   return Container(
                     width: MediaQuery.sizeOf(context).width * 0.95,
@@ -137,7 +148,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                       child: Builder(
                         builder: (context) {
                           final listeviewCP =
-                              containerMyContactsRecordList.toList();
+                              containerUsersRecord?.myContacts?.toList() ?? [];
 
                           return ListView.builder(
                             padding: EdgeInsets.zero,
