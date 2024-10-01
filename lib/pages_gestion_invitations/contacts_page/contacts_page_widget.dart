@@ -110,7 +110,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
               StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
                   queryBuilder: (usersRecord) => usersRecord.where(
-                    'myID',
+                    'uid',
                     isEqualTo: currentUserUid,
                   ),
                   singleRecord: true,
