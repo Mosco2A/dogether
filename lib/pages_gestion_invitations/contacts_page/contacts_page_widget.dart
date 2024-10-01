@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
@@ -109,10 +108,6 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
             children: [
               StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
-                  queryBuilder: (usersRecord) => usersRecord.where(
-                    'uid',
-                    isEqualTo: currentUserUid,
-                  ),
                   singleRecord: true,
                 ),
                 builder: (context, snapshot) {
