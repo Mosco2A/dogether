@@ -1788,6 +1788,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
+
+                          await currentUserReference!
+                              .update(createUsersRecordData(
+                            listEmises: widget!.selectedInvitation?.reference,
+                          ));
                         }
 
                         await queryUsersRecordOnce();
