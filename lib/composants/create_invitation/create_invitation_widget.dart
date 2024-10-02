@@ -1793,8 +1793,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             context: context,
                             builder: (alertDialogContext) {
                               return AlertDialog(
-                                title: Text(
-                                    widget!.selectedInvitation!.reference.id),
+                                title: Text(valueOrDefault<String>(
+                                  widget!.selectedInvitation?.eInvitation?.iRef,
+                                  'Vide',
+                                )),
                                 actions: [
                                   TextButton(
                                     onPressed: () =>
