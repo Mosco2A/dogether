@@ -1789,6 +1789,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
+
+                          await currentUserReference!.update({
+                            ...mapToFirestore(
+                              {
+                                'listeInvitEmises': FieldValue.arrayUnion(
+                                    [widget!.selectedInvitation?.reference.id]),
+                              },
+                            ),
+                          });
                         }
                       } else {
                         await showDialog(
