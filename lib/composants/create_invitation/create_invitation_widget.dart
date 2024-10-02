@@ -1805,6 +1805,15 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               );
                             },
                           );
+
+                          await currentUserReference!.update({
+                            ...mapToFirestore(
+                              {
+                                'listeInvitEmises': FieldValue.arrayUnion(
+                                    [_model.createdDocument?.reference.id]),
+                              },
+                            ),
+                          });
                         }
                       } else {
                         await showDialog(
