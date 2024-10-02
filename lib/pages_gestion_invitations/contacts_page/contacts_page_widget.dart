@@ -186,7 +186,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                                       title: Text(
                                                           'Supression du contact'),
                                                       content: Text(
-                                                          'Le contact ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
+                                                          'Le contact ${listViewMyContactsRecord.name} ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>
