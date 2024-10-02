@@ -16,7 +16,7 @@ import 'dart:convert'; // For jsonDecode and jsonEncode
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
 
 // Déclaration de la variable globale
-List<Map<String, String>> maListeDeContacts = [];
+List<Map<String, dynamic>> maListeDeContacts = [];
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -29,7 +29,7 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  List<Map<String, String>> searchResults = [];
+  List<Map<String, dynamic>> searchResults = [];
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -45,7 +45,8 @@ class _ContactsPageState extends State<ContactsPage> {
     if (contactsJson != null) {
       try {
         List<dynamic> loadedContacts = jsonDecode(contactsJson);
-        maListeDeContacts = List<Map<String, String>>.from(loadedContacts);
+        maListeDeContacts = List<Map<String, dynamic>>.from(
+            loadedContacts); // Correction: 'dynamic' au lieu de 'String'
       } catch (e) {
         print('Erreur lors du chargement des contacts : $e');
       }
@@ -141,7 +142,7 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     // Si des résultats de recherche existent, utiliser ceux-ci, sinon utiliser la liste complète
-    List<Map<String, String>> contactsList =
+    List<Map<String, dynamic>> contactsList =
         searchResults.isNotEmpty ? searchResults : maListeDeContacts;
 
     contactsList.sort((a, b) => a['displayName']!.compareTo(b['displayName']!));
@@ -182,13 +183,13 @@ class _ContactsPageState extends State<ContactsPage> {
               itemCount: contactsList.length,
               itemBuilder: (context, index) {
                 var contact = contactsList[index];
-                List<String> validPhones = contact['phones']!
-                    .split(',')
+                List<String> validPhones = (contact['phones'] as List<dynamic>)
                     .where((phone) =>
                         phone.startsWith('+337') ||
                         phone.startsWith('+336') ||
                         phone.startsWith('06') ||
                         phone.startsWith('07'))
+                    .map((phone) => phone.toString())
                     .toList();
 
                 if (validPhones.isEmpty) {
@@ -199,7 +200,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 String formattedPhone = formatPhoneNumber(phoneToSave);
 
                 return FutureBuilder<String?>(
-                  future: _getContactDocId(contact['displayName']!),
+                  future: _getContactDocId(contact['displayName'] as String),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
@@ -209,7 +210,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     bool isInFirestore = docId != null;
 
                     return ListTile(
-                      title: Text(contact['displayName']!),
+                      title: Text(contact['displayName'] as String),
                       subtitle: Text('Phone: $formattedPhone'),
                       trailing: ElevatedButton(
                         onPressed: () async {
@@ -217,7 +218,8 @@ class _ContactsPageState extends State<ContactsPage> {
                             await _removeContactFromFirestore(docId!);
                           } else {
                             await _addContactToFirestore(
-                                contact['displayName']!, formattedPhone);
+                                contact['displayName'] as String,
+                                formattedPhone);
                           }
 
                           setState(() {
@@ -277,7 +279,7 @@ Future<void> listeContacts(BuildContext context) async {
 
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': phoneNumbers.join(','),
+        'phones': phoneNumbers,
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
