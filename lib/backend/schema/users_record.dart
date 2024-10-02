@@ -71,11 +71,6 @@ class UsersRecord extends FirestoreRecord {
   DocumentReference? get listeRecues => _listeRecues;
   bool hasListeRecues() => _listeRecues != null;
 
-  // "myContacts" field.
-  List<MyContactsStruct>? _myContacts;
-  List<MyContactsStruct> get myContacts => _myContacts ?? const [];
-  bool hasMyContacts() => _myContacts != null;
-
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -88,10 +83,6 @@ class UsersRecord extends FirestoreRecord {
     _myID = snapshotData['myID'] as String?;
     _listEmises = snapshotData['listEmises'] as DocumentReference?;
     _listeRecues = snapshotData['listeRecues'] as DocumentReference?;
-    _myContacts = getStructList(
-      snapshotData['myContacts'],
-      MyContactsStruct.fromMap,
-    );
   }
 
   static CollectionReference get collection =>
@@ -164,7 +155,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -175,8 +165,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.firstName == e2?.firstName &&
         e1?.myID == e2?.myID &&
         e1?.listEmises == e2?.listEmises &&
-        e1?.listeRecues == e2?.listeRecues &&
-        listEquality.equals(e1?.myContacts, e2?.myContacts);
+        e1?.listeRecues == e2?.listeRecues;
   }
 
   @override
@@ -191,8 +180,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.firstName,
         e?.myID,
         e?.listEmises,
-        e?.listeRecues,
-        e?.myContacts
+        e?.listeRecues
       ]);
 
   @override

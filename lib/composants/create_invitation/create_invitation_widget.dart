@@ -1081,133 +1081,96 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            StreamBuilder<List<UsersRecord>>(
-                                              stream: queryUsersRecord(
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<UsersRecord>
-                                                    containerUsersRecordList =
-                                                    snapshot.data!;
-                                                // Return an empty Container when the item does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final containerUsersRecord =
-                                                    containerUsersRecordList
-                                                            .isNotEmpty
-                                                        ? containerUsersRecordList
-                                                            .first
-                                                        : null;
-
-                                                return Container(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          0.9,
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.25,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
+                                            Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  0.9,
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  0.25,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
-                                                  ),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Builder(
-                                                          builder: (context) {
-                                                            final listeviewFromDB =
-                                                                containerUsersRecord
-                                                                        ?.myContacts
-                                                                        ?.toList() ??
-                                                                    [];
+                                              ),
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    StreamBuilder<
+                                                        List<MyContactsRecord>>(
+                                                      stream:
+                                                          queryMyContactsRecord(),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  CircularProgressIndicator(
+                                                                valueColor:
+                                                                    AlwaysStoppedAnimation<
+                                                                        Color>(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        List<MyContactsRecord>
+                                                            listViewFromDBMyContactsRecordList =
+                                                            snapshot.data!;
 
-                                                            return ListView
-                                                                .builder(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              primary: false,
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.vertical,
-                                                              itemCount:
-                                                                  listeviewFromDB
-                                                                      .length,
-                                                              itemBuilder: (context,
-                                                                  listeviewFromDBIndex) {
-                                                                final listeviewFromDBItem =
-                                                                    listeviewFromDB[
-                                                                        listeviewFromDBIndex];
-                                                                return Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Container(
-                                                                      width:
-                                                                          200.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                        return ListView.builder(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          primary: false,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              listViewFromDBMyContactsRecordList
+                                                                  .length,
+                                                          itemBuilder: (context,
+                                                              listViewFromDBIndex) {
+                                                            final listViewFromDBMyContactsRecord =
+                                                                listViewFromDBMyContactsRecordList[
+                                                                    listViewFromDBIndex];
+                                                            return Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Container(
+                                                                  width: 200.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
                                                                             10.0,
                                                                             0.0,
                                                                             10.0,
                                                                             0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          listeviewFromDBItem
-                                                                              .name,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Inter',
-                                                                                letterSpacing: 0.0,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      listeviewFromDBItem
-                                                                          .phone,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .end,
+                                                                    child: Text(
+                                                                      listViewFromDBMyContactsRecord
+                                                                          .name,
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1218,94 +1181,123 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 0.0,
                                                                           ),
                                                                     ),
-                                                                    Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              1.0),
-                                                                      child:
-                                                                          Theme(
-                                                                        data:
-                                                                            ThemeData(
-                                                                          checkboxTheme:
-                                                                              CheckboxThemeData(
-                                                                            visualDensity:
-                                                                                VisualDensity.compact,
-                                                                            materialTapTargetSize:
-                                                                                MaterialTapTargetSize.shrinkWrap,
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(4.0),
-                                                                            ),
-                                                                          ),
-                                                                          unselectedWidgetColor:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                        child:
-                                                                            Checkbox(
-                                                                          value: _model.checkboxValueMap[listeviewFromDBItem] ??=
-                                                                              false,
-                                                                          onChanged:
-                                                                              (newValue) async {
-                                                                            safeSetState(() =>
-                                                                                _model.checkboxValueMap[listeviewFromDBItem] = newValue!);
-                                                                            if (newValue!) {
-                                                                              _model.phoneExist = await queryUsersRecordCount(
-                                                                                queryBuilder: (usersRecord) => usersRecord.where(
-                                                                                  'phone_number',
-                                                                                  isEqualTo: listeviewFromDBItem.phone,
-                                                                                ),
-                                                                              );
-                                                                              if (_model.phoneExist! > 0) {
-                                                                                FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                  displayName: listeviewFromDBItem.name,
-                                                                                  phone: listeviewFromDBItem.phone,
-                                                                                  reponse: true,
-                                                                                ));
-                                                                                safeSetState(() {});
-                                                                              } else {
-                                                                                FFAppState().addToCheckboxList(PhoneContactStruct(
-                                                                                  displayName: listeviewFromDBItem.name,
-                                                                                  phone: listeviewFromDBItem.phone,
-                                                                                  reponse: false,
-                                                                                ));
-                                                                                safeSetState(() {});
-                                                                              }
-
-                                                                              safeSetState(() {});
-                                                                            } else {
-                                                                              FFAppState().removeFromCheckboxList(PhoneContactStruct(
-                                                                                displayName: listeviewFromDBItem.name,
-                                                                                phone: listeviewFromDBItem.phone,
-                                                                              ));
-                                                                              safeSetState(() {});
-                                                                            }
-                                                                          },
-                                                                          side:
-                                                                              BorderSide(
-                                                                            width:
-                                                                                2,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                          ),
-                                                                          activeColor:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          checkColor:
-                                                                              FlutterFlowTheme.of(context).info,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  listViewFromDBMyContactsRecord
+                                                                      .phone,
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .end,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Inter',
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                                Align(
+                                                                  alignment:
+                                                                      AlignmentDirectional(
+                                                                          0.0,
+                                                                          1.0),
+                                                                  child: Theme(
+                                                                    data:
+                                                                        ThemeData(
+                                                                      checkboxTheme:
+                                                                          CheckboxThemeData(
+                                                                        visualDensity:
+                                                                            VisualDensity.compact,
+                                                                        materialTapTargetSize:
+                                                                            MaterialTapTargetSize.shrinkWrap,
+                                                                        shape:
+                                                                            RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(4.0),
                                                                         ),
                                                                       ),
+                                                                      unselectedWidgetColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primaryText,
                                                                     ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                                    child:
+                                                                        Checkbox(
+                                                                      value: _model
+                                                                              .checkboxValueMap[listViewFromDBMyContactsRecord] ??=
+                                                                          false,
+                                                                      onChanged:
+                                                                          (newValue) async {
+                                                                        safeSetState(() =>
+                                                                            _model.checkboxValueMap[listViewFromDBMyContactsRecord] =
+                                                                                newValue!);
+                                                                        if (newValue!) {
+                                                                          _model.phoneExist =
+                                                                              await queryUsersRecordCount(
+                                                                            queryBuilder: (usersRecord) =>
+                                                                                usersRecord.where(
+                                                                              'phone_number',
+                                                                              isEqualTo: listViewFromDBMyContactsRecord.phone,
+                                                                            ),
+                                                                          );
+                                                                          if (_model.phoneExist! >
+                                                                              0) {
+                                                                            FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                              displayName: listViewFromDBMyContactsRecord.name,
+                                                                              phone: listViewFromDBMyContactsRecord.phone,
+                                                                              reponse: true,
+                                                                            ));
+                                                                            safeSetState(() {});
+                                                                          } else {
+                                                                            FFAppState().addToCheckboxList(PhoneContactStruct(
+                                                                              displayName: listViewFromDBMyContactsRecord.name,
+                                                                              phone: listViewFromDBMyContactsRecord.phone,
+                                                                              reponse: false,
+                                                                            ));
+                                                                            safeSetState(() {});
+                                                                          }
+
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        } else {
+                                                                          FFAppState()
+                                                                              .removeFromCheckboxList(PhoneContactStruct(
+                                                                            displayName:
+                                                                                listViewFromDBMyContactsRecord.name,
+                                                                            phone:
+                                                                                listViewFromDBMyContactsRecord.phone,
+                                                                          ));
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        }
+                                                                      },
+                                                                      side:
+                                                                          BorderSide(
+                                                                        width:
+                                                                            2,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                      ),
+                                                                      activeColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .primary,
+                                                                      checkColor:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .info,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             );
                                                           },
-                                                        ),
-                                                      ],
+                                                        );
+                                                      },
                                                     ),
-                                                  ),
-                                                );
-                                              },
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional

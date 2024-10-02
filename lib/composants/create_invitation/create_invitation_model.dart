@@ -74,8 +74,8 @@ class CreateInvitationModel extends FlutterFlowModel<CreateInvitationWidget> {
   String? dureeValue;
   FormFieldController<String>? dureeValueController;
   // State field(s) for Checkbox widget.
-  Map<MyContactsStruct, bool> checkboxValueMap = {};
-  List<MyContactsStruct> get checkboxCheckedItems =>
+  Map<MyContactsRecord, bool> checkboxValueMap = {};
+  List<MyContactsRecord> get checkboxCheckedItems =>
       checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // Stores action output result for [Firestore Query - Query a collection] action in Checkbox widget.
