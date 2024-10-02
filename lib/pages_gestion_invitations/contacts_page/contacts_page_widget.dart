@@ -166,7 +166,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                   Text(
                                     listViewMyContactsRecord.name,
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .override(
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
@@ -181,7 +181,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                     listViewMyContactsRecord.phone,
                                     textAlign: TextAlign.end,
                                     style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelLarge
                                         .override(
                                           fontFamily: 'Inter',
                                           letterSpacing: 0.0,
