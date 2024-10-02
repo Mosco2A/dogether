@@ -241,8 +241,11 @@ class _ContactsPageState extends State<ContactsPage> {
                           }
                           bool isValidatedUser = snapshot.data ?? false;
                           return Icon(
-                            isValidatedUser ? Icons.check_circle : Icons.error,
-                            color: isValidatedUser ? Colors.green : Colors.grey,
+                            Icons
+                                .workspace_premium_sharp, // Utilisation de l'icône Workspace Premium
+                            color: isValidatedUser
+                                ? Colors.amber
+                                : Colors.grey, // Or si validé, gris sinon
                           );
                         },
                       ),
