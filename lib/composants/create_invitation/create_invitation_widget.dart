@@ -1789,15 +1789,22 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
-
-                          await currentUserReference!.update({
-                            ...mapToFirestore(
-                              {
-                                'listeInvitEmises': FieldValue.arrayUnion(
-                                    [widget!.selectedInvitation?.reference.id]),
-                              },
-                            ),
-                          });
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text(
+                                    widget!.selectedInvitation!.reference.id),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         }
                       } else {
                         await showDialog(
