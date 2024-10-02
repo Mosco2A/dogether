@@ -1789,6 +1789,21 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('ICI'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
 
                           await widget!.selectedInvitation!.reference
                               .update(createInvitationsEmisesRecordData());
