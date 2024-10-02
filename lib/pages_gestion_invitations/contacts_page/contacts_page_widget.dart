@@ -112,144 +112,170 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primary,
                 ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
-                  child: StreamBuilder<List<MyContactsRecord>>(
-                    stream: queryMyContactsRecord(),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+                      child: StreamBuilder<List<MyContactsRecord>>(
+                        stream: queryMyContactsRecord(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      }
-                      List<MyContactsRecord> listViewMyContactsRecordList =
-                          snapshot.data!;
+                            );
+                          }
+                          List<MyContactsRecord> listViewMyContactsRecordList =
+                              snapshot.data!;
 
-                      return ListView.separated(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewMyContactsRecordList.length,
-                        separatorBuilder: (_, __) => SizedBox(height: 10.0),
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewMyContactsRecord =
-                              listViewMyContactsRecordList[listViewIndex];
-                          return Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
+                          return ListView.separated(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewMyContactsRecordList.length,
+                            separatorBuilder: (_, __) => SizedBox(height: 10.0),
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewMyContactsRecord =
+                                  listViewMyContactsRecordList[listViewIndex];
+                              return Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 20.0, 0.0),
-                                    child: Icon(
-                                      Icons.workspace_premium_sharp,
-                                      color:
-                                          listViewMyContactsRecord.validatedUser
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 20.0, 0.0),
+                                        child: Icon(
+                                          Icons.workspace_premium_sharp,
+                                          color: listViewMyContactsRecord
+                                                  .validatedUser
                                               ? Color(0xFFFFD700)
                                               : FlutterFlowTheme.of(context)
                                                   .accent4,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    listViewMyContactsRecord.name,
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelLarge
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
+                                          size: 24.0,
                                         ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewMyContactsRecord.phone,
-                                    textAlign: TextAlign.end,
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelLarge
-                                        .override(
-                                          fontFamily: 'Inter',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        var confirmDialogResponse =
-                                            await showDialog<bool>(
-                                                  context: context,
-                                                  builder:
-                                                      (alertDialogContext) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                          'Supression du contact'),
-                                                      content: Text(
-                                                          'Le contact ${listViewMyContactsRecord.name} ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  false),
-                                                          child:
-                                                              Text('Annuler'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () =>
-                                                              Navigator.pop(
-                                                                  alertDialogContext,
-                                                                  true),
-                                                          child:
-                                                              Text('Supprimer'),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ) ??
-                                                false;
-                                        if (confirmDialogResponse) {
-                                          await listViewMyContactsRecord
-                                              .reference
-                                              .delete();
-                                        }
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.trashAlt,
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        size: 24.0,
                                       ),
-                                    ),
+                                      Text(
+                                        listViewMyContactsRecord.name,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        listViewMyContactsRecord.phone,
+                                        textAlign: TextAlign.end,
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Inter',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            10.0, 0.0, 0.0, 0.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            var confirmDialogResponse =
+                                                await showDialog<bool>(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Supression du contact'),
+                                                          content: Text(
+                                                              'Le contact ${listViewMyContactsRecord.name} ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      false),
+                                                              child: Text(
+                                                                  'Annuler'),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext,
+                                                                      true),
+                                                              child: Text(
+                                                                  'Supprimer'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    ) ??
+                                                    false;
+                                            if (confirmDialogResponse) {
+                                              await listViewMyContactsRecord
+                                                  .reference
+                                                  .delete();
+                                            }
+                                          },
+                                          child: FaIcon(
+                                            FontAwesomeIcons.trashAlt,
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
-                              ),
-                            ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Icon(
+                          Icons.workspace_premium_sharp,
+                          color: Color(0xFFFFD700),
+                          size: 24.0,
+                        ),
+                        Text(
+                          '=  Cet utilisateur est enregistré sur Dogether.',
+                          style:
+                              FlutterFlowTheme.of(context).labelSmall.override(
+                                    fontFamily: 'Inter',
+                                    letterSpacing: 0.0,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -262,6 +288,10 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Divider(
+                      thickness: 2.0,
+                      color: FlutterFlowTheme.of(context).alternate,
+                    ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
