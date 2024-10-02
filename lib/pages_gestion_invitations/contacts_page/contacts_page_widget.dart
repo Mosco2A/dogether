@@ -147,14 +147,32 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                listViewMyContactsRecord.name,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 20.0, 0.0),
+                                    child: Icon(
+                                      Icons.workspace_premium_sharp,
+                                      color:
+                                          listViewMyContactsRecord.validatedUser
+                                              ? Color(0xFFFFD700)
+                                              : FlutterFlowTheme.of(context)
+                                                  .accent4,
+                                      size: 24.0,
                                     ),
+                                  ),
+                                  Text(
+                                    listViewMyContactsRecord.name,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
