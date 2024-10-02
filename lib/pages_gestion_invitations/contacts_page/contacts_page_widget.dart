@@ -155,56 +155,75 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                       letterSpacing: 0.0,
                                     ),
                               ),
-                              Text(
-                                listViewMyContactsRecord.phone,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Inter',
-                                      letterSpacing: 0.0,
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    listViewMyContactsRecord.phone,
+                                    textAlign: TextAlign.end,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 0.0, 0.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        var confirmDialogResponse =
+                                            await showDialog<bool>(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'Supression du contact'),
+                                                      content: Text(
+                                                          'Le contact ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  false),
+                                                          child:
+                                                              Text('Annuler'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext,
+                                                                  true),
+                                                          child:
+                                                              Text('Supprimer'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ) ??
+                                                false;
+                                        if (confirmDialogResponse) {
+                                          await listViewMyContactsRecord
+                                              .reference
+                                              .delete();
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.trashAlt,
+                                        color:
+                                            FlutterFlowTheme.of(context).error,
+                                        size: 24.0,
+                                      ),
                                     ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  var confirmDialogResponse = await showDialog<
-                                          bool>(
-                                        context: context,
-                                        builder: (alertDialogContext) {
-                                          return AlertDialog(
-                                            title:
-                                                Text('Supression du contact'),
-                                            content: Text(
-                                                'Le contact ne sera supprimé que sur l\'application, vos contacts téléphoniques ne seront pas impactés.'),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, false),
-                                                child: Text('Annuler'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    alertDialogContext, true),
-                                                child: Text('Supprimer'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ) ??
-                                      false;
-                                  if (confirmDialogResponse) {
-                                    await listViewMyContactsRecord.reference
-                                        .delete();
-                                  }
-                                },
-                                child: FaIcon(
-                                  FontAwesomeIcons.trashAlt,
-                                  color: FlutterFlowTheme.of(context).error,
-                                  size: 24.0,
-                                ),
+                                  ),
+                                ],
                               ),
                             ],
                           );
