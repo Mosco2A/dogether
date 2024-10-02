@@ -226,7 +226,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(width: 10.0)),
+                            ],
                           );
                         },
                       );
