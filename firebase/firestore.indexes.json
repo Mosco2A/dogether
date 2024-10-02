@@ -5,7 +5,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "eInvitation.EmetteurRef",
+          "fieldPath": "eInvitation.iRef",
           "order": "ASCENDING"
         },
         {
