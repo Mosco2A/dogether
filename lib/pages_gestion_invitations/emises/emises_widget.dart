@@ -119,8 +119,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                       queryBuilder: (invitationsEmisesRecord) =>
                           invitationsEmisesRecord
                               .where(
-                                'eInvitation.iRef',
-                                isEqualTo: currentUserReference?.id,
+                                'eInvitation.EmetteurRef',
+                                isEqualTo: currentUserReference,
                               )
                               .orderBy('eInvitation.IdateInvite',
                                   descending: true),
