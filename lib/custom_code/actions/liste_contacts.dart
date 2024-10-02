@@ -14,7 +14,6 @@ import 'package:fast_contacts/fast_contacts.dart'; // Import contacts
 import 'package:permission_handler/permission_handler.dart'; // Permission handling
 import 'dart:convert'; // For jsonDecode and jsonEncode
 import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
-import 'package:http/http.dart' as http; // Import http for Elasticsearch
 
 // Déclaration de la variable globale
 List<Map<String, String>> maListeDeContacts = [];
@@ -30,7 +29,7 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  List<dynamic> searchResults = [];
+  List<Map<String, String>> searchResults = [];
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -39,7 +38,7 @@ class _ContactsPageState extends State<ContactsPage> {
     loadContacts(); // Charger les contacts au démarrage
   }
 
-  void loadContacts() async {
+  void loadContacts() {
     final String? contactsJson = widget.contactsJson;
     maListeDeContacts.clear();
 
@@ -128,37 +127,24 @@ class _ContactsPageState extends State<ContactsPage> {
     return phone;
   }
 
-  Future<void> _searchContacts(String query) async {
-    final url =
-        'http://localhost:9200/your_index/_search'; // Change with Elasticsearch URL
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        "query": {
-          "match": {
-            "your_field": query, // Adjust the field to search in
-          },
-        },
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      setState(() {
-        searchResults = data['hits']['hits'];
-      });
-    } else {
-      print('Error: ${response.statusCode}');
-    }
+  // Recherche locale dans la liste des contacts
+  void _searchContacts(String query) {
+    setState(() {
+      searchResults = maListeDeContacts
+          .where((contact) => contact['displayName']!
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          .toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> contactsList = searchResults.isNotEmpty
-        ? searchResults
-        : jsonDecode(widget.contactsJson);
-    contactsList.sort((a, b) => a['displayName'].compareTo(b['displayName']));
+    // Si des résultats de recherche existent, utiliser ceux-ci, sinon utiliser la liste complète
+    List<Map<String, String>> contactsList =
+        searchResults.isNotEmpty ? searchResults : maListeDeContacts;
+
+    contactsList.sort((a, b) => a['displayName']!.compareTo(b['displayName']!));
 
     return Scaffold(
       appBar: AppBar(
@@ -196,13 +182,13 @@ class _ContactsPageState extends State<ContactsPage> {
               itemCount: contactsList.length,
               itemBuilder: (context, index) {
                 var contact = contactsList[index];
-                List<String> validPhones = (contact['phones'] as List<dynamic>)
+                List<String> validPhones = contact['phones']!
+                    .split(',')
                     .where((phone) =>
                         phone.startsWith('+337') ||
                         phone.startsWith('+336') ||
                         phone.startsWith('06') ||
                         phone.startsWith('07'))
-                    .map((phone) => phone.toString())
                     .toList();
 
                 if (validPhones.isEmpty) {
@@ -213,7 +199,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 String formattedPhone = formatPhoneNumber(phoneToSave);
 
                 return FutureBuilder<String?>(
-                  future: _getContactDocId(contact['displayName']),
+                  future: _getContactDocId(contact['displayName']!),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator();
@@ -223,7 +209,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     bool isInFirestore = docId != null;
 
                     return ListTile(
-                      title: Text(contact['displayName']),
+                      title: Text(contact['displayName']!),
                       subtitle: Text('Phone: $formattedPhone'),
                       trailing: ElevatedButton(
                         onPressed: () async {
@@ -231,7 +217,7 @@ class _ContactsPageState extends State<ContactsPage> {
                             await _removeContactFromFirestore(docId!);
                           } else {
                             await _addContactToFirestore(
-                                contact['displayName'], formattedPhone);
+                                contact['displayName']!, formattedPhone);
                           }
 
                           setState(() {
@@ -291,7 +277,7 @@ Future<void> listeContacts(BuildContext context) async {
 
       contactsList.add({
         'displayName': contact.displayName,
-        'phones': phoneNumbers,
+        'phones': phoneNumbers.join(','),
         'emails': contact.emails.map((e) => e.address).toList(),
       });
     }
