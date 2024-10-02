@@ -56,7 +56,7 @@ class _ContactsPageState extends State<ContactsPage> {
   Future<bool> _isPhoneNumberValidated(String phoneNumber) async {
     var querySnapshot = await _firestore
         .collection('users')
-        .where('phoneNumber', isEqualTo: phoneNumber)
+        .where('phone_number', isEqualTo: phoneNumber)
         .get();
 
     return querySnapshot.docs.isNotEmpty;
