@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
@@ -116,9 +117,13 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                   StreamBuilder<List<InvitationsEmisesRecord>>(
                     stream: queryInvitationsEmisesRecord(
                       queryBuilder: (invitationsEmisesRecord) =>
-                          invitationsEmisesRecord.orderBy(
-                              'eInvitation.IdateInvite',
-                              descending: true),
+                          invitationsEmisesRecord
+                              .where(
+                                'eInvitation.iRef',
+                                isEqualTo: currentUserReference?.id,
+                              )
+                              .orderBy('eInvitation.IdateInvite',
+                                  descending: true),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -146,7 +151,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                         ),
                         child: Builder(
                           builder: (context) {
-                            final listeEmise =
+                            final listeInvitEmises =
                                 containerInvitationsEmisesRecordList.toList();
 
                             return ListView.builder(
@@ -158,16 +163,16 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                               ),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
-                              itemCount: listeEmise.length,
-                              itemBuilder: (context, listeEmiseIndex) {
-                                final listeEmiseItem =
-                                    listeEmise[listeEmiseIndex];
+                              itemCount: listeInvitEmises.length,
+                              itemBuilder: (context, listeInvitEmisesIndex) {
+                                final listeInvitEmisesItem =
+                                    listeInvitEmises[listeInvitEmisesIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: listeEmiseItem
+                                      color: listeInvitEmisesItem
                                                   .eInvitation.idateInvite! <
                                               getCurrentTimestamp
                                           ? FlutterFlowTheme.of(context)
@@ -192,7 +197,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  listeEmiseItem
+                                                  listeInvitEmisesItem
                                                       .eInvitation.iTitre,
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -255,7 +260,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                   child:
                                                                       CreateInvitationWidget(
                                                                     selectedInvitation:
-                                                                        listeEmiseItem,
+                                                                        listeInvitEmisesItem,
                                                                   ),
                                                                 ),
                                                               );
@@ -311,7 +316,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                   child:
                                                                       CreateInvitationWidget(
                                                                     selectedInvitation:
-                                                                        listeEmiseItem,
+                                                                        listeInvitEmisesItem,
                                                                   ),
                                                                 ),
                                                               );
@@ -338,7 +343,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                listeEmiseItem
+                                                listeInvitEmisesItem
                                                     .eInvitation.iDetail,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -379,7 +384,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                               Text(
                                                 '${dateTimeFormat(
                                                   "d MMMM",
-                                                  listeEmiseItem
+                                                  listeInvitEmisesItem
                                                       .eInvitation.idateInvite,
                                                   locale: FFLocalizations.of(
                                                           context)
@@ -465,7 +470,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 child: Builder(
                                                   builder: (context) {
                                                     final listeInvites =
-                                                        listeEmiseItem
+                                                        listeInvitEmisesItem
                                                             .eInvitation
                                                             .iListeInvites
                                                             .toList();
