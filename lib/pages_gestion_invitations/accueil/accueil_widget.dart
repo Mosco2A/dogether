@@ -33,6 +33,7 @@ class _AccueilWidgetState extends State<AccueilWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await requestPermission(contactsPermission);
       await requestPermission(notificationsPermission);
       _model.queryUsers = await queryUsersRecordOnce(
         queryBuilder: (usersRecord) => usersRecord.where(
