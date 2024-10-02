@@ -9,97 +9,91 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
-import 'package:fast_contacts/fast_contacts.dart'; // Import contacts
-import 'package:permission_handler/permission_handler.dart'; // Permission handling
-import 'dart:convert'; // For jsonDecode and jsonEncode
-import 'package:firebase_auth/firebase_auth.dart'; // Import Firebase Auth
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fast_contacts/fast_contacts.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 
-// Déclaration de la variable globale
-List<Map<String, dynamic>> maListeDeContacts = [];
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
+// Remove global variables
 class ContactsPage extends StatefulWidget {
-  final String contactsJson;
-  ContactsPage({required this.contactsJson});
+  final List<Map<String, dynamic>> contacts;
+  ContactsPage({required this.contacts});
 
   @override
   _ContactsPageState createState() => _ContactsPageState();
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  List<Map<String, dynamic>> maListeDeContacts = [];
   List<Map<String, dynamic>> searchResults = [];
   TextEditingController _searchController = TextEditingController();
+  Map<String, bool> contactValidationStatus = {};
+  Map<String, String?> contactDocIds = {};
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
     loadContacts(); // Charger les contacts au démarrage
+    prefetchValidationStatus();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
   }
 
   void loadContacts() {
-    final String? contactsJson = widget.contactsJson;
-    maListeDeContacts.clear();
-
-    if (contactsJson != null) {
-      try {
-        List<dynamic> loadedContacts = jsonDecode(contactsJson);
-        maListeDeContacts = List<Map<String, dynamic>>.from(
-            loadedContacts); // Correction: 'dynamic' au lieu de 'String'
-      } catch (e) {
-        print('Erreur lors du chargement des contacts : $e');
-      }
-    }
+    maListeDeContacts = List<Map<String, dynamic>>.from(widget.contacts);
+    maListeDeContacts
+        .sort((a, b) => a['displayName']!.compareTo(b['displayName']!));
   }
 
-  Future<bool> _isPhoneNumberValidated(String phoneNumber) async {
-    var querySnapshot = await _firestore
-        .collection('users')
-        .where('phoneNumber', isEqualTo: phoneNumber)
-        .get();
-
-    return querySnapshot.docs.isNotEmpty;
-  }
-
-  Future<void> _addContactToFirestore(String name, String phone) async {
+  Future<void> prefetchValidationStatus() async {
     String? userId = _auth.currentUser?.uid;
     if (userId == null) return;
 
-    String docId = _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('myContacts')
-        .doc()
-        .id;
+    List<String> phoneNumbers = maListeDeContacts
+        .expand((contact) => (contact['phones'] as List<dynamic>)
+            .map((e) => formatPhoneNumber(e.toString())))
+        .toSet()
+        .toList();
 
-    bool isValidated = await _isPhoneNumberValidated(phone);
+    // Firestore allows up to 10 elements in a 'whereIn' query
+    const int batchSize = 10;
+    Set<String> validatedNumbers = {};
 
-    await _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('myContacts')
-        .doc(docId)
-        .set({
-      'name': name,
-      'phone': phone,
-      'validatedUser': isValidated,
+    for (int i = 0; i < phoneNumbers.length; i += batchSize) {
+      var batch = phoneNumbers.skip(i).take(batchSize).toList();
+      var querySnapshot = await _firestore
+          .collection('users')
+          .where('phoneNumber', whereIn: batch)
+          .get();
+
+      validatedNumbers.addAll(
+          querySnapshot.docs.map((doc) => doc['phoneNumber'] as String));
+    }
+
+    setState(() {
+      for (var contact in maListeDeContacts) {
+        String formattedPhone = formatPhoneNumber(contact['phones'].first);
+        contactValidationStatus[contact['displayName']] =
+            validatedNumbers.contains(formattedPhone);
+      }
     });
   }
 
-  Future<void> _removeContactFromFirestore(String docId) async {
-    String? userId = _auth.currentUser?.uid;
-    if (userId == null) return;
-
-    await _firestore
-        .collection('users')
-        .doc(userId)
-        .collection('myContacts')
-        .doc(docId)
-        .delete();
-  }
-
   Future<String?> _getContactDocId(String name) async {
+    if (contactDocIds.containsKey(name)) {
+      return contactDocIds[name];
+    }
+
     String? userId = _auth.currentUser?.uid;
     if (userId == null) return null;
 
@@ -108,10 +102,12 @@ class _ContactsPageState extends State<ContactsPage> {
         .doc(userId)
         .collection('myContacts')
         .where('name', isEqualTo: name)
+        .limit(1)
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      return querySnapshot.docs.first.id;
+      contactDocIds[name] = querySnapshot.docs.first.id;
+      return contactDocIds[name];
     }
     return null;
   }
@@ -128,7 +124,6 @@ class _ContactsPageState extends State<ContactsPage> {
     return phone;
   }
 
-  // Recherche locale dans la liste des contacts
   void _searchContacts(String query) {
     setState(() {
       searchResults = maListeDeContacts
@@ -139,13 +134,61 @@ class _ContactsPageState extends State<ContactsPage> {
     });
   }
 
+  Future<bool> _isPhoneNumberValidated(String phoneNumber) async {
+    // Already prefetched, no need to query again
+    return contactValidationStatus[phoneNumber] ?? false;
+  }
+
+  Future<void> _addContactToFirestore(String name, String phone) async {
+    String? userId = _auth.currentUser?.uid;
+    if (userId == null) return;
+
+    String docId = _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc()
+        .id;
+
+    bool isValidated = contactValidationStatus[name] ?? false;
+
+    await _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc(docId)
+        .set({
+      'name': name,
+      'phone': phone,
+      'validatedUser': isValidated,
+    });
+
+    setState(() {
+      contactDocIds[name] = docId;
+    });
+  }
+
+  Future<void> _removeContactFromFirestore(String docId, String name) async {
+    String? userId = _auth.currentUser?.uid;
+    if (userId == null) return;
+
+    await _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('myContacts')
+        .doc(docId)
+        .delete();
+
+    setState(() {
+      contactDocIds.remove(name);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // Si des résultats de recherche existent, utiliser ceux-ci, sinon utiliser la liste complète
     List<Map<String, dynamic>> contactsList =
         searchResults.isNotEmpty ? searchResults : maListeDeContacts;
-
-    contactsList.sort((a, b) => a['displayName']!.compareTo(b['displayName']!));
 
     return Scaffold(
       appBar: AppBar(
@@ -153,7 +196,9 @@ class _ContactsPageState extends State<ContactsPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              // Optionally, you can focus the search field or show a search UI
+            },
           ),
         ],
       ),
@@ -168,13 +213,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                if (value.isNotEmpty) {
-                  _searchContacts(value);
-                } else {
-                  setState(() {
-                    searchResults.clear();
-                  });
-                }
+                _onSearchChanged(value);
               },
             ),
           ),
@@ -198,56 +237,40 @@ class _ContactsPageState extends State<ContactsPage> {
 
                 String phoneToSave = validPhones.first;
                 String formattedPhone = formatPhoneNumber(phoneToSave);
+                String displayName = contact['displayName'] as String;
 
-                return FutureBuilder<String?>(
-                  future: _getContactDocId(contact['displayName'] as String),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
-                    }
+                return ListTile(
+                  title: Text(displayName),
+                  subtitle: Text('Phone: $formattedPhone'),
+                  trailing: ElevatedButton(
+                    onPressed: () async {
+                      String? docId = await _getContactDocId(displayName);
+                      bool isInFirestore = docId != null;
 
-                    String? docId = snapshot.data;
-                    bool isInFirestore = docId != null;
-
-                    return ListTile(
-                      title: Text(contact['displayName'] as String),
-                      subtitle: Text('Phone: $formattedPhone'),
-                      trailing: ElevatedButton(
-                        onPressed: () async {
-                          if (isInFirestore) {
-                            await _removeContactFromFirestore(docId!);
-                          } else {
-                            await _addContactToFirestore(
-                                contact['displayName'] as String,
-                                formattedPhone);
-                          }
-
-                          setState(() {
-                            loadContacts();
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              isInFirestore ? Colors.red : Colors.blue,
-                        ),
-                        child: Text(isInFirestore ? 'Supprimer' : 'Ajouter'),
-                      ),
-                      leading: FutureBuilder<bool>(
-                        future: _isPhoneNumberValidated(formattedPhone),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          }
-                          bool isValidatedUser = snapshot.data ?? false;
-                          return Icon(
-                            isValidatedUser ? Icons.check_circle : Icons.error,
-                            color: isValidatedUser ? Colors.green : Colors.grey,
-                          );
-                        },
-                      ),
-                    );
-                  },
+                      if (isInFirestore) {
+                        await _removeContactFromFirestore(docId, displayName);
+                      } else {
+                        await _addContactToFirestore(
+                            displayName, formattedPhone);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: contactDocIds.containsKey(displayName)
+                          ? Colors.red
+                          : Colors.blue,
+                    ),
+                    child: Text(contactDocIds.containsKey(displayName)
+                        ? 'Supprimer'
+                        : 'Ajouter'),
+                  ),
+                  leading: Icon(
+                    contactValidationStatus[displayName] == true
+                        ? Icons.check_circle
+                        : Icons.error,
+                    color: contactValidationStatus[displayName] == true
+                        ? Colors.green
+                        : Colors.grey,
+                  ),
                 );
               },
             ),
@@ -262,6 +285,19 @@ class _ContactsPageState extends State<ContactsPage> {
       ),
     );
   }
+
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 300), () {
+      if (query.isNotEmpty) {
+        _searchContacts(query);
+      } else {
+        setState(() {
+          searchResults.clear();
+        });
+      }
+    });
+  }
 }
 
 Future<void> listeContacts(BuildContext context) async {
@@ -269,6 +305,7 @@ Future<void> listeContacts(BuildContext context) async {
 
   PermissionStatus permissionStatus = await _getContactPermission();
   if (permissionStatus != PermissionStatus.granted) {
+    // Optionally, show a dialog informing the user why permission is needed
     return;
   }
 
@@ -284,10 +321,9 @@ Future<void> listeContacts(BuildContext context) async {
       });
     }
 
-    String contactsJson = jsonEncode(contactsList);
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => ContactsPage(contactsJson: contactsJson),
+        builder: (context) => ContactsPage(contacts: contactsList),
       ),
     );
   } catch (e) {
