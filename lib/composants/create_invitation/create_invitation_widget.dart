@@ -1709,6 +1709,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           return;
                         }
                       }
+                      // Verification du formulaire
                       _model.outForm = true;
                       if (_model.formKey.currentState == null ||
                           !_model.formKey.currentState!.validate()) {
@@ -1788,9 +1789,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
-                        }
 
-                        await queryUsersRecordOnce();
+                          await widget!.selectedInvitation!.reference
+                              .update(createInvitationsEmisesRecordData());
+                        }
                       } else {
                         await showDialog(
                           context: context,

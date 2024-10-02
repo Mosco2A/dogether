@@ -8,7 +8,6 @@ import 'schema/util/firestore_util.dart';
 import 'schema/users_record.dart';
 import 'schema/contacts_record.dart';
 import 'schema/invitations_emises_record.dart';
-import 'schema/invitation_recues_record.dart';
 import 'schema/user_to_clean_record.dart';
 import 'schema/my_contacts_record.dart';
 
@@ -22,7 +21,6 @@ export 'schema/util/schema_util.dart';
 export 'schema/users_record.dart';
 export 'schema/contacts_record.dart';
 export 'schema/invitations_emises_record.dart';
-export 'schema/invitation_recues_record.dart';
 export 'schema/user_to_clean_record.dart';
 export 'schema/my_contacts_record.dart';
 
@@ -132,43 +130,6 @@ Future<List<InvitationsEmisesRecord>> queryInvitationsEmisesRecordOnce({
     queryCollectionOnce(
       InvitationsEmisesRecord.collection,
       InvitationsEmisesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-/// Functions to query InvitationRecuesRecords (as a Stream and as a Future).
-Future<int> queryInvitationRecuesRecordCount({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-}) =>
-    queryCollectionCount(
-      InvitationRecuesRecord.collection,
-      queryBuilder: queryBuilder,
-      limit: limit,
-    );
-
-Stream<List<InvitationRecuesRecord>> queryInvitationRecuesRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      InvitationRecuesRecord.collection,
-      InvitationRecuesRecord.fromSnapshot,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<InvitationRecuesRecord>> queryInvitationRecuesRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      InvitationRecuesRecord.collection,
-      InvitationRecuesRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

@@ -61,15 +61,10 @@ class UsersRecord extends FirestoreRecord {
   String get myID => _myID ?? '';
   bool hasMyID() => _myID != null;
 
-  // "listEmises" field.
-  DocumentReference? _listEmises;
-  DocumentReference? get listEmises => _listEmises;
-  bool hasListEmises() => _listEmises != null;
-
-  // "listeRecues" field.
-  DocumentReference? _listeRecues;
-  DocumentReference? get listeRecues => _listeRecues;
-  bool hasListeRecues() => _listeRecues != null;
+  // "listeInvitEmises" field.
+  List<DocumentReference>? _listeInvitEmises;
+  List<DocumentReference> get listeInvitEmises => _listeInvitEmises ?? const [];
+  bool hasListeInvitEmises() => _listeInvitEmises != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -81,8 +76,7 @@ class UsersRecord extends FirestoreRecord {
     _name = snapshotData['name'] as String?;
     _firstName = snapshotData['firstName'] as String?;
     _myID = snapshotData['myID'] as String?;
-    _listEmises = snapshotData['listEmises'] as DocumentReference?;
-    _listeRecues = snapshotData['listeRecues'] as DocumentReference?;
+    _listeInvitEmises = getDataList(snapshotData['listeInvitEmises']);
   }
 
   static CollectionReference get collection =>
@@ -128,8 +122,6 @@ Map<String, dynamic> createUsersRecordData({
   String? name,
   String? firstName,
   String? myID,
-  DocumentReference? listEmises,
-  DocumentReference? listeRecues,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -142,8 +134,6 @@ Map<String, dynamic> createUsersRecordData({
       'name': name,
       'firstName': firstName,
       'myID': myID,
-      'listEmises': listEmises,
-      'listeRecues': listeRecues,
     }.withoutNulls,
   );
 
@@ -155,6 +145,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
@@ -164,8 +155,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.name == e2?.name &&
         e1?.firstName == e2?.firstName &&
         e1?.myID == e2?.myID &&
-        e1?.listEmises == e2?.listEmises &&
-        e1?.listeRecues == e2?.listeRecues;
+        listEquality.equals(e1?.listeInvitEmises, e2?.listeInvitEmises);
   }
 
   @override
@@ -179,8 +169,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.name,
         e?.firstName,
         e?.myID,
-        e?.listEmises,
-        e?.listeRecues
+        e?.listeInvitEmises
       ]);
 
   @override
