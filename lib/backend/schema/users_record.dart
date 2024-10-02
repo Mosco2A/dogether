@@ -61,10 +61,10 @@ class UsersRecord extends FirestoreRecord {
   String get myID => _myID ?? '';
   bool hasMyID() => _myID != null;
 
-  // "listeInvitEmises" field.
-  List<DocumentReference>? _listeInvitEmises;
-  List<DocumentReference> get listeInvitEmises => _listeInvitEmises ?? const [];
-  bool hasListeInvitEmises() => _listeInvitEmises != null;
+  // "listeInvitsEmises" field.
+  List<String>? _listeInvitsEmises;
+  List<String> get listeInvitsEmises => _listeInvitsEmises ?? const [];
+  bool hasListeInvitsEmises() => _listeInvitsEmises != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -76,7 +76,7 @@ class UsersRecord extends FirestoreRecord {
     _name = snapshotData['name'] as String?;
     _firstName = snapshotData['firstName'] as String?;
     _myID = snapshotData['myID'] as String?;
-    _listeInvitEmises = getDataList(snapshotData['listeInvitEmises']);
+    _listeInvitsEmises = getDataList(snapshotData['listeInvitsEmises']);
   }
 
   static CollectionReference get collection =>
@@ -155,7 +155,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.name == e2?.name &&
         e1?.firstName == e2?.firstName &&
         e1?.myID == e2?.myID &&
-        listEquality.equals(e1?.listeInvitEmises, e2?.listeInvitEmises);
+        listEquality.equals(e1?.listeInvitsEmises, e2?.listeInvitsEmises);
   }
 
   @override
@@ -169,7 +169,7 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.name,
         e?.firstName,
         e?.myID,
-        e?.listeInvitEmises
+        e?.listeInvitsEmises
       ]);
 
   @override
