@@ -134,11 +134,12 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                       List<MyContactsRecord> listViewMyContactsRecordList =
                           snapshot.data!;
 
-                      return ListView.builder(
+                      return ListView.separated(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listViewMyContactsRecordList.length,
+                        separatorBuilder: (_, __) => SizedBox(height: 10.0),
                         itemBuilder: (context, listViewIndex) {
                           final listViewMyContactsRecord =
                               listViewMyContactsRecordList[listViewIndex];
@@ -225,7 +226,7 @@ class _ContactsPageWidgetState extends State<ContactsPageWidget> {
                                   ),
                                 ],
                               ),
-                            ],
+                            ].divide(SizedBox(width: 10.0)),
                           );
                         },
                       );
