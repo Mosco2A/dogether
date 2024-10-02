@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -1790,19 +1789,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
-                          unawaited(
-                            () async {
-                              await currentUserReference!.update({
-                                ...mapToFirestore(
-                                  {
-                                    'listeInvitsEmises': FieldValue.arrayUnion([
-                                      widget!.selectedInvitation?.reference.id
-                                    ]),
-                                  },
-                                ),
-                              });
-                            }(),
-                          );
                         }
                       } else {
                         await showDialog(
