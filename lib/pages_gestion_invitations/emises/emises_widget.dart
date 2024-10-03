@@ -1,4 +1,3 @@
-import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
@@ -40,6 +39,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -119,8 +120,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                       queryBuilder: (invitationsEmisesRecord) =>
                           invitationsEmisesRecord
                               .where(
-                                'eInvitation.iRef',
-                                isEqualTo: currentUserReference?.id,
+                                'eInvitation.EmetteurRef',
+                                isEqualTo: FFAppState().vUserRecordRef,
                               )
                               .orderBy('eInvitation.IdateInvite',
                                   descending: true),
@@ -141,7 +142,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                         );
                       }
                       List<InvitationsEmisesRecord>
-                          containerInvitationsEmisesRecordList = snapshot.data!;
+                          baseEvintationInvitationsEmisesRecordList =
+                          snapshot.data!;
 
                       return Container(
                         width: MediaQuery.sizeOf(context).width * 0.95,
@@ -152,7 +154,8 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                         child: Builder(
                           builder: (context) {
                             final listeInvitEmises =
-                                containerInvitationsEmisesRecordList.toList();
+                                baseEvintationInvitationsEmisesRecordList
+                                    .toList();
 
                             return ListView.builder(
                               padding: EdgeInsets.fromLTRB(
