@@ -4,19 +4,20 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'verify_s_m_s_model.dart';
 export 'verify_s_m_s_model.dart';
 
+/// Authentification par téléphone et SMS
 class VerifySMSWidget extends StatefulWidget {
-  /// Authentification par téléphone et SMS
   const VerifySMSWidget({super.key});
+
+  static String routeName = 'VerifySMS';
+  static String routePath = '/verifySMS';
 
   @override
   State<VerifySMSWidget> createState() => _VerifySMSWidgetState();
@@ -74,7 +75,10 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -95,8 +99,21 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                         'Dogether',
                         style:
                             FlutterFlowTheme.of(context).headlineLarge.override(
-                                  fontFamily: 'Readex Pro',
+                                  font: GoogleFonts.readexPro(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .headlineLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineLarge
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineLarge
+                                      .fontStyle,
                                 ),
                       ),
                     ],
@@ -129,8 +146,21 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineSmall
                               .override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontStyle,
                               ),
                         ),
                         Padding(
@@ -142,8 +172,21 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelLarge
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -163,11 +206,19 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                      font: GoogleFonts.plusJakartaSans(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .fontStyle,
+                                      ),
                                       color: Color(0xFF57636C),
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
                                     ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -204,11 +255,19 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Plus Jakarta Sans',
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     color: Color(0xFF101213),
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                               maxLength: 6,
                               keyboardType: TextInputType.number,
@@ -229,7 +288,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 GoRouter.of(context).prepareAuthEvent();
                                 final smsCodeVal =
                                     _model.phoneNumberTextController.text;
-                                if (smsCodeVal == null || smsCodeVal.isEmpty) {
+                                if (smsCodeVal.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content:
@@ -268,8 +327,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                   firstName: FFAppState().vFirstName,
                                   myID: FFAppState().vMyID,
                                 ));
-                                if (FFAppState().vUidToClean != null &&
-                                    FFAppState().vUidToClean != '') {
+                                if (FFAppState().vUidToClean != '') {
                                   await UserToCleanRecord.collection
                                       .doc()
                                       .set(createUserToCleanRecordData(
@@ -296,7 +354,7 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 safeSetState(() {});
 
                                 context.pushNamedAuth(
-                                    'Accueil', context.mounted);
+                                    AccueilWidget.routeName, context.mounted);
                               },
                               text: 'Valider',
                               options: FFButtonOptions(
@@ -310,11 +368,19 @@ class _VerifySMSWidgetState extends State<VerifySMSWidget>
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                      font: GoogleFonts.plusJakartaSans(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .fontStyle,
+                                      ),
                                       color: Colors.white,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .fontStyle,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(

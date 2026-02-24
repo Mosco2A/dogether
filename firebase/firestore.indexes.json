@@ -1,20 +1,6 @@
 {
   "indexes": [
     {
-      "collectionGroup": "invitationsEmises",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "eInvitation.EmetteurRef",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "eInvitation.IdateInvite",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "users",
       "queryScope": "COLLECTION",
       "fields": [

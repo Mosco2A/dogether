@@ -1,16 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'serialization_util.dart';
-import '../backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../index.dart';
-import '../../main.dart';
 
 final _handledMessageIds = <String?>{};
 
@@ -53,11 +48,19 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
       final parametersBuilder = parametersBuilderMap[initialPageName];
       if (parametersBuilder != null) {
         final parameterData = await parametersBuilder(initialParameterData);
-        context.pushNamed(
-          initialPageName,
-          pathParameters: parameterData.pathParameters,
-          extra: parameterData.extra,
-        );
+        if (mounted) {
+          context.pushNamed(
+            initialPageName,
+            pathParameters: parameterData.pathParameters,
+            extra: parameterData.extra,
+          );
+        } else {
+          appNavigatorKey.currentContext?.pushNamed(
+            initialPageName,
+            pathParameters: parameterData.pathParameters,
+            extra: parameterData.extra,
+          );
+        }
       }
     } catch (e) {
       print('Error: $e');

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
@@ -11,18 +9,17 @@ import '/auth/base_auth_user_provider.dart';
 
 import '/backend/push_notifications/push_notifications_handler.dart'
     show PushNotificationsHandler;
-import '/index.dart';
-import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/lat_lng.dart';
-import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'serialization_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
 
 const kTransitionInfoKey = '__transition_info__';
+
+GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppStateNotifier extends ChangeNotifier {
   AppStateNotifier._();
@@ -81,6 +78,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
+      navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
           appStateNotifier.loggedIn ? AccueilWidget() : AuthTelWidget(),
       routes: [
@@ -91,43 +89,43 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? AccueilWidget() : AuthTelWidget(),
         ),
         FFRoute(
-          name: 'AuthTel',
-          path: '/authTel',
+          name: AuthTelWidget.routeName,
+          path: AuthTelWidget.routePath,
           builder: (context, params) => AuthTelWidget(),
         ),
         FFRoute(
-          name: 'Accueil',
-          path: '/accueil',
+          name: AccueilWidget.routeName,
+          path: AccueilWidget.routePath,
           builder: (context, params) => AccueilWidget(),
         ),
         FFRoute(
-          name: 'VerifySMS',
-          path: '/verifySMS',
+          name: VerifySMSWidget.routeName,
+          path: VerifySMSWidget.routePath,
           builder: (context, params) => VerifySMSWidget(),
         ),
         FFRoute(
-          name: 'Recues',
-          path: '/recues',
+          name: RecuesWidget.routeName,
+          path: RecuesWidget.routePath,
           builder: (context, params) => RecuesWidget(),
         ),
         FFRoute(
-          name: 'Emises',
-          path: '/emises',
+          name: EmisesWidget.routeName,
+          path: EmisesWidget.routePath,
           builder: (context, params) => EmisesWidget(),
         ),
         FFRoute(
-          name: 'ContactsPage',
-          path: '/contactsPage',
+          name: ContactsPageWidget.routeName,
+          path: ContactsPageWidget.routePath,
           builder: (context, params) => ContactsPageWidget(),
         ),
         FFRoute(
-          name: 'Profil',
-          path: '/profil',
+          name: ProfilWidget.routeName,
+          path: ProfilWidget.routePath,
           builder: (context, params) => ProfilWidget(),
         ),
         FFRoute(
-          name: 'RecupCompte',
-          path: '/recupCompte',
+          name: RecupCompteWidget.routeName,
+          path: RecupCompteWidget.routePath,
           builder: (context, params) => RecupCompteWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

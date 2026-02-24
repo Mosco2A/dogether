@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -22,7 +21,9 @@ class InvitationsEmisesRecord extends FirestoreRecord {
   bool hasEInvitation() => _eInvitation != null;
 
   void _initializeFields() {
-    _eInvitation = InvitationStruct.maybeFromMap(snapshotData['eInvitation']);
+    _eInvitation = snapshotData['eInvitation'] is InvitationStruct
+        ? snapshotData['eInvitation']
+        : InvitationStruct.maybeFromMap(snapshotData['eInvitation']);
   }
 
   static CollectionReference get collection =>

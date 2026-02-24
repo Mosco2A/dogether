@@ -1,19 +1,21 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/composants/create_invitation/create_invitation_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'emises_model.dart';
 export 'emises_model.dart';
 
+/// Page invitations émises
 class EmisesWidget extends StatefulWidget {
-  /// Page invitations émises
   const EmisesWidget({super.key});
+
+  static String routeName = 'Emises';
+  static String routePath = '/emises';
 
   @override
   State<EmisesWidget> createState() => _EmisesWidgetState();
@@ -39,10 +41,11 @@ class _EmisesWidgetState extends State<EmisesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -64,10 +67,23 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
+                              ),
                               color: Colors.white,
                               fontSize: 22.0,
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontStyle,
                             ),
                       ),
                       Container(
@@ -87,7 +103,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Accueil');
+                                context.pushNamed(AccueilWidget.routeName);
                               },
                               child: Icon(
                                 Icons.home_sharp,
@@ -118,13 +134,10 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                   StreamBuilder<List<InvitationsEmisesRecord>>(
                     stream: queryInvitationsEmisesRecord(
                       queryBuilder: (invitationsEmisesRecord) =>
-                          invitationsEmisesRecord
-                              .where(
-                                'eInvitation.EmetteurRef',
-                                isEqualTo: FFAppState().vUserRecordRef,
-                              )
-                              .orderBy('eInvitation.IdateInvite',
-                                  descending: true),
+                          invitationsEmisesRecord.where(
+                        'eInvitation.iRef',
+                        isEqualTo: currentUserUid,
+                      ),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -153,7 +166,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                         ),
                         child: Builder(
                           builder: (context) {
-                            final listeInvitEmises =
+                            final listeUserInvitation =
                                 baseEvintationInvitationsEmisesRecordList
                                     .toList();
 
@@ -166,16 +179,17 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                               ),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
-                              itemCount: listeInvitEmises.length,
-                              itemBuilder: (context, listeInvitEmisesIndex) {
-                                final listeInvitEmisesItem =
-                                    listeInvitEmises[listeInvitEmisesIndex];
+                              itemCount: listeUserInvitation.length,
+                              itemBuilder: (context, listeUserInvitationIndex) {
+                                final listeUserInvitationItem =
+                                    listeUserInvitation[
+                                        listeUserInvitationIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 10.0, 0.0, 10.0),
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: listeInvitEmisesItem
+                                      color: listeUserInvitationItem
                                                   .eInvitation.idateInvite! <
                                               getCurrentTimestamp
                                           ? FlutterFlowTheme.of(context)
@@ -200,13 +214,21 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  listeInvitEmisesItem
+                                                  listeUserInvitationItem
                                                       .eInvitation.iTitre,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyLarge
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyLarge
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -215,6 +237,11 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyLarge
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                                 Row(
@@ -256,14 +283,19 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                             context)),
                                                                 child:
                                                                     GestureDetector(
-                                                                  onTap: () =>
-                                                                      FocusScope.of(
-                                                                              dialogContext)
-                                                                          .unfocus(),
+                                                                  onTap: () {
+                                                                    FocusScope.of(
+                                                                            dialogContext)
+                                                                        .unfocus();
+                                                                    FocusManager
+                                                                        .instance
+                                                                        .primaryFocus
+                                                                        ?.unfocus();
+                                                                  },
                                                                   child:
                                                                       CreateInvitationWidget(
                                                                     selectedInvitation:
-                                                                        listeInvitEmisesItem,
+                                                                        listeUserInvitationItem,
                                                                   ),
                                                                 ),
                                                               );
@@ -312,14 +344,19 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                             context)),
                                                                 child:
                                                                     GestureDetector(
-                                                                  onTap: () =>
-                                                                      FocusScope.of(
-                                                                              dialogContext)
-                                                                          .unfocus(),
+                                                                  onTap: () {
+                                                                    FocusScope.of(
+                                                                            dialogContext)
+                                                                        .unfocus();
+                                                                    FocusManager
+                                                                        .instance
+                                                                        .primaryFocus
+                                                                        ?.unfocus();
+                                                                  },
                                                                   child:
                                                                       CreateInvitationWidget(
                                                                     selectedInvitation:
-                                                                        listeInvitEmisesItem,
+                                                                        listeUserInvitationItem,
                                                                   ),
                                                                 ),
                                                               );
@@ -346,15 +383,37 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                listeInvitEmisesItem
+                                                listeUserInvitationItem
                                                     .eInvitation.iDetail,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           fontSize: 16.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ],
@@ -372,7 +431,15 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                           context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -381,31 +448,50 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                                 ),
                                               ),
                                               Text(
                                                 '${dateTimeFormat(
                                                   "d MMMM",
-                                                  listeInvitEmisesItem
+                                                  listeUserInvitationItem
                                                       .eInvitation.idateInvite,
                                                   locale: FFLocalizations.of(
                                                           context)
                                                       .languageCode,
                                                 )} à 20H30',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primary,
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                      fontSize: 16.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -443,10 +529,28 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                   decoration:
                                                                       TextDecoration
                                                                           .underline,
@@ -455,13 +559,34 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                     ),
                                                     Text(
                                                       'Réponse',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Inter',
-                                                            letterSpacing: 0.0,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                              ),
                                                     ),
                                                   ],
                                                 ),
@@ -473,7 +598,7 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                 child: Builder(
                                                   builder: (context) {
                                                     final listeInvites =
-                                                        listeInvitEmisesItem
+                                                        listeUserInvitationItem
                                                             .eInvitation
                                                             .iListeInvites
                                                             .toList();
@@ -504,10 +629,27 @@ class _EmisesWidgetState extends State<EmisesWidget> {
                                                                       .of(context)
                                                                   .bodyMedium
                                                                   .override(
-                                                                    fontFamily:
-                                                                        'Inter',
+                                                                    font: GoogleFonts
+                                                                        .inter(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
                                                                     letterSpacing:
                                                                         0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
                                                                   ),
                                                             ),
                                                             Row(

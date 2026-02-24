@@ -1,16 +1,18 @@
 import '/composants/bottom_bar/bottom_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'recues_model.dart';
 export 'recues_model.dart';
 
+/// Page invitations reçues
 class RecuesWidget extends StatefulWidget {
-  /// Page invitations reçues
   const RecuesWidget({super.key});
+
+  static String routeName = 'Recues';
+  static String routePath = '/recues';
 
   @override
   State<RecuesWidget> createState() => _RecuesWidgetState();
@@ -37,7 +39,10 @@ class _RecuesWidgetState extends State<RecuesWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -59,10 +64,23 @@ class _RecuesWidgetState extends State<RecuesWidget> {
                         style: FlutterFlowTheme.of(context)
                             .headlineMedium
                             .override(
-                              fontFamily: 'Readex Pro',
+                              font: GoogleFonts.readexPro(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
+                              ),
                               color: Colors.white,
                               fontSize: 22.0,
                               letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .headlineMedium
+                                  .fontStyle,
                             ),
                       ),
                       Container(
@@ -82,7 +100,7 @@ class _RecuesWidgetState extends State<RecuesWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Accueil');
+                                context.pushNamed(AccueilWidget.routeName);
                               },
                               child: Icon(
                                 Icons.home_sharp,

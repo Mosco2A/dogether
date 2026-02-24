@@ -14,8 +14,11 @@ class FlutterFlowIconButton extends StatefulWidget {
     this.disabledIconColor,
     this.hoverColor,
     this.hoverIconColor,
+    this.hoverBorderColor,
     this.onPressed,
     this.showLoadingIndicator = false,
+    this.focusBorderSide,
+    this.focusBorderRadius,
   }) : super(key: key);
 
   final Widget icon;
@@ -26,10 +29,13 @@ class FlutterFlowIconButton extends StatefulWidget {
   final Color? disabledIconColor;
   final Color? hoverColor;
   final Color? hoverIconColor;
+  final Color? hoverBorderColor;
   final Color? borderColor;
   final double? borderWidth;
   final bool showLoadingIndicator;
   final Function()? onPressed;
+  final BorderSide? focusBorderSide;
+  final BorderRadius? focusBorderRadius;
 
   @override
   State<FlutterFlowIconButton> createState() => _FlutterFlowIconButtonState();
@@ -77,8 +83,27 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
   @override
   Widget build(BuildContext context) {
     ButtonStyle style = ButtonStyle(
-      shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
+      shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
         (states) {
+          if (states.contains(WidgetState.hovered)) {
+            return RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+              side: BorderSide(
+                color: widget.hoverBorderColor ??
+                    widget.borderColor ??
+                    Colors.transparent,
+                width: widget.borderWidth ?? 0,
+              ),
+            );
+          }
+          if (states.contains(WidgetState.focused) &&
+              widget.focusBorderSide != null) {
+            return RoundedRectangleBorder(
+              borderRadius:
+                  widget.focusBorderRadius ?? BorderRadius.circular(8),
+              side: widget.focusBorderSide!,
+            );
+          }
           return RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
             side: BorderSide(
@@ -88,26 +113,26 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
           );
         },
       ),
-      iconColor: MaterialStateProperty.resolveWith<Color?>(
+      iconColor: WidgetStateProperty.resolveWith<Color?>(
         (states) {
-          if (states.contains(MaterialState.disabled) &&
+          if (states.contains(WidgetState.disabled) &&
               widget.disabledIconColor != null) {
             return widget.disabledIconColor;
           }
-          if (states.contains(MaterialState.hovered) &&
+          if (states.contains(WidgetState.hovered) &&
               widget.hoverIconColor != null) {
             return widget.hoverIconColor;
           }
           return iconColor;
         },
       ),
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
         (states) {
-          if (states.contains(MaterialState.disabled) &&
+          if (states.contains(WidgetState.disabled) &&
               widget.disabledColor != null) {
             return widget.disabledColor;
           }
-          if (states.contains(MaterialState.hovered) &&
+          if (states.contains(WidgetState.hovered) &&
               widget.hoverColor != null) {
             return widget.hoverColor;
           }
@@ -115,8 +140,8 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
           return widget.fillColor;
         },
       ),
-      overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-        if (states.contains(MaterialState.pressed)) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+        if (states.contains(WidgetState.pressed)) {
           return null;
         }
         return widget.hoverColor == null ? null : Colors.transparent;

@@ -4,8 +4,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,6 +17,9 @@ export 'recup_compte_model.dart';
 
 class RecupCompteWidget extends StatefulWidget {
   const RecupCompteWidget({super.key});
+
+  static String routeName = 'RecupCompte';
+  static String routePath = '/recupCompte';
 
   @override
   State<RecupCompteWidget> createState() => _RecupCompteWidgetState();
@@ -45,9 +47,11 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
     _model.gaucheTextController ??= TextEditingController();
     _model.gaucheFocusNode ??= FocusNode();
 
+    _model.gaucheMask = MaskTextInputFormatter(mask: 'AAAAAA');
     _model.droiteTextController ??= TextEditingController();
     _model.droiteFocusNode ??= FocusNode();
 
+    _model.droiteMask = MaskTextInputFormatter(mask: '######');
     _model.recupPhoneNumberTextController ??= TextEditingController();
     _model.recupPhoneNumberFocusNode ??= FocusNode();
 
@@ -88,7 +92,10 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -104,8 +111,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                 title: Text(
                   'Compte',
                   style: FlutterFlowTheme.of(context).headlineLarge.override(
-                        fontFamily: 'Readex Pro',
+                        font: GoogleFonts.readexPro(
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontWeight,
+                          fontStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .fontStyle,
+                        ),
                         letterSpacing: 0.0,
+                        fontWeight: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontWeight,
+                        fontStyle: FlutterFlowTheme.of(context)
+                            .headlineLarge
+                            .fontStyle,
                       ),
                 ),
                 actions: [],
@@ -134,8 +154,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                           style: FlutterFlowTheme.of(context)
                               .headlineMedium
                               .override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineMedium
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineMedium
+                                    .fontStyle,
                               ),
                         ),
                         Padding(
@@ -147,8 +180,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                             style: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: 'Inter',
+                                  font: GoogleFonts.inter(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .fontStyle,
+                                  ),
                                   letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .fontStyle,
                                 ),
                           ),
                         ),
@@ -177,23 +223,43 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0xFF57636C),
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
                                             ),
                                         hintText: 'Partie gauche du code',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w300,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w300,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
                                             ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -235,11 +301,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                            font: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
+                                            ),
                                             color: Color(0xFF101213),
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
                                           ),
                                       maxLength: 6,
                                       cursorColor: Color(0xFF4B39EF),
@@ -276,23 +352,43 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelLarge
                                             .override(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .fontStyle,
+                                              ),
                                               color: Color(0xFF57636C),
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge
+                                                      .fontStyle,
                                             ),
                                         hintText: 'Partie droite du code',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyLarge
                                             .override(
-                                              fontFamily: 'Plus Jakarta Sans',
+                                              font: GoogleFonts.plusJakartaSans(
+                                                fontWeight: FontWeight.w300,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyLarge
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                               fontSize: 12.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w300,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
                                             ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
@@ -334,11 +430,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                       style: FlutterFlowTheme.of(context)
                                           .bodyLarge
                                           .override(
-                                            fontFamily: 'Plus Jakarta Sans',
+                                            font: GoogleFonts.plusJakartaSans(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyLarge
+                                                      .fontStyle,
+                                            ),
                                             color: Color(0xFF101213),
                                             fontSize: 12.0,
                                             letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
                                           ),
                                       maxLength: 6,
                                       keyboardType: TextInputType.number,
@@ -370,11 +476,19 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .labelLarge
                                     .override(
-                                      fontFamily: 'Plus Jakarta Sans',
+                                      font: GoogleFonts.plusJakartaSans(
+                                        fontWeight: FontWeight.w500,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .labelLarge
+                                            .fontStyle,
+                                      ),
                                       color: Color(0xFF57636C),
                                       fontSize: 12.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .labelLarge
+                                          .fontStyle,
                                     ),
                                 hintText:
                                     'Saisissez un numéro type; +33611459151',
@@ -413,11 +527,19 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                               style: FlutterFlowTheme.of(context)
                                   .bodyLarge
                                   .override(
-                                    fontFamily: 'Plus Jakarta Sans',
+                                    font: GoogleFonts.plusJakartaSans(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
                                     color: Color(0xFF101213),
                                     fontSize: 12.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
                                   ),
                               maxLength: 12,
                               keyboardType: TextInputType.phone,
@@ -497,8 +619,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                     safeSetState(() {});
                                     final phoneNumberVal = _model
                                         .recupPhoneNumberTextController.text;
-                                    if (phoneNumberVal == null ||
-                                        phoneNumberVal.isEmpty ||
+                                    if (phoneNumberVal.isEmpty ||
                                         !phoneNumberVal.startsWith('+')) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -514,7 +635,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                       phoneNumber: phoneNumberVal,
                                       onCodeSent: (context) async {
                                         context.goNamedAuth(
-                                          'VerifySMS',
+                                          VerifySMSWidget.routeName,
                                           context.mounted,
                                           ignoreRedirect: true,
                                         );
@@ -524,7 +645,7 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                     if (_shouldSetState) safeSetState(() {});
                                     return;
                                   } else {
-                                    context.pushNamed('AuthTel');
+                                    context.pushNamed(AuthTelWidget.routeName);
 
                                     if (_shouldSetState) safeSetState(() {});
                                     return;
@@ -565,8 +686,21 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleLarge
                                     .override(
-                                      fontFamily: 'Inter',
+                                      font: GoogleFonts.inter(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .titleLarge
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleLarge
+                                            .fontStyle,
+                                      ),
                                       letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontStyle,
                                     ),
                                 elevation: 3.0,
                                 borderSide: BorderSide(
@@ -591,8 +725,23 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                 ),
                               ),
@@ -609,8 +758,8 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                     GoRouter.of(context)
                                         .clearRedirectLocation();
 
-                                    context.goNamedAuth(
-                                        'AuthTel', context.mounted);
+                                    context.goNamedAuth(AuthTelWidget.routeName,
+                                        context.mounted);
                                   },
                                   child: Icon(
                                     Icons.logout_sharp,
@@ -635,10 +784,25 @@ class _RecupCompteWidgetState extends State<RecupCompteWidget>
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
-                                        fontFamily: 'Inter',
+                                        font: GoogleFonts.inter(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
                                         color:
                                             FlutterFlowTheme.of(context).error,
                                         letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
                                       ),
                                 ),
                               ),

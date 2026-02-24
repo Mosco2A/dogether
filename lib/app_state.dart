@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -246,16 +245,57 @@ class FFAppState extends ChangeNotifier {
     _vContactRef = value;
   }
 
+  bool _vExistInBase = false;
+  bool get vExistInBase => _vExistInBase;
+  set vExistInBase(bool value) {
+    _vExistInBase = value;
+  }
+
   String _creerOuModif = '';
   String get creerOuModif => _creerOuModif;
   set creerOuModif(String value) {
     _creerOuModif = value;
   }
 
-  bool _vExistInBase = false;
-  bool get vExistInBase => _vExistInBase;
-  set vExistInBase(bool value) {
-    _vExistInBase = value;
+  List<ContactStruct> _listNewContacts = [];
+  List<ContactStruct> get listNewContacts => _listNewContacts;
+  set listNewContacts(List<ContactStruct> value) {
+    _listNewContacts = value;
+  }
+
+  void addToListNewContacts(ContactStruct value) {
+    listNewContacts.add(value);
+  }
+
+  void removeFromListNewContacts(ContactStruct value) {
+    listNewContacts.remove(value);
+  }
+
+  void removeAtIndexFromListNewContacts(int index) {
+    listNewContacts.removeAt(index);
+  }
+
+  void updateListNewContactsAtIndex(
+    int index,
+    ContactStruct Function(ContactStruct) updateFn,
+  ) {
+    listNewContacts[index] = updateFn(_listNewContacts[index]);
+  }
+
+  void insertAtIndexInListNewContacts(int index, ContactStruct value) {
+    listNewContacts.insert(index, value);
+  }
+
+  int _loop = 0;
+  int get loop => _loop;
+  set loop(int value) {
+    _loop = value;
+  }
+
+  int _count = 0;
+  int get count => _count;
+  set count(int value) {
+    _count = value;
   }
 }
 

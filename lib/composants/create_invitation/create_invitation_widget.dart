@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/structs/index.dart';
+import '/backend/push_notifications/push_notifications_util.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -9,15 +9,15 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '/index.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'create_invitation_model.dart';
 export 'create_invitation_model.dart';
 
@@ -49,17 +49,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget!.selectedInvitation != null) {
+      if (widget.selectedInvitation != null) {
         FFAppState().vTimeInvit =
-            widget!.selectedInvitation?.eInvitation?.idateInvite;
-        FFAppState().checkboxList = widget!
+            widget.selectedInvitation?.eInvitation.idateInvite;
+        FFAppState().checkboxList = widget
             .selectedInvitation!.eInvitation.iListeInvites
             .toList()
             .cast<PhoneContactStruct>();
-        FFAppState().vRefInvit = widget!.selectedInvitation?.reference;
-        FFAppState().vType = widget!.selectedInvitation!.eInvitation.iType;
-        FFAppState().vDuree = widget!.selectedInvitation!.eInvitation.iDuree;
-        FFAppState().vContactRef = widget!.selectedInvitation!.eInvitation.iRef;
+        FFAppState().vRefInvit = widget.selectedInvitation?.reference;
+        FFAppState().vType = widget.selectedInvitation!.eInvitation.iType;
+        FFAppState().vDuree = widget.selectedInvitation!.eInvitation.iDuree;
+        FFAppState().vContactRef = widget.selectedInvitation!.eInvitation.iRef;
         FFAppState().vTypeAutre = false;
         FFAppState().creerOuModif = 'Modification';
         safeSetState(() {});
@@ -67,17 +67,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
         FFAppState().creerOuModif = 'Création';
         safeSetState(() {});
       }
+
+      FFAppState().listNewContacts = [];
+      safeSetState(() {});
     });
 
     _model.titreTextController ??= TextEditingController(
-        text: widget!.selectedInvitation?.eInvitation?.iTitre);
+        text: widget.selectedInvitation?.eInvitation.iTitre);
     _model.titreFocusNode ??= FocusNode();
 
     _model.typeAutreTextController ??= TextEditingController();
     _model.typeAutreFocusNode ??= FocusNode();
 
     _model.detailTextController ??= TextEditingController(
-        text: widget!.selectedInvitation?.eInvitation?.iDetail);
+        text: widget.selectedInvitation?.eInvitation.iDetail);
     _model.detailFocusNode ??= FocusNode();
   }
 
@@ -116,8 +119,21 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       '${FFAppState().creerOuModif} d\'une invitation',
                       style:
                           FlutterFlowTheme.of(context).headlineSmall.override(
-                                fontFamily: 'Readex Pro',
+                                font: GoogleFonts.readexPro(
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .fontStyle,
+                                ),
                                 letterSpacing: 0.0,
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .fontStyle,
                               ),
                     ),
                   ),
@@ -160,26 +176,46 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                         hintText:
                                             'Saisir le titre de l\'invitation',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -223,10 +259,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                       validator: _model
                                           .titreTextControllerValidator
@@ -256,7 +309,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     .typeListValueController ??=
                                                 FormFieldController<String>(
                                               _model.typeListValue ??=
-                                                  widget!.selectedInvitation !=
+                                                  widget.selectedInvitation !=
                                                           null
                                                       ? FFAppState().vType
                                                       : ' ',
@@ -284,8 +337,29 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
                                                     .override(
-                                                      fontFamily: 'Inter',
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
                                                       letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
                                                     ),
                                             hintText: 'Type',
                                             icon: Icon(
@@ -344,33 +418,61 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                labelStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                labelStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                                 hintText: 'Saisir le type',
-                                                hintStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Inter',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                hintStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      font: GoogleFonts.inter(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                      ),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primaryText,
-                                                          fontSize: 14.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
+                                                      fontSize: 14.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
                                                 enabledBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
@@ -423,19 +525,40 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
+                                                        font: GoogleFonts.inter(
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryText,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontWeight,
+                                                        fontStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .fontStyle,
                                                       ),
                                               validator: _model
                                                   .typeAutreTextControllerValidator
                                                   .asValidator(context),
                                             ),
                                           ),
-                                        if ((widget!.selectedInvitation !=
+                                        if ((widget.selectedInvitation !=
                                                 null) &&
                                             !FFAppState().vTypeAutre)
                                           Container(
@@ -462,8 +585,30 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelMedium
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ),
@@ -482,26 +627,46 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                         hintText:
                                             'Saisir une description de l\'invitation',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily: 'Inter',
+                                              font: GoogleFonts.inter(
+                                                fontWeight: FontWeight.normal,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               fontSize: 14.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
                                             ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -545,10 +710,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
-                                            fontFamily: 'Inter',
+                                            font: GoogleFonts.inter(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
                                           ),
                                       maxLines: 6,
                                       minLines: 4,
@@ -573,8 +755,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -603,13 +804,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                       final _datePickedDate =
                                                           await showDatePicker(
                                                         context: context,
-                                                        initialDate: ((widget!
+                                                        initialDate: ((widget
                                                                         .selectedInvitation !=
                                                                     null
-                                                                ? widget!
+                                                                ? widget
                                                                     .selectedInvitation
                                                                     ?.eInvitation
-                                                                    ?.idateInvite
+                                                                    .idateInvite
                                                                 : getCurrentTimestamp) ??
                                                             DateTime.now()),
                                                         firstDate:
@@ -636,8 +837,14 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         context)
                                                                     .headlineLarge
                                                                     .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
+                                                                      font: GoogleFonts
+                                                                          .readexPro(
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .headlineLarge
+                                                                            .fontStyle,
+                                                                      ),
                                                                       fontSize:
                                                                           32.0,
                                                                       letterSpacing:
@@ -645,6 +852,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontStyle,
                                                                     ),
                                                             pickerBackgroundColor:
                                                                 FlutterFlowTheme.of(
@@ -678,13 +889,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                         _datePickedTime =
                                                             await showTimePicker(
                                                           context: context,
-                                                          initialTime: TimeOfDay.fromDateTime(((widget!
+                                                          initialTime: TimeOfDay.fromDateTime(((widget
                                                                           .selectedInvitation !=
                                                                       null
-                                                                  ? widget!
+                                                                  ? widget
                                                                       .selectedInvitation
                                                                       ?.eInvitation
-                                                                      ?.idateInvite
+                                                                      .idateInvite
                                                                   : getCurrentTimestamp) ??
                                                               DateTime.now())),
                                                           builder:
@@ -705,14 +916,23 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                           context)
                                                                       .headlineLarge
                                                                       .override(
-                                                                        fontFamily:
-                                                                            'Readex Pro',
+                                                                        font: GoogleFonts
+                                                                            .readexPro(
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .headlineLarge
+                                                                              .fontStyle,
+                                                                        ),
                                                                         fontSize:
                                                                             32.0,
                                                                         letterSpacing:
                                                                             0.0,
                                                                         fontWeight:
                                                                             FontWeight.w600,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .headlineLarge
+                                                                            .fontStyle,
                                                                       ),
                                                               pickerBackgroundColor:
                                                                   FlutterFlowTheme.of(
@@ -758,6 +978,20 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 .minute,
                                                           );
                                                         });
+                                                      } else if (_model
+                                                              .datePicked !=
+                                                          null) {
+                                                        safeSetState(() {
+                                                          _model
+                                                              .datePicked = (widget
+                                                                      .selectedInvitation !=
+                                                                  null
+                                                              ? widget
+                                                                  .selectedInvitation
+                                                                  ?.eInvitation
+                                                                  .idateInvite
+                                                              : getCurrentTimestamp);
+                                                        });
                                                       }
                                                       FFAppState()
                                                           .VHeureSelect = true;
@@ -789,8 +1023,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   context)
                                                               .titleSmall
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleSmall
+                                                                      .fontStyle,
+                                                                ),
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondaryText,
@@ -800,6 +1043,10 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleSmall
+                                                                    .fontStyle,
                                                               ),
                                                       elevation: 0.0,
                                                       borderSide: BorderSide(
@@ -834,10 +1081,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                     context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -869,10 +1134,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                     context)
                                                                 .bodyMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
                                                                 ),
                                                         hintText: 'Select...',
                                                         icon: Icon(
@@ -921,10 +1204,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                     context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ),
@@ -952,10 +1253,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -977,18 +1296,34 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
                                                     ],
                                                   ),
-                                                if (FFAppState().vDuree !=
-                                                        null &&
-                                                    FFAppState().vDuree != '')
+                                                if (FFAppState().vDuree != '')
                                                   Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -1009,10 +1344,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -1027,10 +1380,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                   .of(context)
                                                               .labelMedium
                                                               .override(
-                                                                fontFamily:
-                                                                    'Inter',
+                                                                font:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
+                                                                ),
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelMedium
+                                                                    .fontStyle,
                                                               ),
                                                         ),
                                                       ),
@@ -1041,10 +1412,28 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                     context)
                                                                 .labelMedium
                                                                 .override(
-                                                                  fontFamily:
-                                                                      'Inter',
+                                                                  font:
+                                                                      GoogleFonts
+                                                                          .inter(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .fontStyle,
+                                                                  ),
                                                                   letterSpacing:
                                                                       0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelMedium
+                                                                      .fontStyle,
                                                                 ),
                                                       ),
                                                     ],
@@ -1072,8 +1461,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelLarge
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLarge
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelLarge
+                                                          .fontStyle,
+                                                ),
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -1175,10 +1583,17 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                               context)
                                                                           .bodyMedium
                                                                           .override(
-                                                                            fontFamily:
-                                                                                'Inter',
+                                                                            font:
+                                                                                GoogleFonts.inter(
+                                                                              fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
                                                                             letterSpacing:
                                                                                 0.0,
+                                                                            fontWeight:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                     ),
                                                                   ),
@@ -1193,10 +1608,23 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                           context)
                                                                       .bodyMedium
                                                                       .override(
-                                                                        fontFamily:
-                                                                            'Inter',
+                                                                        font: GoogleFonts
+                                                                            .inter(
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
                                                                         letterSpacing:
                                                                             0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
                                                                       ),
                                                                 ),
                                                                 Align(
@@ -1235,19 +1663,23 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                                 newValue!);
                                                                         if (newValue!) {
                                                                           _model.phoneExist =
-                                                                              await queryUsersRecordCount(
+                                                                              await queryUsersRecordOnce(
                                                                             queryBuilder: (usersRecord) =>
                                                                                 usersRecord.where(
                                                                               'phone_number',
                                                                               isEqualTo: listViewFromDBMyContactsRecord.phone,
                                                                             ),
-                                                                          );
-                                                                          if (_model.phoneExist! >
-                                                                              0) {
+                                                                            singleRecord:
+                                                                                true,
+                                                                          ).then((s) => s.firstOrNull);
+                                                                          if (_model.phoneExist !=
+                                                                              null) {
                                                                             FFAppState().addToCheckboxList(PhoneContactStruct(
                                                                               displayName: listViewFromDBMyContactsRecord.name,
                                                                               phone: listViewFromDBMyContactsRecord.phone,
                                                                               reponse: true,
+                                                                              contactExistInBase: false,
+                                                                              refUser: _model.phoneExist?.reference,
                                                                             ));
                                                                             safeSetState(() {});
                                                                           } else {
@@ -1258,6 +1690,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                             ));
                                                                             safeSetState(() {});
                                                                           }
+
+                                                                          FFAppState()
+                                                                              .addToListNewContacts(ContactStruct());
+                                                                          safeSetState(
+                                                                              () {});
 
                                                                           safeSetState(
                                                                               () {});
@@ -1271,15 +1708,19 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                           ));
                                                                           safeSetState(
                                                                               () {});
+                                                                          FFAppState()
+                                                                              .removeFromListNewContacts(ContactStruct());
+                                                                          safeSetState(
+                                                                              () {});
                                                                         }
                                                                       },
-                                                                      side:
-                                                                          BorderSide(
-                                                                        width:
-                                                                            2,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                      ),
+                                                                      side: (FlutterFlowTheme.of(context).primaryText !=
+                                                                              null)
+                                                                          ? BorderSide(
+                                                                              width: 2,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                            )
+                                                                          : null,
                                                                       activeColor:
                                                                           FlutterFlowTheme.of(context)
                                                                               .primary,
@@ -1309,8 +1750,30 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .labelLarge
                                                         .override(
-                                                          fontFamily: 'Inter',
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge
+                                                                    .fontStyle,
+                                                          ),
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .labelLarge
+                                                                  .fontStyle,
                                                         ),
                                               ),
                                             ),
@@ -1362,6 +1825,11 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                 FFAppState()
                                                                     .update(
                                                                         () {});
+                                                                FFAppState()
+                                                                    .removeFromListNewContacts(
+                                                                        ContactStruct());
+                                                                safeSetState(
+                                                                    () {});
                                                               },
                                                               child: FaIcon(
                                                                 FontAwesomeIcons
@@ -1409,8 +1877,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .labelMedium
                                                                             .override(
-                                                                              fontFamily: 'Inter',
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                                              ),
                                                                               letterSpacing: 0.0,
+                                                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -1436,8 +1909,13 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .labelMedium
                                                                             .override(
-                                                                              fontFamily: 'Inter',
+                                                                              font: GoogleFonts.inter(
+                                                                                fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
+                                                                              ),
                                                                               letterSpacing: 0.0,
+                                                                              fontWeight: FlutterFlowTheme.of(context).labelMedium.fontWeight,
+                                                                              fontStyle: FlutterFlowTheme.of(context).labelMedium.fontStyle,
                                                                             ),
                                                                       ),
                                                                     ),
@@ -1449,7 +1927,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                                               Icons
                                                                   .workspace_premium_sharp,
                                                               color: listeviewVarItem
-                                                                      .contactExistInBase
+                                                                      .reponse
                                                                   ? Color(
                                                                       0xFFFFD700)
                                                                   : FlutterFlowTheme.of(
@@ -1506,8 +1984,27 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .labelMedium
                                               .override(
-                                                fontFamily: 'Inter',
+                                                font: GoogleFonts.inter(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
                                                 letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .fontStyle,
                                               ),
                                         ),
                                       ),
@@ -1598,10 +2095,18 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       textStyle: FlutterFlowTheme.of(context)
                           .titleSmall
                           .override(
-                            fontFamily: 'Inter',
+                            font: GoogleFonts.inter(
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .fontStyle,
+                            ),
                             color: FlutterFlowTheme.of(context).secondaryText,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
                           ),
                       elevation: 0.0,
                       borderSide: BorderSide(
@@ -1613,7 +2118,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                   FFButtonWidget(
                     onPressed: () async {
                       var _shouldSetState = false;
-                      if (!(widget!.selectedInvitation != null)) {
+                      if (!(widget.selectedInvitation != null)) {
                         if (_model.datePicked! < getCurrentTimestamp) {
                           await showDialog(
                             context: context,
@@ -1682,8 +2187,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       if (/* NOT RECOMMENDED */ _model
                               .typeAutreTextController.text ==
                           'true') {
-                        if (_model.typeAutreTextController.text != null &&
-                            _model.typeAutreTextController.text != '') {
+                        if (_model.typeAutreTextController.text != '') {
                           FFAppState().vType =
                               _model.typeAutreTextController.text;
                           safeSetState(() {});
@@ -1718,15 +2222,12 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       }
                       _shouldSetState = true;
                       if (_model.outForm!) {
-                        if (widget!.selectedInvitation != null) {
+                        if (widget.selectedInvitation != null) {
                           await FFAppState()
                               .vRefInvit!
                               .update(createInvitationsEmisesRecordData(
                                 eInvitation: updateInvitationStruct(
                                   InvitationStruct(
-                                    emetteur:
-                                        '${valueOrDefault(currentUserDocument?.firstName, '')} ${valueOrDefault(currentUserDocument?.name, '')}',
-                                    emetteurRef: currentUserReference,
                                     iType: FFAppState().vType,
                                     iTitre: _model.titreTextController.text,
                                     iDetail: _model.detailTextController.text,
@@ -1743,8 +2244,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                           await invitationsEmisesRecordReference
                               .set(createInvitationsEmisesRecordData(
                             eInvitation: createInvitationStruct(
-                              iRef:
-                                  '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
+                              iRef: currentUserReference?.id,
                               iTitre: _model.titreTextController.text,
                               iDetail: _model.detailTextController.text,
                               iType: FFAppState().vType,
@@ -1767,8 +2267,7 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                               InvitationsEmisesRecord.getDocumentFromData(
                                   createInvitationsEmisesRecordData(
                                     eInvitation: createInvitationStruct(
-                                      iRef:
-                                          '${currentUserReference?.id}-${getCurrentTimestamp.toString()}',
+                                      iRef: currentUserReference?.id,
                                       iTitre: _model.titreTextController.text,
                                       iDetail: _model.detailTextController.text,
                                       iType: FFAppState().vType,
@@ -1789,22 +2288,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                                   ),
                                   invitationsEmisesRecordReference);
                           _shouldSetState = true;
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title:
-                                    Text(_model.createdDocument!.reference.id),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
 
                           await currentUserReference!.update({
                             ...mapToFirestore(
@@ -1815,6 +2298,167 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                             ),
                           });
                         }
+
+                        FFAppState().loop = 0;
+                        FFAppState().count = widget.selectedInvitation!
+                            .eInvitation.iListeInvites.length;
+                        safeSetState(() {});
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title:
+                                  Text('Loop: ${FFAppState().loop.toString()}'),
+                              content: Text(
+                                  'Count: ${FFAppState().count.toString()}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        while (FFAppState().loop < FFAppState().count) {
+                          if ((widget.selectedInvitation?.eInvitation
+                                          .iListeInvites
+                                          .elementAtOrNull(FFAppState().loop))
+                                      ?.refUser
+                                      ?.id !=
+                                  null &&
+                              (widget.selectedInvitation?.eInvitation
+                                          .iListeInvites
+                                          .elementAtOrNull(FFAppState().loop))
+                                      ?.refUser
+                                      ?.id !=
+                                  '') {
+                            triggerPushNotification(
+                              notificationTitle: 'DOGETHER',
+                              notificationText:
+                                  'Vous avez une invitation de la part de ${widget.selectedInvitation?.eInvitation.emetteur}',
+                              notificationSound: 'default',
+                              userRefs: [
+                                widget.selectedInvitation!.eInvitation
+                                    .iListeInvites
+                                    .elementAtOrNull(FFAppState().loop)!
+                                    .refUser!
+                              ],
+                              initialPageName: 'Recues',
+                              parameterData: {},
+                            );
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Envoi Notification à :'),
+                                  content: Text(widget.selectedInvitation!
+                                      .eInvitation.iListeInvites
+                                      .elementAtOrNull(FFAppState().loop)!
+                                      .refUser!
+                                      .id),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            if (isiOS) {
+                              await launchUrl(Uri.parse(
+                                  "sms:${widget.selectedInvitation!.eInvitation.iListeInvites.elementAtOrNull(FFAppState().loop)!.phone}&body=${Uri.encodeComponent('Une invitation de la part de  ${widget.selectedInvitation?.eInvitation.emetteur} vous attends dans l\'application dogether.Vous pouvez la télécharger pour répondre et profiter de la souplesse pour recevoir ou emettre des invitations, ou simplement répondre à l\'emetteur via votre SMS. ${"\n"}Titre : ${widget.selectedInvitation?.eInvitation.iTitre}${"\n"}Type : ${widget.selectedInvitation?.eInvitation.iType}${"\n"}Détail: ${widget.selectedInvitation?.eInvitation.iDetail}${"\n"}Date et heure : ${widget.selectedInvitation?.eInvitation.idateInvite?.toString()}${"\n"}Durée: ${widget.selectedInvitation?.eInvitation.iDuree}${"\n"}')}"));
+                            } else {
+                              await launchUrl(Uri(
+                                scheme: 'sms',
+                                path: widget.selectedInvitation!.eInvitation
+                                    .iListeInvites
+                                    .elementAtOrNull(FFAppState().loop)!
+                                    .phone,
+                                queryParameters: <String, String>{
+                                  'body':
+                                      'Une invitation de la part de  ${widget.selectedInvitation?.eInvitation.emetteur} vous attends dans l\'application dogether.Vous pouvez la télécharger pour répondre et profiter de la souplesse pour recevoir ou emettre des invitations, ou simplement répondre à l\'emetteur via votre SMS. ${"\n"}Titre : ${widget.selectedInvitation?.eInvitation.iTitre}${"\n"}Type : ${widget.selectedInvitation?.eInvitation.iType}${"\n"}Détail: ${widget.selectedInvitation?.eInvitation.iDetail}${"\n"}Date et heure : ${widget.selectedInvitation?.eInvitation.idateInvite?.toString()}${"\n"}Durée: ${widget.selectedInvitation?.eInvitation.iDuree}${"\n"}',
+                                },
+                              ));
+                            }
+
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Envoi SMS à :'),
+                                  content: Text(widget.selectedInvitation!
+                                      .eInvitation.iListeInvites
+                                      .elementAtOrNull(FFAppState().loop)!
+                                      .phone),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+
+                          FFAppState().loop = FFAppState().loop + 1;
+                          safeSetState(() {});
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text(
+                                    'Loop: ${FFAppState().loop.toString()}'),
+                                content: Text(
+                                    'Count: ${FFAppState().count.toString()}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Fin de boucle '),
+                              content: Text(FFAppState().count.toString()),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              '${FFAppState().count.toString()} invitations envoyées !',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                              ),
+                            ),
+                            duration: Duration(milliseconds: 4000),
+                            backgroundColor:
+                                FlutterFlowTheme.of(context).secondary,
+                          ),
+                        );
+
+                        context.goNamed(AccueilWidget.routeName);
                       } else {
                         await showDialog(
                           context: context,
@@ -1835,8 +2479,6 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                         return;
                       }
 
-                      context.pushNamed('Accueil');
-
                       if (_shouldSetState) safeSetState(() {});
                     },
                     text: FFAppState().creerOuModif,
@@ -1849,14 +2491,22 @@ class _CreateInvitationWidgetState extends State<CreateInvitationWidget> {
                       color: Color(0xFF4B39EF),
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Inter',
+                                font: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .fontStyle,
+                                ),
                                 color: Colors.white,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .titleSmall
+                                    .fontStyle,
                               ),
                       elevation: 2.0,
                       borderSide: BorderSide(
-                        color: widget!.selectedInvitation != null
+                        color: widget.selectedInvitation != null
                             ? Color(0xFF1D08FD)
                             : FlutterFlowTheme.of(context).success,
                       ),
